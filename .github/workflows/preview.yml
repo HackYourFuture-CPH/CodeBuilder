@@ -1,10 +1,8 @@
 name: Vercel Preview Deployment
-
 on:
   push:
     branches-ignore:
       - main
-
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
