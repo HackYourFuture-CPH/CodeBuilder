@@ -1,0 +1,5 @@
+# Make mentors code owners of the entire repo, so we can distinguish between
+
+# mentor and student reviews on github.
+
+- @HackYourFuture-CPH/class24-project-mentors @HackYourFuture-CPH/class24
