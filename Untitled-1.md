@@ -1,1 +1,0 @@
-mongodb+srv://deemakutainy:lVphWHmUCpwX77z3@cluster0.yg8usbh.mongodb.net/
