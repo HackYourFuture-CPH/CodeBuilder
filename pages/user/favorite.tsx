@@ -1,5 +1,7 @@
 import React from "react";
 const Favorite: React.FC = () => {
-  return <div>Uresname/favorite</div>;
+  return (
+    <div>Here we gonna return all snippets that user added to favorite</div>
+  );
 };
 export default Favorite;

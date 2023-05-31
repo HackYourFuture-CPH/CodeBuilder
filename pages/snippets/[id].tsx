@@ -1,5 +1,5 @@
 import React from "react";
 const SnippetsId: React.FC = () => {
-  return <div>Snippets:/id</div>;
+  return <div>Here we have snippets by id</div>;
 };
 export default SnippetsId;

@@ -19,6 +19,7 @@ export default function Home() {
       </div>
 
       <h1>Categories from the database</h1>
+      <h2>This is the main page (user not logged in)</h2>
 
       <div className={styles.grid}>
         {tags?.map((tag) => (
