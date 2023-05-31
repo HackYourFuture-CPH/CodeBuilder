@@ -12,7 +12,7 @@ export type Snippet = {
 // make get request to get all the data from snippets if there is nothing to filter   collection.
 export async function GET(req: NextApiRequest): Promise<NextResponse> {
   debugger;
-  const {title, description} = req.query
+  const {title, description} = req.query // i have problem in this line
 
   console.log("title:", title);
   console.log("description:", description);
