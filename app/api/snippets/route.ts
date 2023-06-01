@@ -1,6 +1,6 @@
 import { getMongoDb } from "@/app/mongodb";
-import { NextResponse } from "next/server";
-import { NextApiRequest } from "next";
+
+import { NextApiRequest, NextApiResponse } from "next";
 
 export type Snippet = {
   title: string;
@@ -10,9 +10,11 @@ export type Snippet = {
 
 // GET COLLECTION
 // make get request to get all the data from snippets if there is nothing to filter   collection.
-export async function GET(req: NextApiRequest): Promise<NextResponse> {
+export async function GET(req: NextApiRequest, res:NextApiResponse){
   debugger;
-  const {title, description} = req.query // i have problem in this line
+  const body = JSON.parse(req.body)
+  console.log(body)
+  const {title, description} = body // i have problem in this line
 
   console.log("title:", title);
   console.log("description:", description);
@@ -40,23 +42,12 @@ export async function GET(req: NextApiRequest): Promise<NextResponse> {
   // Pre-seed database, so we're not starting from scratch
   if (!snippetsFromDatabase.length) {
     await getMongoDb().collection("snippets").insertMany(snippets);
-    return NextResponse.json(snippets);
+    return res.json(snippets);
   }
 
-  return NextResponse.json(snippetsFromDatabase);
+  return res.json(snippetsFromDatabase);
 }
 
-// DELETE COLLECTION
-export async function DELETE(req: NextApiRequest): Promise<NextResponse> {
-  // Delete all documents from the snippets collection
-  const dataToDelete = await getMongoDb().collection("snippets").deleteMany({});
-  // to check if there any data was deleted
-  if (dataToDelete.deletedCount) {
-    return NextResponse.json({ message: "Snippets deleted successfully" });
-  } else {
-    return NextResponse.json({ message: "No snippets found to delete" });
-  }
-}
 
 // POST COLLECTION
 // make post request to update the snippets data.
