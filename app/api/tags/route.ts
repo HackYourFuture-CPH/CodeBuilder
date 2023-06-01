@@ -1,71 +1,125 @@
-/** @format */
+import { getMongoDb } from "@/app/mongodb";
+import { NextResponse } from "next/server";
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import { getMongoDb } from '@/app/mongodb';
-import { ObjectId } from 'mongodb';
-
-interface Snippet {
-  _id: string;
-  title: string;
-  description: string;
-  tags: [];
-  code: string;
-  createdDate: Date;
-  updatedDate: Date;
-  authorId: string;
+export interface Tag {
+  displayName: string;
+  shortName: string;
+  _id?: string;
 }
 
-export default async function handleSnippet(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  const { id } = req.query;
-  const { title, description, tags, code, createdDate, updatedDate, authorId } =
-    req.body;
+export async function GET(req: Request): Promise<NextResponse> {
+  const tagsFromDatabase = await getMongoDb()
+    .collection("tags")
+    .find({})
+    .toArray();
 
-  if (req.method === 'POST') {
-    try {
-      const db = getMongoDb();
-      const collection = db.collection<Snippet>('snippet');
-      const newSnippet = {
-        title,
-        description,
-        tags,
-        code,
-        createdDate: new Date(createdDate),
-        updatedDate: new Date(updatedDate),
-        authorId,
-      };
-
-      const result = await collection.insertOne(newSnippet);
-      res.status(201).json(result);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to create a new snippet' });
-    }
-  } else if (req.method === 'PUT') {
-    try {
-      const db = getMongoDb();
-      const collection = db.collection<Snippet>('snippet');
-
-      const update = await collection.findOneAndUpdate(
-        { id: new ObjectId(id as string) },
-        {
-          $set: {
-            title,
-            description,
-            tags,
-            code,
-            updatedDate: new Date(updatedDate),
-            authorId,
-          },
-        },
-       );
-
-      res.status(200).json(update.value);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to update the snippet' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
+  // Pre-seed database, so we're not starting from scratch
+  if (!tagsFromDatabase.length) {
+    await getMongoDb().collection("tags").insertMany(tags);
+    return NextResponse.json(tags);
   }
+
+  return NextResponse.json(tagsFromDatabase);
 }
+
+/**
+ * This data can be used to pre-seed the database.
+ */
+const tags: Omit<Tag, "_id">[] = [
+  {
+    displayName: "React",
+    shortName: "reactjs",
+  },
+  {
+    displayName: "JavaScript",
+    shortName: "js",
+  },
+  {
+    displayName: "HTML",
+    shortName: "html",
+  },
+  {
+    displayName: "CSS",
+    shortName: "css",
+  },
+  {
+    displayName: "Git",
+    shortName: "git",
+  },
+  {
+    displayName: "SQL & Databases",
+    shortName: "sql",
+  },
+  {
+    displayName: "MySQL",
+    shortName: "mysql",
+  },
+  {
+    displayName: "Node.js",
+    shortName: "nodejs",
+  },
+  {
+    displayName: "NPM",
+    shortName: "npm",
+  },
+  {
+    displayName: "Browser & DOM",
+    shortName: "dom",
+  },
+  {
+    displayName: "Visual Studio Code",
+    shortName: "vscode",
+  },
+  {
+    displayName: "MongoDb",
+    shortName: "mongodb",
+  },
+  {
+    displayName: "JSON",
+    shortName: "json",
+  },
+  {
+    displayName: "RegEx",
+    shortName: "regex",
+  },
+  {
+    displayName: "AJAX",
+    shortName: "ajax",
+  },
+  {
+    displayName: "Fetch",
+    shortName: "fetch",
+  },
+  {
+    displayName: "Typescript",
+    shortName: "ts",
+  },
+  {
+    displayName: "CSS Animations",
+    shortName: "animations",
+  },
+  {
+    displayName: "Firebase",
+    shortName: "firebase",
+  },
+  {
+    displayName: "Next.js",
+    shortName: "nextjs",
+  },
+  {
+    displayName: "API",
+    shortName: "api",
+  },
+  {
+    displayName: "Algorithm",
+    shortName: "algorithm",
+  },
+  {
+    displayName: "Express.js",
+    shortName: "express",
+  },
+  {
+    displayName: "Github",
+    shortName: "github",
+  },
+];
