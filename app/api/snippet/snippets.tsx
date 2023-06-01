@@ -1,54 +1,99 @@
-import { getMongoDb } from "@/app/mongodb";
-import {dbModel} from '@/app/DB-model'; 
- import clientPromise from '../../lib/mongodb';
-import { NextResponse } from "next/server";
+/** @format */
 
-//   export default async function addSnippet(req, res){
-    
+import { getMongoDb } from '@/app/mongodb';
+import { dbModel } from '@/app/DB-model';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
+import { title } from 'process';
+import { ObjectId } from 'mongodb';
 
-//     try{
-//         const newSnippet=req.body; 
-//         const result= await getMongoDb().collection<dbModel>('snippets').insertOne(newSnippet); 
-//        res.status(201).json(result)
-//     }
-//     catch(error)
-//     {
-//         console.log(error); 
-//        res.status(500).json({ error: 'Failed to create snippet' });
+// the structure of a snippet in mongodb.
+interface Snippet {
+  _id: string;
+  title: string;
+  description: string;
+  tags: [];
+  code: string;
+  createdDate: Date;
+  updatedDate: Date;
+  authorId: string;
+}
 
+//Create the routes needed to be able to create and update a snippet in the database.
+export default async function createSnippet
+  (req: Request): Promise<NextResponse>
+ {
+  if (req.method === 'POST') {
+    //create new snippet
+    try {
+      const {
+        title,
+        description,
+        tags,
+        code,
+        createdDate,
+        updatedDate,
+        authorId,
+      } = req.body;
 
-//     }
-    
-    
- //}; 
-//  export default async function addSnippet(req, res) {
-//    if (req.method !== 'POST') {
-//      res.status(405).json({ error: 'Method Not Allowed' });
-//      return;
-//    }
-
-//    try {
-//      const newSnippet = req.body; // Assuming the newSnippet is passed in the request body
-//      const result = await getMongoDb()
-//        .collection<dbModel>('snippets')
-//        .insertOne(newSnippet);
-//      res.status(201).json(result); // Return the created snippet
-//    } catch (error) {
-//      console.error(error);
-//      res.status(500).json({ error: 'Failed to create snippet' });
-//    }
-//  }
-export async function ADD(req: Request): Promise<NextResponse> {
-  const tagsFromDatabase = await getMongoDb()
-    .collection('tags')
-    .find({})
-    .toArray();
-
-  // Pre-seed database, so we're not starting from scratch
-  if (!tagsFromDatabase.length) {
-    await getMongoDb().collection('tags').insertMany(tags);
-    return NextResponse.json(tags);
+      const collection = getMongoDb().collection<Snippet>('snippet');
+      const newSnippet = {
+        title,
+        description,
+        tags,
+        code,
+        createdDate,
+        updatedDate,
+        authorId,
+      };
+      const result = await collection.insertOne(newSnippet);
+      res.status(201).json(result);
+    } catch (error) {
+      res.status(500).json({ Error: 'Failed to create a new snippet  ' });
+    }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
   }
+}
 
-  return NextResponse.json(tagsFromDatabase);
+// update a snippet.
+export default async function updateSnippet(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method === 'PUT') {
+    // update an existing snippet.
+    try {
+      const { id } = req.query;
+      const {
+        title,
+        description,
+        tags,
+        code,
+        createdDate,
+        updatedDate,
+        authorId,
+      } = req.body;
+
+      const collection = getMongoDb().collection<Snippet>('snippet');
+      const update = await collection.findOneAndUpdate(
+        { _id: new ObjectId(id as string) },
+        {
+          $set: {
+            title,
+            description,
+            tags,
+            code,
+            createdDate,
+            updatedDate,
+            authorId,
+          },
+        }
+      );
+    } catch (error) {
+      res.status(500).json({ Error: 'Failed to update a snippet  ' });
+    }
+  } else {
+    res.status(405).json({ error: 'Method not allowed' });
+  }
 }
