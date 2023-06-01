@@ -1,6 +1,5 @@
 import { getMongoDb } from "@/app/mongodb";
-
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 
 export type Snippet = {
   title: string;
@@ -10,27 +9,25 @@ export type Snippet = {
 
 // GET COLLECTION
 // make get request to get all the data from snippets if there is nothing to filter   collection.
-export async function GET(req: NextApiRequest, res:NextApiResponse){
-  debugger;
-  const body = JSON.parse(req.body)
-  console.log(body)
-  const {title, description} = body // i have problem in this line
+export async function POST(req: Request): Promise<NextResponse> {
+  const body = await req.json();
+  const { title, description } = body; // i have problem in this line
 
   console.log("title:", title);
   console.log("description:", description);
 
-  let filter = {};
+  let filter: any = {};
 
   if (title && description) {
-    filter = { title: { $eq: title }, description: { $eq: description } };
+    filter = { title: title, description: description };
     console.log(filter);
   }
   if (title) {
-    filter = { title: { $eq: title } };
+    filter = { title: title };
     console.log(filter);
   }
   if (description) {
-    filter = { description: { $eq: description } };
+    filter = { description: description };
     console.log(filter);
   }
 
@@ -41,13 +38,13 @@ export async function GET(req: NextApiRequest, res:NextApiResponse){
 
   // Pre-seed database, so we're not starting from scratch
   if (!snippetsFromDatabase.length) {
+    console.log("no data");
     await getMongoDb().collection("snippets").insertMany(snippets);
-    return res.json(snippets);
+    return NextResponse.json(snippets);
   }
 
-  return res.json(snippetsFromDatabase);
+  return NextResponse.json(snippetsFromDatabase);
 }
-
 
 // POST COLLECTION
 // make post request to update the snippets data.
