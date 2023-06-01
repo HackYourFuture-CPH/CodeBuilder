@@ -1,6 +1,6 @@
 import { getMongoDb } from "@/app/mongodb";
 import { NextResponse } from "next/server";
-import { dbModel } from "@/app/DB-model";
+import { snippetModel } from "@/app/DB-model";
 
 export interface Tag {
   displayName: string;
@@ -14,7 +14,7 @@ export async function GET(req: Request): Promise<NextResponse> {
     .collection<Tag>("tags")
     .find({})
     .toArray();
-const snippets = await getMongoDb().collection<dbModel>("snippets").find({}).toArray();
+// const snippets = await getMongoDb().collection<snippetModel>("snippets").find({}).toArray();
 
 
   // Pre-seed database, so we're not starting from scratch
