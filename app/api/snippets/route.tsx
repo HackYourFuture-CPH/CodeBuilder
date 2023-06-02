@@ -1,5 +1,5 @@
 import { getMongoDb } from "@/app/mongodb";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
 export interface Snippet {
   title: string;
@@ -50,3 +50,15 @@ const snippets: Omit<Snippet, "_id">[] = [
     author_id: "2",
   },
 ];
+
+import { NextApiRequest, NextApiResponse } from "next";
+// import { getMongoDb } from "@/app/mongodb";
+
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  const db = getMongoDb();
+  const body = await req.json();
+  console.log(body);
+  const insertedId = await db.collection("snippets").insertOne(body);
+  console.log(insertedId);
+  console.log(res);
+}
