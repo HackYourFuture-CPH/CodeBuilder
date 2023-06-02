@@ -3,6 +3,7 @@ import useSWR from "swr";
 import styles from "./page.module.css";
 import { Tag } from "./api/tags/route";
 
+
 export default function Home() {
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
     const response = await fetch(url);
