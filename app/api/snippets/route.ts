@@ -7,64 +7,75 @@ export type Snippet = {
   _id?: string;
 };
 
-// GET COLLECTION
-// make get request to get all the data from snippets if there is nothing to filter   collection.
+// make post request to get the filtered snippets data.
 export async function POST(req: Request): Promise<NextResponse> {
-  const body = await req.json();
-  const { title, description } = body; // i have problem in this line
+  try {
+    const body = await req.json();
 
-  console.log("title:", title);
-  console.log("description:", description);
+    // destructure the parameters
+    const { title, description } = body;
 
-  let filter: any = {};
+    // to check if we got the values.
+    console.log("title:", title);
+    console.log("description:", description);
 
-  if (title && description) {
-    filter = { title: title, description: description };
-    console.log(filter);
+    let filter: any = {};
+
+    if (title && description) {
+      filter = {
+        title: { $regex: title, $options: "i" }, // (i) stands for case insensitive
+        description: { $regex: description, $options: "i" },
+      };
+    } else if (title) {
+      filter.title = { $regex: title, $options: "i" };
+    } else if (description) {
+      filter.description = { $regex: description, $options: "i" };
+    }
+
+    const snippetsFromDatabase = await getMongoDb()
+      .collection("snippets")
+      .find(filter)
+      .toArray();
+
+    if (snippetsFromDatabase.length === 0) {
+      return NextResponse.json({
+        message: "no matches found",
+      });
+    }
+
+    return NextResponse.json(snippetsFromDatabase);
+
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return NextResponse.json({
+      message: "An error occurred",
+      error: (error as Error).message,
+    });
   }
-  if (title) {
-    filter = { title: title };
-    console.log(filter);
-  }
-  if (description) {
-    filter = { description: description };
-    console.log(filter);
-  }
+}
 
-  const snippetsFromDatabase = await getMongoDb()
+// to get all documents from snippets collection
+export async function GET(req: Request): Promise<NextResponse> {
+  const tagsFromDatabase = await getMongoDb()
     .collection("snippets")
-    .find(filter)
+    .find({})
     .toArray();
 
   // Pre-seed database, so we're not starting from scratch
-  if (!snippetsFromDatabase.length) {
-    console.log("no data");
-    await getMongoDb().collection("snippets").insertMany(snippets);
-    return NextResponse.json(snippets);
+  if (!tagsFromDatabase.length) {
+    // Code to be executed if tagsFromDatabase is empty
+    console.log("No tags found.");
+    // Insert default tags into the database
+    await getMongoDb().collection("snippets").insertMany(snippet);
+    return NextResponse.json(snippet);
   }
 
-  return NextResponse.json(snippetsFromDatabase);
+  return NextResponse.json(tagsFromDatabase);
 }
 
-// POST COLLECTION
-// make post request to update the snippets data.
-// export async function POST(req: NextApiRequest): Promise<NextResponse> {
-//   const { body } = req;
+// This data can be used to pre-seed the database.
 
-//   if (Array.isArray(body)) {
-//     await getMongoDb()
-//       .collection("snippets")
-//       .updateMany({}, { $set: { snippets: body } });
-//     return NextResponse.json({ message: "Snippets updated successfully" });
-//   } else {
-//     return NextResponse.json({ error: "Invalid data format" });
-//   }
-// }
-
-/**
- * This data can be used to pre-seed the database.
- */
-const snippets: Omit<Snippet, "_id">[] = [
+const snippet: Omit<Snippet, "_id">[] = [
   {
     title: "React",
     description: "reactjs",
