@@ -1,5 +1,6 @@
 import { getMongoDb } from "@/app/mongodb";
 import { NextResponse } from "next/server";
+import { snippetModel } from "@/app/DB-model";
 
 export interface Tag {
   displayName: string;
@@ -7,15 +8,18 @@ export interface Tag {
   _id?: string;
 }
 
+// this is how our fellow developers should use DB-model interface 
 export async function GET(req: Request): Promise<NextResponse> {
   const tagsFromDatabase = await getMongoDb()
-    .collection("tags")
+    .collection<Tag>("tags")
     .find({})
     .toArray();
+// const snippets = await getMongoDb().collection<snippetModel>("snippets").find({}).toArray();
+
 
   // Pre-seed database, so we're not starting from scratch
   if (!tagsFromDatabase.length) {
-    await getMongoDb().collection("tags").insertMany(tags);
+    await getMongoDb().collection<Tag>("tags").insertMany(tags);
     return NextResponse.json(tags);
   }
 
