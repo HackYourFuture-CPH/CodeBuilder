@@ -1,17 +1,18 @@
 /* roboto-regular - latin */
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  font-family: 'RobotoFlex';
+  font-family: "RobotoFlex";
   font-style: normal;
   font-weight: 100 1000;
-  src: url('./fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].woff') format('woff'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+  src: url("./fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].woff")
+    format("woff"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
 :root {
-  --main-color: #042D54;
-  --additional-color-1: #104D85;
-  --additional-color-2: #C3D9ED;
-  --additional-color-3: #F2F9FF;
+  --main-color: #042d54;
+  --additional-color-1: #104d85;
+  --additional-color-2: #c3d9ed;
+  --additional-color-3: #f2f9ff;
   --additional-color-4: #151515;
 
   --max-width: 1000px;
@@ -30,14 +31,13 @@ body {
 }
 
 h1 {
-  font-family: 'RobotoFlex';
+  font-family: "RobotoFlex";
   font-weight: 400;
-  color: var(--additional-color-2)
+  color: var(--additional-color-2);
 }
 
-
 h2 {
-  font-family: 'RobotoFlex';
+  font-family: "RobotoFlex";
   color: black;
 }
 
