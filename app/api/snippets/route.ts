@@ -1,74 +1,64 @@
 import { snippetModel } from "@/app/DB-model";
 import { getMongoDb } from "@/app/mongodb";
-import { NextResponse } from "next/server";
-
-// make post request to get the filtered snippets data.
-export async function POST(req: Request): Promise<NextResponse> {
-  try {
-    const body = await req.json();
-
-    // destructure the parameters
-    const { title, description } = body;
-
-    // to check if we got the values.
-    console.log("title:", title);
-    console.log("description:", description);
-
-    let filter: any = {};
-
-    if (title && description) {
-      filter = {
-        title: { $regex: title, $options: "i" }, // (i) stands for case insensitive
-        description: { $regex: description, $options: "i" },
-      };
-    } else if (title) {
-      filter.title = { $regex: title, $options: "i" };
-    } else if (description) {
-      filter.description = { $regex: description, $options: "i" };
-    }
-
-    const snippetsFromDatabase = await getMongoDb()
-      .collection("snippets")
-      .find(filter)
-      .toArray();
-
-    if (snippetsFromDatabase.length === 0) {
-      return NextResponse.json({
-        message: "no matches found",
-      });
-    }
-
-    return NextResponse.json(snippetsFromDatabase);
-
-  } catch (error) {
-    console.error("An error occurred:", error);
-    return NextResponse.json({
-      message: "An error occurred",
-      error: (error as Error).message,
-    });
-  }
+import { NextResponse, NextRequest } from "next/server";
+export interface Snippet {
+  title: string;
+  description: string;
+  favoriteByIds: string[];
+  tags: string[];
+  snippetCode: string;
+  createdAt: string;
+  updatedAt: string;
+  authorId: string;
+  _id?: string;
 }
 
 // to get all documents from snippets collection
-export async function GET(req: Request): Promise<NextResponse> {
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  await init(snippets);
+
+  const description = req.nextUrl.searchParams.get("description") || "";
+  const tags =
+    !!req.nextUrl.searchParams.get("tags") || ""
+      ? (req.nextUrl.searchParams.get("tags") || "").split(",")
+      : [];
+  const title = req.nextUrl.searchParams.get("title") || "";
+
+  let filters = {};
+  if (description) {
+    filters = {
+      description: { $regex: description, $options: "i" },
+    };
+  }
+  if (title) {
+    filters = {
+      ...filters,
+      title: { $regex: title, $options: "i" },
+    };
+  }
+  if (tags.length > 0) {
+    filters = {
+      ...filters,
+      tags: { $in: tags },
+    };
+  }
   const snippetsFromDatabase = await getMongoDb()
     .collection("snippets")
-    .find({})
+    .find(filters)
     .toArray();
-
-  // Pre-seed database, so we're not starting from scratch
-  if (!snippetsFromDatabase.length) {
-    // Code to be executed if snippetsFromDatabase is empty
-    console.log("No snippets found.");
-    // Insert default snippets into the database
-    await getMongoDb().collection("snippets").insertMany(snippets);
-    return NextResponse.json(snippets);
-  }
   return NextResponse.json(snippetsFromDatabase);
 }
 
-// This data can be used to pre-seed the database.
+async function init(snippets: Omit<snippetModel, "_id">[]) {
+  // Pre-seed database, so we're not starting from scratch
+  const initVal = await getMongoDb().collection("snippets").find({}).toArray();
+  if (initVal.length == 0) {
+    // Insert default snippets into the database
+    await getMongoDb().collection("snippets").insertMany(snippets);
+  }
+}
 
+// This data can be used to pre-seed the database.
 const snippets: Omit<snippetModel, "_id">[] = [
   {
     title: "HTML Lists",
