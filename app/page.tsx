@@ -2,6 +2,7 @@
 import useSWR from "swr";
 import styles from "./page.module.css";
 import { Tag } from "./api/tags/route";
+import Navbar from "./navbar";
 
 export default function Home() {
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
@@ -10,24 +11,31 @@ export default function Home() {
   });
 
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-      </div>
+    <>
+            <header>
+                {/* Navbar */}
+                <Navbar />
+            </header>
 
-      <h1>Categories from the database</h1>
+            <main className={styles.main}>
+                <div className={styles.description}>
+                    <p>
+                        Get started by editing&nbsp;
+                        <code className={styles.code}>app/page.tsx</code>
+                    </p>
+                </div>
 
-      <div className={styles.grid}>
-        {tags?.map((tag) => (
-          <div className={styles.card} key={tag.shortName}>
-            <h2>{tag.displayName}</h2>
-            <p>{tag.shortName}</p>
-          </div>
-        ))}
-      </div>
-    </main>
+                <h1>Categories from the database</h1>
+
+                <div className={styles.grid}>
+                    {tags?.map((tag) => (
+                        <div className={styles.card} key={tag.shortName}>
+                            <h2>{tag.displayName}</h2>
+                            <p>{tag.shortName}</p>
+                        </div>
+                    ))}
+                </div>
+            </main>
+        </>
   );
 }
