@@ -39,23 +39,3 @@ export async function DELETE(
     NextResponse.json(error);
   }
 }
-
-/*export async function GET(
-  req: Request,
-  {
-    params,
-  }: {
-    params: { id: ObjectId };
-  }
-): Promise<NextResponse> {
-  const objectId = new ObjectId(params.id);
-  const oneSnippetFromDatabase = await getMongoDb()
-    .collection("snippets")
-    .findOne({ _id: objectId });
-  /* .find
-    // .limit();
-    .toArray();
-
-  return new NextResponse(JSON.stringify(oneSnippetFromDatabase));
-}
-*/
