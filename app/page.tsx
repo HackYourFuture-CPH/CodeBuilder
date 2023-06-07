@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const Login: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <main>
       <div>This is a home page</div>
