@@ -9,24 +9,46 @@ export async function GET(req: Request): Promise<NextResponse> {
 }
 */
 
-
 //Then I used route.ts file from tags folder as a reference
 
 import { getMongoDb } from "@/app/mongodb";
+import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
 
 export interface Snippet {
-    id: string;
-    title: string;
-    description: string;
-    favoritedBy: string[];
-    tags: string[];
-    code: string;
-    created_at: Date;
-    updated_at: Date;
-    author_id: string;
+  id: ObjectId;
+  title: string;
+  description: string;
+  favoritedBy: string[];
+  tags: string[];
+  code: string;
+  created_at: Date;
+  updated_at: Date;
+  author_id: string;
+}
+export async function GET(req: Request): Promise<NextResponse> {
+  try {
+    const snippetsFromDatabase = await getMongoDb()
+      .collection("snippets")
+      .find({})
+      .toArray();
+
+    if (!snippetsFromDatabase.length) {
+      await getMongoDb().collection("snippets").insertMany(snippets);
+      return NextResponse.json(snippets);
+    }
+
+    return NextResponse.json(snippetsFromDatabase);
+  } catch (error) {
+    console.error("Error retrieving snippets from the database:", error);
+    return new NextResponse(
+      JSON.stringify({ error: "An error occurred while retrieving snippets" }),
+      { status: 500 }
+    );
+  }
 }
 
+/*
 export async function GET(req: Request): Promise<NextResponse> {
   const snippetsFromDatabase = await getMongoDb()
     .collection("snippets")
@@ -40,72 +62,61 @@ export async function GET(req: Request): Promise<NextResponse> {
 
   return NextResponse.json(snippetsFromDatabase);
 }
-
+*/
 const snippets: Omit<Snippet, "_id">[] = [
   {
-     _id: "1ghjhkkhj",
+    id: ObjectId;
     title: "Snippet1",
     description: "Snippet1 description",
     favoritedBy: [],
     tags: [],
     code: "Snippet1 code",
-    created_at: '2023-06-02 18:17:35',
-    updated_at: '2023-06-02 18:19:35',
+    created_at: new Date("2023-06-02 18:17:35"),
+    updated_at: new Date("2023-06-02 18:19:35"),
     author_id: "Snippet1 author",
   },
-  { 
-    _id: "2ghdfgfhfhj",
+  {
+    id: ObjectId;
     title: "Snippet2",
     description: "Snippet2 description",
     favoritedBy: [],
     tags: [],
     code: "Snippet2 code",
-    created_at: '2023-06-02 18:17:35',
-    updated_at: '2023-06-02 18:19:35',
+    created_at: new Date("2023-06-02 18:17:35"),
+    updated_at: new Date("2023-06-02 18:19:35"),
     author_id: "Snippet2 author",
   },
   {
-     _id: "3gdfggdfgdjhkkhj",
-     title: "Snippet3",
+    id: ObjectId;
+    title: "Snippet3",
     description: "Snippet3 description",
     favoritedBy: [],
     tags: [],
     code: "Snippet3 code",
-    created_at: '2023-06-02 18:17:35',
-    updated_at: '2023-06-02 18:19:35',
+    created_at: new Date("2023-06-02 18:17:35"),
+    updated_at: new Date("2023-06-02 18:19:35"),
     author_id: "Snippet3 author",
   },
   {
-     _id: "4ghjhksdfdsfdskhj",
-     title: "Snippet4",
+    id: ObjectId;
+    title: "Snippet4",
     description: "Snippet4 description",
     favoritedBy: [],
     tags: [],
     code: "Snippet4 code",
-    created_at: '2023-06-02 18:17:35',
-    updated_at: '2023-06-02 18:19:35',
+    created_at: new Date("2023-06-02 18:17:35"),
+    updated_at: new Date("2023-06-02 18:19:35"),
     author_id: "Snippet4 author",
   },
   {
-     _id: "5ghdfsderjhkkhj",
+    id: ObjectId;
     title: "Snippet5",
     description: "Snippet5 description",
     favoritedBy: [],
     tags: [],
     code: "Snippet5 code",
-    created_at: '2023-06-02 18:17:35',
-    updated_at: '2023-06-02 18:19:35',
+    created_at: new Date("2023-06-02 18:17:35"),
+    updated_at: new Date("2023-06-02 18:19:35"),
     author_id: "Snippet5 author",
   },
 ];
-
-/*
-Due to the fact, that other routes go to this same file, they can be extended here:
-// one snippet by id
-
-// delete snippet by id
-
-Other questions:
-~Dynamic/Static? [id] or the same file?
-~Should we have pages instead of app folder?
-*/
