@@ -1,4 +1,4 @@
-const UserId: React.FC = () => {
+const User: React.FC = () => {
   return <div>And here we have user account info </div>;
 };
-export default UserId;
+export default User;

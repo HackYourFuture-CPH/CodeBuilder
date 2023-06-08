@@ -1,4 +1,4 @@
-const UserId: React.FC = () => {
+const CreateSnippet: React.FC = () => {
   return <div>And here we have page for creating a new snippet</div>;
 };
-export default UserId;
+export default CreateSnippet;
