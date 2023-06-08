@@ -13,7 +13,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return NextResponse.json(postedSnippetId);
   } catch (error) {
     return NextResponse.json({
-      message: 'some thing went wrong',
+      message: 'something went wrong',
       error: error,
     });
   }
