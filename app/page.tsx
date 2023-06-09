@@ -29,7 +29,7 @@ export default function Home() {
 
                 <div className={styles.grid}>
                     {tags?.map((tag) => (
-                        <div className={styles.card} key={tag.shortName}>
+                        <div className={styles.card} key={tag._id}>
                             <h2>{tag.displayName}</h2>
                             <p>{tag.shortName}</p>
                         </div>
