@@ -1,16 +1,4 @@
 // task1 - list of all snippets
-
-/* this is how I started, to check that it works:
-
-import { NextResponse } from "next/server";
-
-export async function GET(req: Request): Promise<NextResponse> {
-  return NextResponse.json({ name: 'API route for all Snippets List' });
-}
-*/
-
-//Then I used route.ts file from tags folder as a reference
-
 import { getMongoDb } from "@/app/mongodb";
 import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
