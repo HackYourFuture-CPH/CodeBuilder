@@ -1,9 +1,8 @@
-// get one snippet by id
-
 import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-/*
+
+// get one snippet by id
 export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -21,7 +20,7 @@ export async function GET(
     NextResponse.json(error);
   }
 }
-*/
+// delete one snippet
 export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
@@ -36,6 +35,10 @@ export async function DELETE(
       .deleteOne({ _id: new ObjectId(snippetId) });
     return new NextResponse(JSON.stringify(oneSnippetFromDatabase));
   } catch (error) {
-    NextResponse.json(error);
+    console.error("Error retrieving snippets from the database:", error);
+    return new NextResponse(
+      JSON.stringify({ error: "An error occurred while retrieving snippets" }),
+      { status: 500 }
+    );
   }
 }
