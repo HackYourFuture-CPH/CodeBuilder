@@ -10,7 +10,7 @@ interface SnippetData {
   code: string;
 }
 
-const CreateSnippet = (): JSX.Element => {
+const CreateSnippetComponent = (): JSX.Element => {
   const [title, setTitle] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
@@ -41,7 +41,7 @@ const CreateSnippet = (): JSX.Element => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Snippet published!");
+          return response.json();
         } else {
           throw new Error("Error publishing snippet");
         }
@@ -98,4 +98,4 @@ const CreateSnippet = (): JSX.Element => {
   );
 };
 
-export default CreateSnippet;
+export default CreateSnippetComponent;
