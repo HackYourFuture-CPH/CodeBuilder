@@ -1,6 +1,5 @@
 import { getMongoDb } from "@/app/mongodb";
 import { NextResponse } from "next/server";
-import { snippetModel } from "@/app/DB-model";
 
 export interface Tag {
   displayName: string;
