@@ -1,6 +1,11 @@
 import React from "react";
 
-const Tag = ({ label, onRemove }) => {
+interface TagProps {
+  label: string;
+  onRemove: () => void;
+}
+
+const Tag = ({ label, onRemove }: TagProps): JSX.Element => {
   return (
     <div className="tag">
       <span>{label}</span>

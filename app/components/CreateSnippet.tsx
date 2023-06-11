@@ -1,25 +1,31 @@
-"use client";
 import { useState } from "react";
 import TextInput from "./TextInput";
 import Tag from "./Tag";
 import CodeEditor from "./CodeEditor";
 
-const CreateSnippet = () => {
-  const [title, setTitle] = useState("");
-  const [tags, setTags] = useState([]);
-  const [description, setDescription] = useState("");
-  const [code, setCode] = useState("");
+interface SnippetData {
+  title: string;
+  tags: string[];
+  description: string;
+  code: string;
+}
 
-  const handleTagAdd = (tag) => {
+const CreateSnippet = (): JSX.Element => {
+  const [title, setTitle] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [description, setDescription] = useState<string>("");
+  const [code, setCode] = useState<string>("");
+
+  const handleTagAdd = (tag: string): void => {
     setTags([...tags, tag]);
   };
 
-  const handleTagRemove = (tag) => {
+  const handleTagRemove = (tag: string): void => {
     setTags(tags.filter((t) => t !== tag));
   };
 
-  const handlePublish = () => {
-    const snippetData = {
+  const handlePublish = (): void => {
+    const snippetData: SnippetData = {
       title: title,
       tags: tags,
       description: description,
@@ -52,7 +58,9 @@ const CreateSnippet = () => {
       <TextInput
         label="Title"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setTitle(e.target.value)
+        }
       />
 
       <div>
@@ -63,7 +71,9 @@ const CreateSnippet = () => {
         <TextInput
           label="Add Tag"
           value={""}
-          onChange={(e) => handleTagAdd(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleTagAdd(e.target.value)
+          }
           placeholder="Type a tag and press Enter"
         />
       </div>
@@ -71,12 +81,14 @@ const CreateSnippet = () => {
       <TextInput
         label="Description"
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setDescription(e.target.value)
+        }
       />
 
       <CodeEditor
         code={code}
-        onChange={(newCode) => setCode(newCode)}
+        onChange={(newCode: string) => setCode(newCode)}
         language="javascript"
       />
 
