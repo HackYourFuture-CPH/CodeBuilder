@@ -1,4 +1,8 @@
-const CreateSnippet: React.FC = () => {
-  return <div>And here we have page for creating a new snippet</div>;
+
+'use client'; 
+import SelectTags from "./SelectTags";
+
+const CreateTag: React.FC = () => {
+  return  <div> Create snippet </div>;
 };
-export default CreateSnippet;
+export default CreateTag;

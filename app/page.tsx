@@ -1,10 +1,11 @@
-import Link from "next/link";
-("use client");
-import useSWR from "swr";
-import styles from "./page.module.css";
-import { Tag } from "./api/tags/route";
-import CreateSnippet from "./components/CreateSnippet";
-import Link from "next/link";
+/** @format */
+
+'use client';
+import Link from 'next/link';
+import useSWR from 'swr';
+import styles from './page.module.css';
+import { Tag } from './api/tags/route';
+import CreateSnippet from './components/CreateSnippet';
 
 const Home: React.FC = () => {
   return (
@@ -22,7 +23,9 @@ const Home: React.FC = () => {
       <h1>Categories from the database</h1>
       <div className={styles.grid}>
         {tags?.map((tag) => (
-          <div className={styles.card} key={tag.shortName}>
+          <div
+            className={styles.card}
+            key={tag.shortName}>
             <h2>{tag.displayName}</h2>
             <p>{tag.shortName}</p>
           </div>

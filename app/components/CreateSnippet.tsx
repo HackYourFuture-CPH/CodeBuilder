@@ -1,6 +1,6 @@
 import { useState } from "react";
 import TextInput from "./TextInput";
-import Tag from "./Tag";
+import Tag from "./SelectTag";
 import CodeEditor from "./CodeEditor";
 
 interface SnippetData {
