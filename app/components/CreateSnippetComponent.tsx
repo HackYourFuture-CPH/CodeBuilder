@@ -8,6 +8,8 @@ interface SnippetData {
   tags: string[];
   description: string;
   code: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 const CreateSnippetComponent = (): JSX.Element => {
@@ -15,7 +17,8 @@ const CreateSnippetComponent = (): JSX.Element => {
   const [tags, setTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
   const [code, setCode] = useState<string>("");
-
+  const currentDate = new Date();
+  const updatedDate = new Date();
   const handleTagAdd = (tag: string): void => {
     setTags([...tags, tag]);
   };
@@ -30,6 +33,8 @@ const CreateSnippetComponent = (): JSX.Element => {
       tags: tags,
       description: description,
       code: code,
+      created_at: currentDate,
+      updated_at: updatedDate,
     };
 
     fetch("/api/snippets", {
