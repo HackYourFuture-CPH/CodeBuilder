@@ -1,34 +1,35 @@
 "use client";
 import useSWR from "swr";
 import styles from "./page.module.css";
-import { Tag } from "../api/tags/route";
+import { Snippet } from "../api/snippets/route";
+import CodeEditor from "../components/code-editor";
 
 export default function TagsPage() {
-  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
-    const response = await fetch(url);
-    return response.json();
-  });
+    const { data: snippets } = useSWR<Snippet[]>("/api/snippets", async (url) => {
+        try {
+            const response = await fetch(url);
+            const dataSnippets = await response.json();
+            return dataSnippets;
+        } catch (error) {
+            console.log(error);
+        }
+    });
 
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-      </div>
-
-      <h1>Categories from the database</h1>
-      <h2>This is the main page (user not logged in)</h2>
-
-      <div className={styles.grid}>
-        {tags?.map((tag) => (
-          <div className={styles.card} key={tag.shortName}>
-            <h2>{tag.displayName}</h2>
-            <p>{tag.shortName}</p>
-          </div>
-        ))}
-      </div>
-    </main>
-  );
+    return (
+        <main className={styles.main}>
+            {snippets?.map((snippet) => (
+                <div key={snippet._id} style={{ width: "50%", margin: '0 auto', borderRadius: "5px" }}>
+                    <CodeEditor
+                        initialValue={snippet.snippetCode}
+                        readOnly={true}
+                        tags={snippet.tags}
+                    />
+                    <div style={{ backgroundColor: 'white', color: 'black', paddingBottom: '20px', marginBottom: "30px", padding: "20px" }}>
+                        <h2 style={{ marginTop: 0 }}>{snippet.title}</h2>
+                        <p>{snippet.description}</p>
+                    </div>
+                </div>
+            ))}
+        </main>
+    );
 }
