@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import UserIcon from "@/app/icons/user";
-import styles from "./page.module.css";
+import styles from "./tags/page.module.css";
 
 export default function Component() {
     const { data: session } = useSession();
