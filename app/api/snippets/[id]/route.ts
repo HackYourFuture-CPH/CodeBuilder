@@ -11,11 +11,12 @@ export async function GET(
   try {
     const snippetId = params.id;
     const db = getMongoDb();
-    console.log(snippetId);
+    // console.log(snippetId);
     const oneSnippetFromDatabase = await db
       .collection("snippets")
       .findOne({ _id: new ObjectId(snippetId) });
-    return new NextResponse(JSON.stringify(oneSnippetFromDatabase));
+    return NextResponse.json(oneSnippetFromDatabase);
+    // new NextResponse(JSON.stringify(oneSnippetFromDatabase));
   } catch (error) {
     NextResponse.json(error);
   }
@@ -29,13 +30,13 @@ export async function DELETE(
   try {
     const snippetId = params.id;
     const db = getMongoDb();
-    console.log(snippetId);
+    // console.log(snippetId);
     const oneSnippetFromDatabase = await db
       .collection("snippets")
       .deleteOne({ _id: new ObjectId(snippetId) });
     return new NextResponse(JSON.stringify(oneSnippetFromDatabase));
   } catch (error) {
-    console.error("Error retrieving snippets from the database:", error);
+    // console.error("Error retrieving snippets from the database:", error);
     return new NextResponse(
       JSON.stringify({ error: "An error occurred while retrieving snippets" }),
       { status: 500 }
