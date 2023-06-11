@@ -1,41 +1,14 @@
-"use client";
-import useSWR from "swr";
-import styles from "./page.module.css";
-import { Tag } from "./api/tags/route";
-import Navbar from "./navbar";
+import Link from "next/link";
 
-export default function Home() {
-  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
-    const response = await fetch(url);
-    return response.json();
-  });
-
+const Home: React.FC = () => {
   return (
-    <>
-            <header>
-                {/* Navbar */}
-                <Navbar />
-            </header>
-
-            <main className={styles.main}>
-                <div className={styles.description}>
-                    <p>
-                        Get started by editing&nbsp;
-                        <code className={styles.code}>app/page.tsx</code>
-                    </p>
-                </div>
-
-                <h1>Categories from the database</h1>
-
-                <div className={styles.grid}>
-                    {tags?.map((tag) => (
-                        <div className={styles.card} key={tag._id}>
-                            <h2>{tag.displayName}</h2>
-                            <p>{tag.shortName}</p>
-                        </div>
-                    ))}
-                </div>
-            </main>
-        </>
+    <main>
+      <div>This is a home page</div>
+      <p>
+        {/* Don't mind about this link, I've tested meta */}
+        <Link href="/tags">Tags</Link>
+      </p>
+    </main>
   );
-}
+};
+export default Home;
