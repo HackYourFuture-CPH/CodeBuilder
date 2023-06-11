@@ -1,4 +1,12 @@
+"use client";
+import CreateSnippetComponent from "@/app/components/CreateSnippetComponent";
+
 const CreateSnippet: React.FC = () => {
-  return <div>And here we have page for creating a new snippet</div>;
+  return (
+    <div>
+      <CreateSnippetComponent />
+    </div>
+  );
 };
+
 export default CreateSnippet;
