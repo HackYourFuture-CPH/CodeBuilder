@@ -1,33 +1,19 @@
 
-
-// interface TagProps {
-//   label: string;
-//   onRemove: () => void;
-// }
-
-// const Tag = ({ label, onRemove }: TagProps): JSX.Element => {
-//   return (
-//     <div className="tag">
-//       <span>{label}</span>
-//       <button onClick={onRemove}>&times;</button>
-//     </div>
-//   );
-// };
-
-// export default Tag;
 /** @format */
 'use client';
 import { url } from 'inspector';
-import React from 'react';
-import { useState } from 'react';
+import Link from 'next/link';
+import React, {useState} from 'react';
 import useSWR from 'swr';
 import { Tag } from '../api/tags/route';
 import Select from 'react-select';
-import OptionTypeBase from 'react-select';
+import OptionTypeBase  from 'react-select';
+import  ValueType  from 'react-select';
+
 
 type Option = {
   label: string;
-  value: string;
+  value: string | number;
 };
 interface SelectTagProps {
   placeholder?: string;
@@ -35,31 +21,32 @@ interface SelectTagProps {
   onRemove: () => void;
 }
 
-export default function SelectTag() {
+export default function SelectTag<SelectTagProps>() {
   const { data: tags } = useSWR<Tag[]>('/api/tags', async (url) => {
     const response = await fetch(url);
     return response.json();
   });
- 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-
-  const selectOptions =
+  const [selectedTag, setSelectedTag] = useState<string[]>([]);
+  
+  const tagOptions:Option[] =
     tags?.map((tag) => ({
-      value: tag.displayName,
-      label: tag.shortName,
+      value: tag.shortName,
+      label: tag.displayName,
     })) || [];
   const handleTagChange = (selectedOptions: OptionTypeBase[]) => {
-    setSelectedTags(selectedOptions as Tag[]);
+      const tags = selectedOptions
+        ? selectedOptions.map((option: Option) => option.value)
+        : [];
+    setSelectedTag(tags);
   };
 
   return (
     <div>
       <Select
-        Placeholder="select Tags"
-        Options={selectOptions}
         placeholder="Select tags"
-        value={selectedTags}
-        OnChange={handleTagChange}
+        Options={tagOptions}
+        value={selectedTag}
+        onChange={handleTagChange}
         isSearchable={true}
         isMulti
       />
