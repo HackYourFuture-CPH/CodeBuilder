@@ -1,6 +1,11 @@
+"use client";
+import CreateSnippetComponent from "@/app/components/CreateSnippetComponent";
 
-
-const CreateTag: React.FC = () => {
-  return  <div> Create snippet </div>;
+const CreateSnippet: React.FC = () => {
+  return (
+    <div>
+      <CreateSnippetComponent />
+    </div>
+  );
 };
-export default CreateTag;
+export default CreateSnippet;

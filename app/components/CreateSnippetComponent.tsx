@@ -8,14 +8,17 @@ interface SnippetData {
   tags: string[];
   description: string;
   code: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
-const CreateSnippet = (): JSX.Element => {
+const CreateSnippetComponent = (): JSX.Element => {
   const [title, setTitle] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
   const [code, setCode] = useState<string>("");
-
+  const currentDate = new Date();
+  const updatedDate = new Date();
   const handleTagAdd = (tag: string): void => {
     setTags([...tags, tag]);
   };
@@ -30,6 +33,8 @@ const CreateSnippet = (): JSX.Element => {
       tags: tags,
       description: description,
       code: code,
+      created_at: currentDate,
+      updated_at: updatedDate,
     };
 
     fetch("/api/snippets", {
@@ -41,7 +46,7 @@ const CreateSnippet = (): JSX.Element => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Snippet published!");
+          return response.json();
         } else {
           throw new Error("Error publishing snippet");
         }
@@ -98,4 +103,4 @@ const CreateSnippet = (): JSX.Element => {
   );
 };
 
-export default CreateSnippet;
+export default CreateSnippetComponent;
