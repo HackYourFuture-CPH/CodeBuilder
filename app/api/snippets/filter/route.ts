@@ -1,4 +1,4 @@
-import { snippetModel } from "@/app/DB-model";
+import { snippetModel } from "@/app/snippetModel-DB";
 import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
