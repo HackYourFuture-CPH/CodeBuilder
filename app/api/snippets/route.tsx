@@ -1,7 +1,6 @@
 /** @format */
 
 import { getMongoDb } from "@/app/mongodb";
-import { response } from "express";
 import { NextRequest, NextResponse } from "next/server";
 
 // POST snippet

@@ -4,7 +4,7 @@ import { Tag } from '../api/tags/route';
 import { useState } from 'react';
 import TextInput from './TextInput';
 import CodeEditor from './CodeEditor';
-import SelectTag from './SelectTag';
+import SelectTags from './SelectTags';
 
 interface SnippetData {
   title: string;
@@ -81,7 +81,7 @@ const CreateSnippetComponent = (): JSX.Element => {
 
       <div>
         <h4>Tags</h4>
-        <SelectTag
+        <SelectTags
           placeholder="Select Tags"
           options={tagOptions}
           value={selectTags}
