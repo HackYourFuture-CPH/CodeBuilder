@@ -1,9 +1,21 @@
 import React from "react";
-import Tag from "../../Tag";
-import { SnippetFormProps, TextInputProps } from "./interfaces";
+import { SnippetFormProps, TextInputProps, Option } from "./interfaces";
 import CodeEditor from "../../CodeEditor";
+import useSWR from "swr";
+import { Tag } from "@/app/api/tags/route";
+import SelectTags from "../../SelectTags";
 
 const SnippetForm = (props: SnippetFormProps) => {
+  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
+    const response = await fetch(url);
+    return response.json();
+  });
+  const tagOptions: Option[] =
+    tags?.map((tag) => ({
+      value: tag.shortName,
+      label: tag.displayName,
+    })) || [];
+
   return (
     <div>
       <TextInput
@@ -16,20 +28,12 @@ const SnippetForm = (props: SnippetFormProps) => {
 
       <div>
         <h4>Tags</h4>
-        {props.tags.map((tag) => (
-          <Tag
-            key={tag}
-            label={tag}
-            onRemove={() => props.handleTagRemove(tag)}
-          />
-        ))}
-        <TextInput
-          label="Add Tag"
-          value={""}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            props.handleTagAdd(e.target.value)
-          }
-          placeholder="Type a tag and press Enter"
+        <SelectTags
+          placeholder="Select Tags"
+          options={tagOptions}
+          value={props.selectTags}
+          onChange={(tags: string[]): void => props.setSelectTags(tags)}
+          isMulti
         />
       </div>
 

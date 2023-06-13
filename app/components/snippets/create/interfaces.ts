@@ -1,6 +1,8 @@
 export interface SnippetData {
   title: string;
-  tags: string[];
   description: string;
   code: string;
+  selectTags: string[];
+  created_at: Date;
+  updated_at: Date;
 }
