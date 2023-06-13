@@ -1,7 +1,7 @@
 // task1 - list of all snippets
 import { getMongoDb } from "@/app/mongodb";
-import { snippetModel } from "@/app/DB-model";
-import { NextResponse } from "next/server";
+import { snippetModel } from "@/app/snippetModel-DB";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
@@ -19,6 +19,20 @@ export async function GET(req: Request): Promise<NextResponse> {
       JSON.stringify({ error: "An error occurred while retrieving snippets" }),
       { status: 500 }
     );
+  }
+}
+
+export async function POST(req: NextRequest, res: NextResponse) {
+  try {
+    const db = getMongoDb();
+    const body = await req.json();
+    const postedSnippetId = await db.collection('snippets').insertOne(body);
+    return NextResponse.json(postedSnippetId);
+  } catch (error) {
+    return NextResponse.json({
+      message: 'something went wrong',
+      error: error,
+    });
   }
 }
 
