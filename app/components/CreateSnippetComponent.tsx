@@ -25,7 +25,7 @@ const CreateSnippetComponent = (): JSX.Element => {
 
   type Option = {
     label: string;
-    value: string ;
+    value: string;
   };
 
   const handlePublish = (): void => {
