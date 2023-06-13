@@ -1,10 +1,10 @@
 /** @format */
-import useSWR from 'swr';
-import { Tag } from '../api/tags/route';
-import { useState } from 'react';
-import TextInput from './TextInput';
-import CodeEditor from './CodeEditor';
-import SelectTag from './SelectTag';
+import useSWR from "swr";
+import { Tag } from "../api/tags/route";
+import { useState } from "react";
+import TextInput from "./TextInput";
+import CodeEditor from "./CodeEditor";
+import SelectTags from "./SelectTags";
 
 interface SnippetData {
   title: string;
@@ -16,10 +16,10 @@ interface SnippetData {
 }
 
 const CreateSnippetComponent = (): JSX.Element => {
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
   const [selectTags, setSelectTags] = useState<string[]>([]);
-  const [description, setDescription] = useState<string>('');
-  const [code, setCode] = useState<string>('');
+  const [description, setDescription] = useState<string>("");
+  const [code, setCode] = useState<string>("");
   const currentDate = new Date();
   const updatedDate = new Date();
 
@@ -38,10 +38,10 @@ const CreateSnippetComponent = (): JSX.Element => {
       updated_at: updatedDate,
     };
 
-    fetch('/api/snippets', {
-      method: 'POST',
+    fetch("/api/snippets", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(snippetData),
     })
@@ -49,7 +49,7 @@ const CreateSnippetComponent = (): JSX.Element => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error('Error publishing snippet');
+          throw new Error("Error publishing snippet");
         }
       })
       .catch((error) => {
@@ -57,7 +57,7 @@ const CreateSnippetComponent = (): JSX.Element => {
       });
   };
 
-  const { data: tags } = useSWR<Tag[]>('/api/tags', async (url) => {
+  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
     const response = await fetch(url);
     return response.json();
   });
@@ -81,7 +81,7 @@ const CreateSnippetComponent = (): JSX.Element => {
 
       <div>
         <h4>Tags</h4>
-        <SelectTag
+        <SelectTags
           placeholder="Select Tags"
           options={tagOptions}
           value={selectTags}
