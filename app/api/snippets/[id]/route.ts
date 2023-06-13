@@ -1,8 +1,8 @@
 /** @format */
 
-import { getMongoDb } from '@/app/mongodb';
-import { ObjectId } from 'mongodb';
-import { NextRequest, NextResponse } from 'next/server';
+import { getMongoDb } from "@/app/mongodb";
+import { ObjectId } from "mongodb";
+import { NextRequest, NextResponse } from "next/server";
 
 // Update the snippet by ID
 
@@ -20,12 +20,12 @@ export async function PUT(
     const body = await req.json();
     const db = getMongoDb();
     const updateOneSnippetFromDatabase = await db
-      .collection('snippets')
+      .collection("snippets")
       .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
     return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
   } catch (error) {
     return NextResponse.json({
-      message: 'something went wrong',
+      message: "something went wrong",
       error: error,
     });
   }
