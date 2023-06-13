@@ -1,16 +1,10 @@
+"use client";
+import React from "react";
 import { useState } from "react";
-import TextInput from "./TextInput";
-import Tag from "./Tag";
-import CodeEditor from "./CodeEditor";
+import SnippetForm from "../snipetForm/snippetForm";
+import { SnippetData } from "./interfaces";
 
-interface SnippetData {
-  title: string;
-  tags: string[];
-  description: string;
-  code: string;
-}
-
-const CreateSnippet = (): JSX.Element => {
+const CreateSnippet = () => {
   const [title, setTitle] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
@@ -54,44 +48,17 @@ const CreateSnippet = (): JSX.Element => {
   return (
     <div>
       <h2>Create Snippet</h2>
-
-      <TextInput
-        label="Title"
-        value={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setTitle(e.target.value)
-        }
-      />
-
-      <div>
-        <h4>Tags</h4>
-        {tags.map((tag) => (
-          <Tag key={tag} label={tag} onRemove={() => handleTagRemove(tag)} />
-        ))}
-        <TextInput
-          label="Add Tag"
-          value={""}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleTagAdd(e.target.value)
-          }
-          placeholder="Type a tag and press Enter"
-        />
-      </div>
-
-      <TextInput
-        label="Description"
-        value={description}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setDescription(e.target.value)
-        }
-      />
-
-      <CodeEditor
+      <SnippetForm
+        tags={tags}
+        description={description}
         code={code}
-        onChange={(newCode: string) => setCode(newCode)}
-        language="javascript"
+        title={title}
+        setTitle={setTitle}
+        handleTagRemove={handleTagRemove}
+        handleTagAdd={handleTagAdd}
+        setDescription={setDescription}
+        setCode={setCode}
       />
-
       <button onClick={handlePublish}>Publish</button>
       <button>Cancel</button>
     </div>
