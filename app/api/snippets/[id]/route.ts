@@ -6,9 +6,9 @@ import { ObjectId } from "mongodb";
 
 export async function GET(
   req: NextRequest,
+  res: NextResponse,
   { params }: { params: { id: string } }
 ) {
-  res: NextResponse;
   try {
     const snippetId = params.id;
     const db = getMongoDb();
@@ -18,6 +18,7 @@ export async function GET(
       .findOne({ _id: new ObjectId(snippetId) });
     return new NextResponse(JSON.stringify(oneSnippetFromDatabase));
   } catch (error) {
-    NextResponse.json(error);
+    return new NextResponse(JSON.stringify(error));
   }
 }
+
