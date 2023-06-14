@@ -21,10 +21,20 @@ const SnippetGallery = () => {
   }, []);
 
   return (
-    <ul className="grid-snippets">
+    <ul style={{
+      padding: "3em",
+      display: "grid",
+      gridGap: "3em",
+      gridTemplateColumns: "repeat(auto-fit, minmax(500px, 1fr))"
+    }}>
       {snippets?.map((snippet) => {
         return (
-          <li key={snippet._id}>
+          <li style={{
+            padding: "2em",
+            borderRadius: ".3em",
+            boxShadow: "10px 10px 30px rgba(0,0,0,0.1)",
+            listStyle: "none",
+          }} key={snippet._id}>
             snippet card
             {/* <SnippetCard snippet={snippet} /> */}
           </li>
