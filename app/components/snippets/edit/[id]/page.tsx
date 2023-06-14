@@ -26,6 +26,33 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
       description: description,
       code: code,
     };
+  
+    fetch(`/api/snippets/${params.id}`, { // Corrected URL using template literal
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(snippetData),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Snippet updated!");
+        } else {
+          throw new Error("Error updating the snippet");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
+  /*const handlePublish = (): void => {
+    const snippetData: SnippetData = {
+      title: title,
+      tags: tags,
+      description: description,
+      code: code,
+    };
 
     fetch("/api/snippets/${params.id}", {
       method: "PUT",
@@ -45,7 +72,7 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
         console.error(error);
       });
   };
-
+*/
   return (
     <div>
       <h2>Edit Snippet</h2>
