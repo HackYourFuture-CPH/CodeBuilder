@@ -26,6 +26,14 @@ export const sendSnippet = async (url:string, { arg }: { arg: {
     return response.json();
   };
 
+  export const getSnippet = async (url:string, id: string) => {
+    const response = await fetch(`${url}/${id}`);
+  
+    if (!response.ok) throw new Error("Unable to fetch snippets.");
+  
+    return response.json();
+  };
+
   export const updateSnippet = async (url: string, id: string, snippetData: { 
     title?: string;
     description?: string;
