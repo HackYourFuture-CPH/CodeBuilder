@@ -2,7 +2,7 @@
 import useSWR from "swr";
 import styles from "./page.module.css";
 import { Snippet } from "../api/snippets/route";
-import CodeEditor from "../components/code-editor";
+import CodeEditor from "../api/components/shared/codeEditor/code-editor";
 
 export default function TagsPage() {
     const { data: snippets } = useSWR<Snippet[]>("/api/snippets", async (url) => {

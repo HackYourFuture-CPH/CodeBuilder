@@ -1,39 +1,41 @@
-// task1 - list of all snippets
-import { getMongoDb } from "@/app/mongodb";
 import { snippetModel } from "@/app/snippetModel-DB";
+import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request): Promise<NextResponse> {
-  try {
-    await init(snippets);
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  await init(snippets);
 
-    const snippetsFromDatabase = await getMongoDb()
-      .collection("snippets")
-      .find({})
-      .toArray();
+  const description = req.nextUrl.searchParams.get("description") || "";
+  console.log(description);
+  const tags =
+    !!req.nextUrl.searchParams.get("tags") || ""
+      ? (req.nextUrl.searchParams.get("tags") || "").split(",")
+      : [];
+  const title = req.nextUrl.searchParams.get("title") || "";
 
-    return NextResponse.json(snippetsFromDatabase);
-  } catch (error) {
-    console.error("Error retrieving snippets from the database:", error);
-    return new NextResponse(
-      JSON.stringify({ error: "An error occurred while retrieving snippets" }),
-      { status: 500 }
-    );
+  let filters = {};
+  if (description) {
+    filters = {
+      description: { $regex: description, $options: "i" },
+    };
   }
-}
-
-export async function POST(req: NextRequest, res: NextResponse) {
-  try {
-    const db = getMongoDb();
-    const body = await req.json();
-    const postedSnippetId = await db.collection('snippets').insertOne(body);
-    return NextResponse.json(postedSnippetId);
-  } catch (error) {
-    return NextResponse.json({
-      message: 'something went wrong',
-      error: error,
-    });
+  if (title) {
+    filters = {
+      ...filters,
+      title: { $regex: title, $options: "i" },
+    };
   }
+  if (tags.length > 0) {
+    filters = {
+      ...filters,
+      tags: { $in: tags },
+    };
+  }
+  const snippetsFromDatabase = await getMongoDb()
+    .collection("snippets")
+    .find(filters)
+    .toArray();
+  return NextResponse.json(snippetsFromDatabase);
 }
 
 async function init(snippets: Omit<snippetModel, "_id">[]) {
