@@ -2,7 +2,6 @@
 import useSWR from "swr";
 import styles from "./page.module.css";
 import { Tag } from "../api/tags/route";
-import Navbar from "@/app/navbar";
 
 
 export default function TagsPage() {
@@ -13,10 +12,6 @@ export default function TagsPage() {
 
     return (
         <>
-            <header>
-                {/* Navbar */}
-                <Navbar />
-            </header>
             <main className={styles.main}>
                 <div className={styles.description}>
                     <p>

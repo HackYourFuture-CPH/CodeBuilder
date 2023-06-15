@@ -1,4 +1,6 @@
+import React from "react";
 import Link from "next/link";
+import Header from "./components/shared/header/header";
 
 const Home: React.FC = () => {
   return (
@@ -11,4 +13,5 @@ const Home: React.FC = () => {
     </main>
   );
 };
+
 export default Home;
