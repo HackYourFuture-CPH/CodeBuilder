@@ -1,9 +1,9 @@
 import React from "react";
 import { SnippetFormProps, TextInputProps, Option } from "./interfaces";
-import CodeEditor from "../../CodeEditor";
+import CodeEditor from "./CodeEditor";
 import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
-import SelectTags from "../../SelectTags";
+import SelectTags from "./SelectTags";
 
 const SnippetForm = (props: SnippetFormProps) => {
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
