@@ -1,9 +1,6 @@
-const UserId: React.FC = () => {
-  return (
-    <div>
-      This component(route) we will use as the page after the user logs in Here
-      we gonna show all snippets, created by logged in user
-    </div>
-  );
+import SnippetsPropsTestCoponent from "@/app/components/SnippetsPropsTestCoponent";
+
+const SnippetsTest: React.FC = () => {
+  return <SnippetsPropsTestCoponent/>;
 };
-export default UserId;
+export default SnippetsTest;
