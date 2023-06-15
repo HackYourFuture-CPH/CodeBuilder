@@ -3,11 +3,12 @@
 const SnippetCardComponent = ({title,description, favorite, tags, code, created_at, updated_at, author_id}) => {
     return(
 <div>
-    <p>{title}</p>
+    <p>{code}</p>
+    <h1>{title}</h1>
     <p>{description}</p>
     <p>{favorite}</p>
     <p>{tags}</p>
-    <p>{code}</p>
+    
     <p>{created_at}</p>
     <p>{updated_at}</p>
     <p>{author_id}</p>
