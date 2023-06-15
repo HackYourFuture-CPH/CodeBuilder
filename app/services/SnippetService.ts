@@ -18,7 +18,7 @@ export const sendSnippet = async (url:string, { arg }: { arg: {
 
 
 
-  export const getAllSnippets = async (url:string) => {
+  export const getSnippets = async (url:string) => {
     const response = await fetch(url);
   
     if (!response.ok) throw new Error("Unable to fetch snippets.");
