@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import SnippetForm from "../../snipetForm/snippetForm";
 import { SnippetData } from "./interfaces";
+import styles from "./styles.module.css";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   //use SWR to fetch the snipet with id params.id
@@ -25,7 +26,7 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <h2>Edit Snippet</h2>
+      <h2 className={styles.title}>Edit Snippet</h2>
       <SnippetForm
         description={description}
         code={code}
@@ -36,8 +37,12 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
         selectTags={selectTags}
         setSelectTags={setSelectTags}
       />
-      <button onClick={handlePublish}>Update</button>
-      <button>Cancel</button>
+      <div className={styles.wrapperBtns}>
+        <button className={styles.cancelBtn} onClick={handlePublish}>
+          Update
+        </button>
+        <button className={styles.submitBtn}>Cancel</button>
+      </div>
     </div>
   );
 };
