@@ -1,10 +1,9 @@
-/** @format */
-import useSWR from 'swr';
-import { Tag } from '../api/tags/route';
-import { useState } from 'react';
-import TextInput from './TextInput';
-import CodeEditor from './CodeEditor';
-import SelectTags from './SelectTags';
+import useSWR from "swr";
+import { Tag } from "../api/tags/route";
+import { useState } from "react";
+import TextInput from "./TextInput";
+import CodeEditor from "./CodeEditor";
+import SelectTags from "./SelectTags";
 
 interface SnippetData {
   title: string;
@@ -16,10 +15,11 @@ interface SnippetData {
 }
 
 const CreateSnippetComponent = (): JSX.Element => {
-  const [title, setTitle] = useState<string>('');
+  const [isPublished, setIsPublished] = useState(false);
+  const [title, setTitle] = useState<string>("");
   const [selectTags, setSelectTags] = useState<string[]>([]);
-  const [description, setDescription] = useState<string>('');
-  const [code, setCode] = useState<string>('');
+  const [description, setDescription] = useState<string>("");
+  const [code, setCode] = useState<string>("");
   const currentDate = new Date();
   const updatedDate = new Date();
 
@@ -38,18 +38,23 @@ const CreateSnippetComponent = (): JSX.Element => {
       updated_at: updatedDate,
     };
 
-    fetch('/api/snippets', {
-      method: 'POST',
+    fetch("/api/snippets", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(snippetData),
     })
       .then((response) => {
         if (response.ok) {
-          return response.json();
+          // We clear all fields after publishing snippet
+          setIsPublished(true);
+          setTitle("");
+          setSelectTags([]);
+          setDescription("");
+          setCode("");
         } else {
-          throw new Error('Error publishing snippet');
+          throw new Error("Error publishing snippet");
         }
       })
       .catch((error) => {
@@ -57,7 +62,7 @@ const CreateSnippetComponent = (): JSX.Element => {
       });
   };
 
-  const { data: tags } = useSWR<Tag[]>('/api/tags', async (url) => {
+  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
     const response = await fetch(url);
     return response.json();
   });
@@ -70,7 +75,6 @@ const CreateSnippetComponent = (): JSX.Element => {
   return (
     <div>
       <h2>Create Snippet</h2>
-
       <TextInput
         label="Title"
         value={title}
@@ -78,7 +82,6 @@ const CreateSnippetComponent = (): JSX.Element => {
           setTitle(e.target.value)
         }
       />
-
       <div>
         <h4>Tags</h4>
         <SelectTags
@@ -96,15 +99,15 @@ const CreateSnippetComponent = (): JSX.Element => {
           setDescription(e.target.value)
         }
       />
-
       <CodeEditor
         code={code}
         onChange={(newCode: string) => setCode(newCode)}
         language="javascript"
       />
-
       <button onClick={handlePublish}>Publish</button>
       <button>Cancel</button>
+      {isPublished && <p>Snippet successfully added</p>}{" "}
+      {/* Display success message */}
     </div>
   );
 };
