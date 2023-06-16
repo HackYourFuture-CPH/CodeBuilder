@@ -1,11 +1,11 @@
 "use client";
 import useSWR from "swr";
 import styles from "./page.module.css";
-import { Snippet } from "../api/snippets/route";
-import CodeEditor from "../components/code-editor";
+import { snippetModel } from "../snippetModel-DB";
+import CodeEditor from "../api/components/shared/codeEditor/code-editor";
 
 export default function TagsPage() {
-    const { data: snippets } = useSWR<Snippet[]>("/api/snippets", async (url) => {
+    const { data: snippets } = useSWR<snippetModel[]>("/api/snippets", async (url) => {
         try {
             const response = await fetch(url);
             const dataSnippets = await response.json();

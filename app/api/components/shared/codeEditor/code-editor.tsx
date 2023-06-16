@@ -13,7 +13,7 @@ interface LanguageMap {
 
 const getLanguageFromTags = (tags: string[]): string => {
     // Map the tags to language identifiers
-    const languageMap: { [key: string]: string } = {
+    const languageMap: LanguageMap = {
         HTML: 'html',
         CSS: 'css',
         JAVASCRIPT: 'javascript',
