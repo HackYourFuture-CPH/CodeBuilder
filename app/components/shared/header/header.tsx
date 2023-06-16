@@ -21,12 +21,12 @@ const Header = () => {
         <li className="navbar-item">
           <a href="/explore" className="explore-btn"><IoRocket className="icon" />Explore</a>
         </li>
-        {true?// to test how it looks when the user logs in we can write {true? instead of this line. Also in line 26
+        {session?.user ?// to test how it looks when the user logs in we can write {true? instead of this line. 
         <li className="navbar-item">
           <a href="/snippets"><BiCube className="icon" />My Snippets</a>
         </li>
         : null}
-         {true?
+        {session?.user ? //also replace it here
         <li className="navbar-item">
           <a href="/snippets/create" className="create-btn">Create snippet</a>
         </li>
