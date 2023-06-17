@@ -27,7 +27,7 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
       code: code,
     };
   
-    fetch(`/api/snippets/${params.id}`, { // Corrected URL using template literal
+    fetch(`/api/snippets/${params.id}`, { 
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
         console.error(error);
       });
   };
-  
+  //old one
   /*const handlePublish = (): void => {
     const snippetData: SnippetData = {
       title: title,
