@@ -7,7 +7,7 @@ import { ObjectId } from "mongodb";
 export async function GET(
   req: NextRequest,
   res: NextResponse,
-  { params }: { params: { id: string } }
+  { params }: { params: { id: string } } //needs testing after changes
 ) {
   try {
     const snippetId = params.id;
@@ -21,4 +21,3 @@ export async function GET(
     return new NextResponse(JSON.stringify(error));
   }
 }
-
