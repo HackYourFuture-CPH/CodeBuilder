@@ -1,9 +1,10 @@
 import React from "react";
 import { SnippetFormProps, TextInputProps, Option } from "./interfaces";
-import CodeEditor from "../../CodeEditor";
 import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
-import SelectTags from "../../SelectTags";
+import SelectTags from "../SelectTags/SelectTags";
+import CodeEditor from "../../shared/CodeEditor/CodeEditor";
+import TextInput from "../../shared/TextInput/TextInput";
 
 const SnippetForm = (props: SnippetFormProps) => {
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
@@ -49,25 +50,6 @@ const SnippetForm = (props: SnippetFormProps) => {
         code={props.code}
         onChange={(newCode: string) => props.setCode(newCode)}
         language="javascript"
-      />
-    </div>
-  );
-};
-
-const TextInput = ({
-  label,
-  value,
-  onChange,
-  placeholder,
-}: TextInputProps): JSX.Element => {
-  return (
-    <div>
-      <label>{label}</label>
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
       />
     </div>
   );

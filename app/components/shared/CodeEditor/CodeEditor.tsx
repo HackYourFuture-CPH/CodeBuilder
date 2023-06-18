@@ -1,11 +1,5 @@
 import React, { ChangeEvent } from "react";
 
-interface CodeEditorProps {
-  code: string;
-  onChange: (newCode: string) => void;
-  language: string;
-}
-
 const CodeEditor = ({
   code,
   onChange,

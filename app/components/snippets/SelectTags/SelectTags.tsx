@@ -1,19 +1,7 @@
 /** @format */
-import React, { ChangeEvent, useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
-
-type Option = {
-  label: string;
-  value: string | any;
-};
-
-interface SelectTagProps {
-  placeholder?: string;
-  options: Option[];
-  value: Option[] | any;
-  isMulti: boolean;
-  onChange: (value: Option[] | null | any) => void;
-}
+import { SelectTagProps } from './interfaces';
 
 export default function SelectTags(props: SelectTagProps): JSX.Element {
   return (
