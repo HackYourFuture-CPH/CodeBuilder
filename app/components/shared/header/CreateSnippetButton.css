@@ -1,0 +1,28 @@
+.button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 12px;
+    width: 163px;
+    height: 47px;
+    background: #104D85;
+    border-radius: 8px;
+    flex: none;
+    order: 3;
+    flex-grow: 0;
+  }
+  
+  .text {
+    width: 131px;
+    height: 23px;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #FFFFFF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
