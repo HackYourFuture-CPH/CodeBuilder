@@ -1,6 +1,6 @@
 "use client";
 import useSWR from 'swr'
-import { getAllSnippets } from '../../service/SnippetService';
+import getA
 import { snippetModel } from '../snippetModel-DB';
 const UserId: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>('/api/snippets', getAllSnippets);
