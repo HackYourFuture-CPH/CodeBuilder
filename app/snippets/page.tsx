@@ -1,6 +1,6 @@
-import SnippetsPropsTestCoponent from "@/app/components/SnippetsPropsTestCoponent";
+import SnippetGallery from "../SnippetsGallery";
 
 const SnippetsTest: React.FC = () => {
-  return <SnippetsPropsTestCoponent/>;
+  return <SnippetGallery />;
 };
 export default SnippetsTest;
