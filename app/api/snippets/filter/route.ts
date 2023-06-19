@@ -1,49 +1,41 @@
-// task1 - list of all snippets
-
-/* this is how I started, to check that it works:
-import { NextResponse } from "next/server";
-export async function GET(req: Request): Promise<NextResponse> {
-  return NextResponse.json({ name: 'API route for all Snippets List' });
-}
-*/
-
-//Then I used route.ts file from tags folder as a reference
-
-import { getMongoDb } from "@/app/mongodb";
 import { snippetModel } from "@/app/snippetModel-DB";
+import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: Request): Promise<NextResponse> {
-  try {
-    await init(snippets);
+export async function GET(req: NextRequest): Promise<NextResponse> {
+  await init(snippets);
 
-    const snippetsFromDatabase = await getMongoDb()
-      .collection("snippets")
-      .find({})
-      .toArray();
+  const description = req.nextUrl.searchParams.get("description") || "";
+  console.log(description);
+  const tags =
+    !!req.nextUrl.searchParams.get("tags") || ""
+      ? (req.nextUrl.searchParams.get("tags") || "").split(",")
+      : [];
+  const title = req.nextUrl.searchParams.get("title") || "";
 
-    return NextResponse.json(snippetsFromDatabase);
-  } catch (error) {
-    console.error("Error retrieving snippets from the database:", error);
-    return new NextResponse(
-      JSON.stringify({ error: "An error occurred while retrieving snippets" }),
-      { status: 500 }
-    );
+  let filters = {};
+  if (description) {
+    filters = {
+      description: { $regex: description, $options: "i" },
+    };
   }
-}
-
-export async function POST(req: NextRequest, res: NextResponse) {
-  try {
-    const db = getMongoDb();
-    const body = await req.json();
-    const postedSnippetId = await db.collection("snippets").insertOne(body);
-    return NextResponse.json(postedSnippetId);
-  } catch (error) {
-    return NextResponse.json({
-      message: "something went wrong",
-      error: error,
-    });
+  if (title) {
+    filters = {
+      ...filters,
+      title: { $regex: title, $options: "i" },
+    };
   }
+  if (tags.length > 0) {
+    filters = {
+      ...filters,
+      tags: { $in: tags },
+    };
+  }
+  const snippetsFromDatabase = await getMongoDb()
+    .collection("snippets")
+    .find(filters)
+    .toArray();
+  return NextResponse.json(snippetsFromDatabase);
 }
 
 async function init(snippets: Omit<snippetModel, "_id">[]) {
@@ -57,56 +49,6 @@ async function init(snippets: Omit<snippetModel, "_id">[]) {
 
 // This data can be used to pre-seed the database.
 const snippets: Omit<snippetModel, "_id">[] = [
-  {
-    title: "Snippet1",
-    description: "Snippet1 description",
-    favoriteByIds: [],
-    tags: [],
-    snippetCode: "Snippet1 code",
-    createdAt: new Date("2023-06-02 18:17:35"),
-    updatedAt: new Date("2023-06-02 18:19:35"),
-    authorId: "Snippet1 author",
-  },
-  {
-    title: "Snippet2",
-    description: "Snippet2 description",
-    favoriteByIds: [],
-    tags: [],
-    snippetCode: "Snippet2 code",
-    createdAt: new Date("2023-06-02 18:17:35"),
-    updatedAt: new Date("2023-06-02 18:19:35"),
-    authorId: "Snippet2 author",
-  },
-  {
-    title: "Snippet3",
-    description: "Snippet3 description",
-    favoriteByIds: [],
-    tags: [],
-    snippetCode: "Snippet3 code",
-    createdAt: new Date("2023-06-02 18:17:35"),
-    updatedAt: new Date("2023-06-02 18:19:35"),
-    authorId: "Snippet3 author",
-  },
-  {
-    title: "Snippet4",
-    description: "Snippet4 description",
-    favoriteByIds: [],
-    tags: [],
-    snippetCode: "Snippet4 code",
-    createdAt: new Date("2023-06-02 18:17:35"),
-    updatedAt: new Date("2023-06-02 18:19:35"),
-    authorId: "Snippet4 author",
-  },
-  {
-    title: "Snippet5",
-    description: "Snippet5 description",
-    favoriteByIds: [],
-    tags: [],
-    snippetCode: "Snippet5 code",
-    createdAt: new Date("2023-06-02 18:17:35"),
-    updatedAt: new Date("2023-06-02 18:19:35"),
-    authorId: "Snippet5 author",
-  },
   {
     title: "HTML Lists",
     description: "Creating ordered lists in HTML",
