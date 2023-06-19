@@ -31,7 +31,7 @@
   gap: 28px;
 }
 
-.label {
+.inputWrapper {
   display: flex;
   flex-direction: column;
 }
@@ -40,6 +40,7 @@
 .textarea {
   width: 310px;
   padding: 16px;
+  border: none;
   border-radius: 8px;
   transition: 0.5s;
   transition: 0.5s;
@@ -53,7 +54,8 @@
   }
 }
 
-.input:focus {
+.input:focus,
+.input:hover {
   border: 2px solid #c3d9ed;
 }
 
@@ -77,63 +79,4 @@
   line-height: 23px;
   color: #042d54;
   margin-bottom: 8px;
-}
-
-.wrapperBtns {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-}
-@media screen and (min-width: 768px) {
-  .wrapperBtns {
-    flex-direction: row;
-    gap: 20px;
-  }
-}
-
-.cancelBtn {
-  background-color: #ffffff;
-  font-family: Arial;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
-  padding: 12px 123px;
-  border-radius: 8px;
-  color: #104d85;
-}
-@media screen and (min-width: 768px) {
-  .cancelBtn {
-    padding: 12px 16px;
-  }
-}
-
-.cancelBtn:hover,
-.cancelBtn:focus {
-  background-color: #e3ecf3;
-}
-
-.submitBtn {
-  background-color: #104d85;
-  font-family: Arial;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 23px;
-  padding: 12px 123px;
-  border-radius: 8px;
-  color: #ffffff;
-}
-@media screen and (min-width: 768px) {
-  .submitBtn {
-    padding: 12px 16px;
-  }
-}
-
-.submitBtn:hover,
-.submitBtn:focus {
-  background-color: #042d54;
 }
