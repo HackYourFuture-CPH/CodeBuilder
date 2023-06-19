@@ -4,7 +4,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faHeart);
 import Link from "next/link";
-import CodeEditor from "../api/components/shared/codeEditor/code-editor";
+import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
 
 const SnippetCardComponent = ({
