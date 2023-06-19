@@ -25,8 +25,9 @@ const SnippetsId: React.FC<Props> = ({ params: { id } }) => {
           <h1>{snippets.title}</h1>
           <p>{snippets.description}</p>
           <p>{snippets.snippetCode}</p>
-          <p>{snippets.createdAt}</p>
-          <p>{snippets.updatedAt}</p>
+          {/* some problem with date */}
+          {/* <p>{snippets.createdAt}</p>
+          <p>{snippets.updatedAt}</p> */}
           <p>{snippets.authorId}</p>
           <Link href={`/snippets/${id}/edit`}>
             <button>Edit</button>
