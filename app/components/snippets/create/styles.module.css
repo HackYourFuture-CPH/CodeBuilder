@@ -1,5 +1,11 @@
 .container {
   padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: var(--additional-color-3);
 }
 @media screen and (min-width: 768px) {
   .container {
@@ -14,7 +20,7 @@
   font-size: 40px;
   line-height: 47px;
   text-align: center;
-  color: #042d54;
+  color: var(--main-color);
   margin-bottom: 48px;
 }
 @media screen and (min-width: 768px) {
@@ -30,7 +36,6 @@
   flex-direction: column;
   gap: 28px;
 }
-
 
 .wrapperBtns {
   display: flex;
@@ -55,8 +60,9 @@
   font-size: 20px;
   line-height: 23px;
   padding: 12px 123px;
+  border: none;
   border-radius: 8px;
-  color: #104d85;
+  color: var(--additional-color-1);
 }
 @media screen and (min-width: 768px) {
   .cancelBtn {
@@ -70,13 +76,14 @@
 }
 
 .submitBtn {
-  background-color: #104d85;
+  background-color: var(--additional-color-1);
   font-family: Arial;
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
   line-height: 23px;
   padding: 12px 123px;
+  border: none;
   border-radius: 8px;
   color: #ffffff;
 }
@@ -88,5 +95,5 @@
 
 .submitBtn:hover,
 .submitBtn:focus {
-  background-color: #042d54;
+  background-color: var(--main-color);
 }

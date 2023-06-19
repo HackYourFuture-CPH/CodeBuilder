@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import SnippetForm from "../snipetForm/snippetForm";
 import { SnippetData } from "./interfaces";
+import styles from "./styles.module.css";
 
 const CreateSnippet = () => {
   const [title, setTitle] = useState<string>("");
@@ -40,20 +41,26 @@ const CreateSnippet = () => {
   };
 
   return (
-    <div>
-      <h2>Create Snippet</h2>
-      <SnippetForm
-        description={description}
-        code={code}
-        title={title}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setCode={setCode}
-        selectTags={selectTags}
-        setSelectTags={setSelectTags}
-      />
-      <button onClick={handlePublish}>Publish</button>
-      <button>Cancel</button>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Create Snippet</h2>
+      <div className={styles.form}>
+        <SnippetForm
+          description={description}
+          code={code}
+          title={title}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setCode={setCode}
+          selectTags={selectTags}
+          setSelectTags={setSelectTags}
+        />
+        <div className={styles.wrapperBtns}>
+          <button className={styles.cancelBtn}>Cancel</button>
+          <button className={styles.submitBtn} onClick={handlePublish}>
+            Publish
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
