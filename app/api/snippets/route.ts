@@ -10,6 +10,7 @@ export async function GET(req: Request): Promise<NextResponse> {
 //Then I used route.ts file from tags folder as a reference
 
 import { getMongoDb } from "@/app/mongodb";
+import { snippetModel } from "@/app/snippetModel-DB";
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 
