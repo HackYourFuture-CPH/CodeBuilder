@@ -1,3 +1,12 @@
+.container {
+  padding: 60px 40px;
+}
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 120px 80px;
+  }
+}
+
 .title {
   font-family: "Roboto";
   font-style: normal;
@@ -14,6 +23,12 @@
     line-height: 66px;
     margin-bottom: 68px;
   }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
 .wrapperBtns {
@@ -39,6 +54,7 @@
   font-size: 20px;
   line-height: 23px;
   padding: 12px 123px;
+  border: none;
   border-radius: 8px;
   color: #104d85;
 }
@@ -61,6 +77,7 @@
   font-size: 20px;
   line-height: 23px;
   padding: 12px 123px;
+  border: none;
   border-radius: 8px;
   color: #ffffff;
 }

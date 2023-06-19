@@ -25,23 +25,25 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2 className={styles.title}>Edit Snippet</h2>
-      <SnippetForm
-        description={description}
-        code={code}
-        title={title}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setCode={setCode}
-        selectTags={selectTags}
-        setSelectTags={setSelectTags}
-      />
-      <div className={styles.wrapperBtns}>
-        <button className={styles.cancelBtn} onClick={handlePublish}>
-          Update
-        </button>
-        <button className={styles.submitBtn}>Cancel</button>
+      <div className={styles.form}>
+        <SnippetForm
+          description={description}
+          code={code}
+          title={title}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setCode={setCode}
+          selectTags={selectTags}
+          setSelectTags={setSelectTags}
+        />
+        <div className={styles.wrapperBtns}>
+          <button className={styles.submitBtn}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={handlePublish}>
+            Update
+          </button>
+        </div>
       </div>
     </div>
   );
