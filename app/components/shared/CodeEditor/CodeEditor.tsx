@@ -1,4 +1,5 @@
 import React, { ChangeEvent } from "react";
+import { CodeEditorProps } from "./interfaces";
 
 const CodeEditor = ({
   code,
