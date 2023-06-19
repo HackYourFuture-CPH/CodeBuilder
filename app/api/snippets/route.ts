@@ -10,22 +10,8 @@ export async function GET(req: Request): Promise<NextResponse> {
 //Then I used route.ts file from tags folder as a reference
 
 import { getMongoDb } from "@/app/mongodb";
-import { NextResponse } from "next/server";
-import { ObjectId } from "mongodb";
 import { snippetModel } from "@/app/snippetModel-DB";
 import { NextRequest, NextResponse } from "next/server";
-
-export interface Snippet {
-  _id: ObjectId;
-  title: string;
-  description: string;
-  favoritedBy: string[];
-  tags: string[];
-  code: string;
-  created_at: Date;
-  updated_at: Date;
-  author_id: string;
-
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
@@ -50,11 +36,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const db = getMongoDb();
     const body = await req.json();
-    const postedSnippetId = await db.collection('snippets').insertOne(body);
+    const postedSnippetId = await db.collection("snippets").insertOne(body);
     return NextResponse.json(postedSnippetId);
   } catch (error) {
     return NextResponse.json({
-      message: 'something went wrong',
+      message: "something went wrong",
       error: error,
     });
   }
@@ -74,52 +60,52 @@ const snippets: Omit<snippetModel, "_id">[] = [
   {
     title: "Snippet1",
     description: "Snippet1 description",
-    favoritedBy: [],
+    favoriteByIds: [],
     tags: [],
-    code: "Snippet1 code",
-    created_at: new Date("2023-06-02 18:17:35"),
-    updated_at: new Date("2023-06-02 18:19:35"),
-    author_id: "Snippet1 author",
+    snippetCode: "Snippet1 code",
+    createdAt: new Date("2023-06-02 18:17:35"),
+    updatedAt: new Date("2023-06-02 18:19:35"),
+    authorId: "Snippet1 author",
   },
   {
     title: "Snippet2",
     description: "Snippet2 description",
-    favoritedBy: [],
+    favoriteByIds: [],
     tags: [],
-    code: "Snippet2 code",
-    created_at: new Date("2023-06-02 18:17:35"),
-    updated_at: new Date("2023-06-02 18:19:35"),
-    author_id: "Snippet2 author",
+    snippetCode: "Snippet2 code",
+    createdAt: new Date("2023-06-02 18:17:35"),
+    updatedAt: new Date("2023-06-02 18:19:35"),
+    authorId: "Snippet2 author",
   },
   {
     title: "Snippet3",
     description: "Snippet3 description",
-    favoritedBy: [],
+    favoriteByIds: [],
     tags: [],
-    code: "Snippet3 code",
-    created_at: new Date("2023-06-02 18:17:35"),
-    updated_at: new Date("2023-06-02 18:19:35"),
-    author_id: "Snippet3 author",
+    snippetCode: "Snippet3 code",
+    createdAt: new Date("2023-06-02 18:17:35"),
+    updatedAt: new Date("2023-06-02 18:19:35"),
+    authorId: "Snippet3 author",
   },
   {
     title: "Snippet4",
     description: "Snippet4 description",
-    favoritedBy: [],
+    favoriteByIds: [],
     tags: [],
-    code: "Snippet4 code",
-    created_at: new Date("2023-06-02 18:17:35"),
-    updated_at: new Date("2023-06-02 18:19:35"),
-    author_id: "Snippet4 author",
+    snippetCode: "Snippet4 code",
+    createdAt: new Date("2023-06-02 18:17:35"),
+    updatedAt: new Date("2023-06-02 18:19:35"),
+    authorId: "Snippet4 author",
   },
   {
     title: "Snippet5",
     description: "Snippet5 description",
-    favoritedBy: [],
+    favoriteByIds: [],
     tags: [],
-    code: "Snippet5 code",
-    created_at: new Date("2023-06-02 18:17:35"),
-    updated_at: new Date("2023-06-02 18:19:35"),
-    author_id: "Snippet5 author",
+    snippetCode: "Snippet5 code",
+    createdAt: new Date("2023-06-02 18:17:35"),
+    updatedAt: new Date("2023-06-02 18:19:35"),
+    authorId: "Snippet5 author",
   },
   {
     title: "HTML Lists",
