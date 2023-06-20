@@ -1,5 +1,5 @@
 /** @format */
-
+/*code from main after merge
 import { getMongoDb } from "@/app/mongodb";
 import { snippetModel } from "@/app/snippetModel-DB";
 import { NextRequest, NextResponse } from "next/server";
@@ -202,7 +202,7 @@ const snippets: Omit<snippetModel, "_id">[] = [
     updatedAt: new Date("2023-08-08T22:02:00.000Z"),
     authorId: "randomuser1",
   },
-];
+]; */
 // task1 - list of all snippets
 
 /* this is how I started, to check that it works:
