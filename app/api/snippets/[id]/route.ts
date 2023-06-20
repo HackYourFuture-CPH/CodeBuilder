@@ -5,7 +5,6 @@ import { ObjectId } from "mongodb";
 // get one snippet by id
 export async function GET(
   req: NextRequest,
-  res: NextResponse,
   { params }: { params: { id: string } } //needs testing after changes
 ) {
   try {
@@ -29,8 +28,7 @@ export async function PUT(
     params,
   }: {
     params: { id: string };
-  },
-  res: NextResponse
+  }
 ) {
   try {
     const snippetId = params.id;
@@ -53,7 +51,6 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  res: NextResponse;
   try {
     const snippetId = params.id;
     const db = getMongoDb();
