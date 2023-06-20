@@ -6,7 +6,7 @@ import Navbar from "../navbar";
 
 type favoriteSnippet = snippetModel & { favorite: boolean };
 
-const SnippetGallery = () => {
+const SnippetGalleryComponent = () => {
   const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
 
   useEffect(() => {
@@ -95,4 +95,4 @@ const SnippetGallery = () => {
   );
 };
 
-export default SnippetGallery;
+export default SnippetGalleryComponent;
