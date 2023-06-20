@@ -2,6 +2,7 @@
 import useSWR from "swr";
 import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
+import Link from "next/link";
 
 const UserId: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
@@ -19,9 +20,11 @@ const UserId: React.FC = () => {
         {snippets ? (
           snippets.map((snippet) => (
             <li key={snippet._id}>
-              <h2>{snippet.title}</h2>
-              <p>{snippet._id}</p>
-              <p>{snippet.snippetCode}</p>
+              <Link href={`/snippets/${snippet._id}`}>
+                <h2>{snippet.title}</h2>
+                <p>{snippet._id}</p>
+                <p>{snippet.snippetCode}</p>
+              </Link>
             </li>
           ))
         ) : (

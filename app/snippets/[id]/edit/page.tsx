@@ -1,6 +1,7 @@
 "use client";
 import { mutate } from "swr";
 import { updateSnippet } from "@/app/services/SnippetService";
+import { useRouter } from "next/navigation";
 
 type Props = {
   params: {
@@ -9,8 +10,9 @@ type Props = {
 };
 
 const EditSnippet: React.FC<Props> = ({ params: { id } }) => {
+  const router = useRouter();
   const newTitle = {
-    title: "NEWTEST",
+    title: "TEST",
   };
 
   const handleClick = async () => {
@@ -20,6 +22,8 @@ const EditSnippet: React.FC<Props> = ({ params: { id } }) => {
       optimisticData: (snippet: any) => ({ ...snippet, title: newTitle }),
       rollbackOnError: true,
     });
+
+    router.push(`/snippets/${id}`);
   };
 
   return (
