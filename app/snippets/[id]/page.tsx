@@ -16,27 +16,6 @@ const SnippetsId: React.FC<Props> = ({ params: { id } }) => {
     getSnippets
   );
 
-  console.log(snippets);
-  return (
-    <>
-      <div>Here we have snippets by id</div>
-      {snippets ? (
-        <div>
-          <h1>{snippets.title}</h1>
-          <p>{snippets.description}</p>
-          <p>{snippets.snippetCode}</p>
-          {/* some problem with date */}
-          {/* <p>{snippets.createdAt}</p>
-          <p>{snippets.updatedAt}</p> */}
-          <p>{snippets.authorId}</p>
-          <Link href={`/snippets/${id}/edit`}>
-            <button>Edit</button>
-          </Link>
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </>
-  );
+  return <div>Here we have snippets by id</div>;
 };
 export default SnippetsId;
