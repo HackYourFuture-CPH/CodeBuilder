@@ -6,10 +6,10 @@ library.add(faHeart);
 import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const SnippetCardComponent = ({
   snippet,
-  _id,
   title,
   description,
   tags,
@@ -33,7 +33,7 @@ const SnippetCardComponent = ({
             top: "10px",
             right: "10px",
           }}
-          onClick={() => markAsFavorite(_id)}
+          onClick={() => markAsFavorite(snippet._id)}
         >
           {snippet.favorite ? (
             <FontAwesomeIcon
@@ -62,7 +62,7 @@ const SnippetCardComponent = ({
           left: "10px",
         }}
       >
-        <img src="" alt="user profile pic" />
+        <Image src="" alt="user profile pic" />
         <p
           style={{
             margin: "0",
