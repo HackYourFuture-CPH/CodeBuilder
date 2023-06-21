@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { getSnippets, updateSnippet } from "../../services/SnippetService";
 import { snippetModel } from "../../snippetModel-DB";
@@ -12,29 +12,28 @@ interface RouteParams {
 }
 
 const SnippetDetails: React.FC = () => {
-  const params = useParams<RouteParams>();
-  const { id } = params;
-  console.log(id);
+  const searchParams = useSearchParams();
+  const fetchedId = searchParams?.get("fetchedId");
 
   const { data: snippet } = useSWR<snippetModel>(
-    `/api/snippets/${id}`,
+    `/api/snippets/${fetchedId}`,
     getSnippets
   );
 
   console.log(snippet);
 
-  const addToFavorite = (authorId: string) => {
-    snippet?.favoriteByIds.push(authorId);
-    const updatedSnippet = {
-      ...snippet,
-    };
+  // const addToFavorite = (authorId: string) => {
+  //   snippet?.favoriteByIds.push(authorId);
+  //   const updatedSnippet = {
+  //     ...snippet,
+  //   };
 
-    if (snippet?.favoriteByIds.includes(authorId)) {
-      return console.log("it already include");
-    }
-    updateSnippet(`/api/snippet/${id}`, id, updatedSnippet);
-    console.log("done ");
-  };
+  //   if (snippet?.favoriteByIds.includes(authorId)) {
+  //     return console.log("it already include");
+  //   }
+  //   updateSnippet(`/api/snippet/${id}`, id, updatedSnippet);
+  //   console.log("done ");
+  // };
 
   const normalizeDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -62,12 +61,12 @@ const SnippetDetails: React.FC = () => {
             <div>
               <div>
                 {" "}
-                <Link href={`/snippet/${id}/edit`}>
+                <Link href={`/snippet/${fetchedId}/edit`}>
                   <button type="button">Edit</button>
                 </Link>
                 <button
                   type="button"
-                  onClick={() => addToFavorite(snippet.authorId)}
+                  // onClick={() => addToFavorite(snippet.authorId)}
                 >
                   ❤️
                   {/* here will be heart icon */}
@@ -81,7 +80,7 @@ const SnippetDetails: React.FC = () => {
           </div>
           <CodeEditor
             initialValue={snippet.snippetCode}
-            readOnly="true"
+            readOnly={true}
             tags={snippet.tags}
           />
         </div>

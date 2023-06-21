@@ -16,9 +16,7 @@ const SnippetGallery = () => {
   useEffect(() => {
     const fetchSnippets = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3000/api/snippets"
-        );
+        const response = await fetch("http://localhost:3000/api/snippets");
         const snippets = await response.json();
         setSnippets(snippets);
       } catch (error) {
@@ -98,9 +96,11 @@ const SnippetGallery = () => {
               )}
             </button>
 
-            <div style={{
-              height: "573px"
-            }}>
+            <div
+              style={{
+                height: "573px",
+              }}
+            >
               snippet card
               {/* <SnippetCard snippet={snippet} /> */}
             </div>
@@ -115,10 +115,13 @@ const SnippetGallery = () => {
               }}
             >
               <img src="" alt="user profile pic" />
-              <p 
-              style={{
-                margin: "0"
-              }}>by {snippet.authorId} {formatDate(new Date(snippet.createdAt))} </p>
+              <p
+                style={{
+                  margin: "0",
+                }}
+              >
+                by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}{" "}
+              </p>
             </div>
 
             <Link
@@ -128,7 +131,10 @@ const SnippetGallery = () => {
                 bottom: "10px",
                 right: "10px",
               }}
-              href="/learn-more"
+              href={{
+                pathname: `/snippets/${snippet._id}`,
+                query: { fetchedId: snippet._id },
+              }}
             >
               Learn more..
             </Link>

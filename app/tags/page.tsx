@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
 import Navbar from "@/app/navbar";
+import SnippetGallery from "../components/SnippetsGalleryComponent";
 
 export default function TagsPage() {
   const { data: snippets } = useSWR<snippetModel[]>(
@@ -25,8 +26,8 @@ export default function TagsPage() {
         {/* Navbar */}
         <Navbar />
       </header>
-
-      <main className={styles.main}>
+      <SnippetGallery />
+      {/* <main className={styles.main}>
         {snippets?.map((snippet) => (
           <div
             key={snippet._id}
@@ -51,7 +52,7 @@ export default function TagsPage() {
             </div>
           </div>
         ))}
-      </main>
+      </main> */}
     </>
   );
 }
