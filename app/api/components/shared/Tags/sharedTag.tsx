@@ -7,9 +7,11 @@ interface TagProps {
   onClick?: () => void;
 }
 
-export const Tag: React.FC<TagProps> = ({ text, color = "skyblue", onClick }) => {
+export const Tag: React.FC<TagProps> = ({ text, color, onClick }) => {
+  const tagStyles = color ? { backgroundColor: color } : {};
+
   return (
-    <div className="tag" style={{ backgroundColor: color }} onClick={onClick}>
+    <div className="tag" style={tagStyles} onClick={onClick}>
       {text}
     </div>
   );
