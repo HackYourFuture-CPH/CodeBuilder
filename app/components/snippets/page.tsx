@@ -17,7 +17,7 @@ const UserId: React.FC = () => {
       const snippets: snippetModel[] = await response.json();
       return snippets;
     } catch (error) {
-      console.error('Error fetching snippets:', error);
+      console.error('Error fetching snippets:', error); 
       throw error;
     }
   };
