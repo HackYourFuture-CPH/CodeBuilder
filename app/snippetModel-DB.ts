@@ -6,8 +6,7 @@ export interface snippetModel {
   tags: string[];
   snippetCode: string;
   createdAt: Date;
-  // updatedAt: Date;  ????
-  updatedAt: string;
+  updatedAt: Date;
   authorId: string;
 }
 

@@ -132,7 +132,7 @@ const SnippetGallery = () => {
                 right: "10px",
               }}
               href={{
-                pathname: `/snippets/${snippet._id}`,
+                pathname: `/snippet`,
                 query: { fetchedId: snippet._id },
               }}
             >
