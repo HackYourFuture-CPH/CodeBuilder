@@ -2,9 +2,9 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
-import { getSnippets, updateSnippet } from "../../services/SnippetService";
-import { snippetModel } from "../../snippetModel-DB";
-import CodeEditor from "../../components/shared/codeEditor/code-editor";
+import { getSnippets, updateSnippet } from "../services/SnippetService";
+import { snippetModel } from "../snippetModel-DB";
+import CodeEditor from "../components/shared/codeEditor/code-editor";
 import UserIcon from "@/app/icons/user";
 
 interface RouteParams {
@@ -35,7 +35,7 @@ const SnippetDetails: React.FC = () => {
   //   console.log("done ");
   // };
 
-  const normalizeDate = (dateString: string) => {
+  const normalizeDate = (dateString: Date) => {
     const date = new Date(dateString);
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "short" });
@@ -74,7 +74,7 @@ const SnippetDetails: React.FC = () => {
               </div>
               <UserIcon />
               <p>
-                {snippet.authorId} {normalizeDate(snippet.updatedAt)}
+                {snippet.authorId} {normalizeDate(new Date(snippet.updatedAt))}
               </p>
             </div>
           </div>
