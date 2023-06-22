@@ -22,34 +22,38 @@ const SnippetCardComponent = ({
 
   return (
     <div>
-      <CodeEditor initialValue={snippetCode} readOnly={true} tags={tags} />
-      {session && (
-        <button
-          className="favorite-button"
-          style={{
-            border: "none",
-            background: "transparent",
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-          }}
-          onClick={() => markAsFavorite(snippet._id)}
-        >
-          {snippet.favorite ? (
-            <FontAwesomeIcon
-              icon={faHeart}
-              style={{ color: "#ff0000" }}
-              size="2xl"
-            />
-          ) : (
-            <FontAwesomeIcon
-              icon={faHeart}
-              style={{ color: "#000000" }}
-              size="2xl"
-            />
-          )}
-        </button>
-      )}
+      <Link href={`/snippets/${snippet._id}`}>
+        <CodeEditor initialValue={snippetCode} readOnly={true} tags={tags} />
+
+        {session && (
+          <button
+            className="favorite-button"
+            style={{
+              border: "none",
+              background: "transparent",
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+            }}
+            onClick={() => markAsFavorite(snippet._id)}
+          >
+            {snippet.favorite ? (
+              <FontAwesomeIcon
+                icon={faHeart}
+                style={{ color: "#ff0000" }}
+                size="2xl"
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon={faHeart}
+                style={{ color: "#000000" }}
+                size="2xl"
+              />
+            )}
+          </button>
+        )}
+      </Link>
+
       <h1>{title}</h1>
       <p>{description}</p>
       <p>{tags}</p>
