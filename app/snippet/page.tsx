@@ -3,9 +3,12 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { getSnippets, updateSnippet } from "../services/SnippetService";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
 import UserIcon from "@/app/icons/user";
+import { useState } from "react";
 
 interface RouteParams {
   id: string;
@@ -13,27 +16,52 @@ interface RouteParams {
 
 const SnippetDetails: React.FC = () => {
   const searchParams = useSearchParams();
-  const fetchedId = searchParams?.get("fetchedId");
-
-  const { data: snippet } = useSWR<snippetModel>(
-    `/api/snippets/${fetchedId}`,
+  const [trigger, setTrigger] = useState("true");
+  const snippetId = searchParams?.get("fetchedId");
+  console.log(snippetId);
+  const { data: snippet, mutate } = useSWR<snippetModel>(
+    `/api/snippets/${snippetId}`,
     getSnippets
   );
-
-  console.log(snippet);
-
-  // const addToFavorite = (authorId: string) => {
-  //   snippet?.favoriteByIds.push(authorId);
-  //   const updatedSnippet = {
-  //     ...snippet,
-  //   };
-
-  //   if (snippet?.favoriteByIds.includes(authorId)) {
-  //     return console.log("it already include");
-  //   }
-  //   updateSnippet(`/api/snippet/${id}`, id, updatedSnippet);
-  //   console.log("done ");
+  const { data: session } = useSession();
+  console.log(session);
+  const userId = session?.user?.email?.toString();
+  // const addToFavorite = async () => {
+  //   await fetch(`/api/snippets/${snippetId}`, {
+  //     method: "PUT",
+  //     credentials: "include",
+  //   });
+  //   mutate();
   // };
+
+  const addToFavorite = (idSnippet: string) => {
+    const users: string[] = [...snippet?.favoriteByIds];
+    console.log(users);
+    if (!snippet?.favoriteByIds.includes(userId)) {
+      const updateFavorites: string[] = [...users, userId];
+      console.log(updateFavorites);
+      updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
+        favoriteByIds: updateFavorites,
+      });
+      setTrigger("false");
+      console.log("was added");
+    }
+    if (snippet?.favoriteByIds.includes(userId)) {
+      const index = users.indexOf(userId);
+      const updateFavorites = users.splice(index, 1);
+      updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
+        favoriteByIds: updateFavorites,
+      });
+      setTrigger("true");
+      console.log("was removed");
+    }
+    // if (snippet?.favoriteByIds.includes(authorId)) {
+    //   updatedSnippet?.favoriteByIds.push(authorId);
+    //   return console.log("it already include");
+    // }
+
+    console.log("done ");
+  };
 
   const normalizeDate = (dateString: Date) => {
     const date = new Date(dateString);
@@ -61,13 +89,10 @@ const SnippetDetails: React.FC = () => {
             <div>
               <div>
                 {" "}
-                <Link href={`/snippet/${fetchedId}/edit`}>
+                <Link href={`/snippet/${snippetId}/edit`}>
                   <button type="button">Edit</button>
                 </Link>
-                <button
-                  type="button"
-                  // onClick={() => addToFavorite(snippet.authorId)}
-                >
+                <button type="button" onClick={() => addToFavorite(snippetId)}>
                   ❤️
                   {/* here will be heart icon */}
                 </button>
