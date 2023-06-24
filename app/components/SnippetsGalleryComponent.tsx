@@ -8,6 +8,7 @@ type favoriteSnippet = snippetModel & { favorite: boolean };
 
 const SnippetGalleryComponent = () => {
   const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
+  const [changes, setChanges] = useState(false);
 
   useEffect(() => {
     const fetchSnippets = async () => {
@@ -21,18 +22,7 @@ const SnippetGalleryComponent = () => {
     };
 
     fetchSnippets();
-  }, []);
-
-  const markAsFavorite = (snippetId: string) => {
-    const updatedSnippets = snippets.map((snippet) => {
-      if (snippet._id === snippetId) {
-        return { ...snippet, favorite: !snippet.favorite };
-      }
-      return snippet;
-    });
-
-    setSnippets(updatedSnippets);
-  };
+  }, [changes]);
 
   const formatDate = (date: Date) => {
     const day = date.getDate();
@@ -83,8 +73,9 @@ const SnippetGalleryComponent = () => {
                   description={snippet.description}
                   tags={snippet.tags}
                   snippetCode={snippet.snippetCode}
-                  markAsFavorite={markAsFavorite}
                   formatDate={formatDate}
+                  changes={changes}
+                  setChanges={setChanges}
                 />
               </div>
             </li>

@@ -14,45 +14,66 @@ const SnippetCardComponent = ({
   description,
   tags,
   snippetCode,
-  markAsFavorite,
   formatDate,
+  changes,
+  setChanges,
 }: any) => {
   const { data: session } = useSession();
-  console.log(session);
+  const userId = session?.user?.email;
+
+  const handleFavoriteButton = async () => {
+    await fetch(`/api/snippets/${snippet._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ addToFavorite: userId }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Error publishing snippet");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    await setChanges(!changes);
+  };
 
   return (
     <div>
       <Link href={`/snippets/${snippet._id}`}>
         <CodeEditor initialValue={snippetCode} readOnly={true} tags={tags} />
-
-        {session && (
-          <button
-            className="favorite-button"
-            style={{
-              border: "none",
-              background: "transparent",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
-            onClick={() => markAsFavorite(snippet._id)}
-          >
-            {snippet.favorite ? (
-              <FontAwesomeIcon
-                icon={faHeart}
-                style={{ color: "#ff0000" }}
-                size="2xl"
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faHeart}
-                style={{ color: "#000000" }}
-                size="2xl"
-              />
-            )}
-          </button>
-        )}
       </Link>
+      {session && (
+        <button
+          className="favorite-button"
+          style={{
+            border: "none",
+            background: "transparent",
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+          }}
+          onClick={() => handleFavoriteButton()}
+        >
+          {snippet.favoriteByIds.includes(userId) ? (
+            <FontAwesomeIcon
+              icon={faHeart}
+              style={{ color: "#ff0000" }}
+              size="2xl"
+            />
+          ) : (
+            <FontAwesomeIcon
+              icon={faHeart}
+              style={{ color: "#000000" }}
+              size="2xl"
+            />
+          )}
+        </button>
+      )}
 
       <h1>{title}</h1>
       <p>{description}</p>
@@ -66,7 +87,7 @@ const SnippetCardComponent = ({
           left: "10px",
         }}
       >
-        <Image src="" alt="user profile pic" />
+        {/* <Image src="" alt="user profile pic" /> */}
         <p
           style={{
             margin: "0",

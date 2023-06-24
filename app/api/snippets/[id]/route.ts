@@ -1,11 +1,11 @@
 import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
 
 // get one snippet by id
 export async function GET(
   req: NextRequest,
-  res: NextResponse,
   { params }: { params: { id: string } } //needs testing after changes
 ) {
   try {
@@ -21,7 +21,6 @@ export async function GET(
     return new NextResponse(JSON.stringify(error));
   }
 }
-
 // Update the snippet by ID
 export async function PUT(
   req: NextRequest,
@@ -29,17 +28,49 @@ export async function PUT(
     params,
   }: {
     params: { id: string };
-  },
-  res: NextResponse
+  }
 ) {
+  // I'm trying to modify the API so that can be used to update an array favoriteByIds.
+  // we can use a user name instead of an id
   try {
     const snippetId = params.id;
     const body = await req.json();
     const db = getMongoDb();
-    const updateOneSnippetFromDatabase = await db
-      .collection("snippets")
-      .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
-    return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
+    console.log(body);
+
+    if (body.addToFavorite) {
+      const userId = body.addToFavorite;
+      const oneSnippetFromDatabase = await db
+        .collection("snippets")
+        .findOne({ _id: new ObjectId(snippetId) });
+      if (oneSnippetFromDatabase?.favoriteByIds.includes(userId)) {
+        // if a user in array, we delete him
+        await db
+          .collection("snippets")
+          .updateOne(
+            { _id: new ObjectId(snippetId) },
+            { $pull: { favoriteByIds: { $in: [userId] } } }
+          );
+        console.log("removed");
+        return new NextResponse(JSON.stringify({ message: "user removed" }));
+      } else {
+        // if a usr not in array, we add him
+        await db
+          .collection("snippets")
+          .updateOne(
+            { _id: new ObjectId(snippetId) },
+            { $addToSet: { favoriteByIds: userId } }
+          );
+
+        console.log("added");
+        return new NextResponse(JSON.stringify({ message: "user added" }));
+      }
+    } else {
+      const updateOneSnippetFromDatabase = await db
+        .collection("snippets")
+        .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
+      return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
+    }
   } catch (error) {
     return NextResponse.json({
       message: "something went wrong",
@@ -53,7 +84,6 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  res: NextResponse;
   try {
     const snippetId = params.id;
     const db = getMongoDb();
