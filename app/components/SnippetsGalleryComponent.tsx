@@ -6,12 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 library.add(faHeart);
 
-type favoriteSnippet = snippetModel & { favorite: boolean };
-
 const SnippetGallery = () => {
-  const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
+  const [snippets, setSnippets] = useState<snippetModel[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchSnippets = async () => {
@@ -29,15 +29,51 @@ const SnippetGallery = () => {
     fetchSnippets();
   }, []);
 
-  const markAsFavorite = (snippetId: string) => {
-    const updatedSnippets = snippets.map((snippet) => {
-      if (snippet._id === snippetId) {
-        return { ...snippet, favorite: !snippet.favorite };
+  const markAsFavorite = async (snippetId: string) => {
+    console.log("markAsFavorite is working");
+    console.log(snippetId);
+    if (session?.user) {
+      try {
+        const updatedSnippet = snippets.find(
+          (snippet: snippetModel) => snippet._id === snippetId
+        );
+  
+        if (!updatedSnippet) {
+          throw new Error("Snippet not found");
+        }
+  
+        const filteredIds = updatedSnippet.favoriteByIds.filter(
+          (id) => id !== null && id !== undefined
+        );
+        const addOrRemoveIds = filteredIds.includes(session?.user?.name)
+          ? filteredIds.filter((id) => id !== session?.user?.name)
+          : [...filteredIds, session?.user?.name];
+  
+        const response = await fetch(`/api/snippets/${snippetId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ favoriteByIds: addOrRemoveIds }),
+        });
+  
+        if (response.ok) {
+          const updatedSnippets = snippets.map((snippet: snippetModel) =>
+            snippet._id === snippetId
+              ? { ...snippet, favoriteByIds: addOrRemoveIds }
+              : snippet
+          );
+  
+          console.log("success");
+          setSnippets(updatedSnippets);
+          console.log(updatedSnippets);
+        } else {
+          throw new Error("Failed to update favorite status.");
+        }
+      } catch (error) {
+        console.log(error);
       }
-      return snippet;
-    });
-
-    setSnippets(updatedSnippets);
+    }
   };
 
   const formatDate = (date: Date) => {
@@ -48,6 +84,7 @@ const SnippetGallery = () => {
     return `${day} ${month} ${year}`;
   };
 
+  console.log(session)
   return (
     <ul
       style={{
@@ -83,7 +120,7 @@ const SnippetGallery = () => {
               }}
               onClick={() => markAsFavorite(snippet._id)}
             >
-              {snippet.favorite ? (
+              {snippet.favoriteByIds?.includes(session?.user?.name || "") ? (
                 <FontAwesomeIcon
                   icon={faHeart}
                   style={{ color: "#ff0000" }}
@@ -98,11 +135,8 @@ const SnippetGallery = () => {
               )}
             </button>
 
-            <div style={{
-              height: "573px"
-            }}>
-              snippet card
-              {/* <SnippetCard snippet={snippet} /> */}
+            <div style={{ height: "573px" }}>
+              {/* Replace with your snippet card component */}
             </div>
 
             <div
@@ -115,10 +149,9 @@ const SnippetGallery = () => {
               }}
             >
               <img src="" alt="user profile pic" />
-              <p 
-              style={{
-                margin: "0"
-              }}>by {snippet.authorId} {formatDate(new Date(snippet.createdAt))} </p>
+              <p style={{ margin: "0" }}>
+                by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
+              </p>
             </div>
 
             <Link

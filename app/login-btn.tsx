@@ -1,24 +1,25 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import UserIcon from "@/app/icons/user";
-import styles from "./tags/page.module.css";
+import { useSession, signIn, signOut, SessionProvider } from "next-auth/react";
+import SnippetGallery from "./components/SnippetsGalleryComponent";
 
-export default function Component() {
-    const { data: session } = useSession();
+export default function Login() {
+  const { data: session } = useSession();
 
+  if (session) {
     return (
-        <>
-            {/* Logout or Login */}
-            <button
-                className={styles.button}
-                onClick={(e) => {
-                    e.preventDefault();
-                    session?.user ? signOut() : signIn();
-                }}
-            >
-                <UserIcon />
-                <span>{session?.user ? session.user.name : "Login"}</span>
-            </button>
-        </>
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+        <SessionProvider session={session}>
+          <SnippetGallery />
+        </SessionProvider>
+      </>
     );
+  }
 
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  );
 }

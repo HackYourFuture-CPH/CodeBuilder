@@ -32,17 +32,29 @@ export async function PUT(
 ) {
   try {
     const snippetId = params.id;
-    const body = await req.json();
+    const updatedField = await req.json();
+
     const db = getMongoDb();
     const updateOneSnippetFromDatabase = await db
       .collection("snippets")
-      .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
-    return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
+      .updateOne(
+        { _id: new ObjectId(snippetId) },
+        { $set: updatedField }
+      );
+
+    if (updateOneSnippetFromDatabase.modifiedCount === 0) {
+      return new NextResponse(
+        JSON.stringify({ message: "Snippet not found" }),
+        { status: 404 }
+      );
+    }
+
+    return new NextResponse(JSON.stringify({ success: true }));
   } catch (error) {
-    return NextResponse.json({
-      message: "something went wrong",
-      error: error,
-    });
+    return new NextResponse(
+      JSON.stringify({ message: "Something went wrong", error }),
+      { status: 500 }
+    );
   }
 }
 
