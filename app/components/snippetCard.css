@@ -84,9 +84,9 @@ flex-grow: 0; */
 }
 
 div.code-editor {
-  transition: transform 0.3s ease; /* Add a transition effect */
-  width: 100%; /* Make the image fill the container */
-  height: 100%; /* Make the image fill the container */
+  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
