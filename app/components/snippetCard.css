@@ -78,10 +78,22 @@ flex-grow: 0; */
   height: 333px;
   left: 0px;
   top: 0px;
-
+  overflow: hidden;
   /* background: url(image.png); */
   border-radius: 8px 8px 0px 0px;
 }
+
+div.code-editor {
+  transition: transform 0.3s ease; /* Add a transition effect */
+  width: 100%; /* Make the image fill the container */
+  height: 100%; /* Make the image fill the container */
+  object-fit: cover;
+}
+
+div.code-editor:hover {
+  transform: scale(1.2);
+}
+
 .description {
   width: 525px;
   height: 80px;
