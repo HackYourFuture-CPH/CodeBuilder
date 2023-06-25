@@ -5,8 +5,7 @@ import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
 import Header from "../components/shared/header/header";
 
-
-export function TagsPage() {
+const TagsPage: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
     "/api/snippets",
     async (url) => {
@@ -21,11 +20,10 @@ export function TagsPage() {
   );
 
   return (
-    <>
+    <div>
       <header>
-        <Header/>
+        <Header />
       </header>
-
       <main className={styles.main}>
         {snippets?.map((snippet) => (
           <div
@@ -52,6 +50,8 @@ export function TagsPage() {
           </div>
         ))}
       </main>
-    </>
+    </div>
   );
 }
+
+export default TagsPage;
