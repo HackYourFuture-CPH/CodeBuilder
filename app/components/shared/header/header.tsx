@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import LoginBtn from "./loginBtn/login-btn";
 import Image from "next/image";
 import Logo from "../../../assets/logo/logo.png";
+
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
 
@@ -15,7 +16,7 @@ const Header = () => {
     <React.Fragment>
       <nav className="navbar">
         <div className="corner-logo">
-          <Image src={Logo} alt="Logo" />
+          <Image src="/images/Logo.png" alt="Logo" width={494} height={119} />
         </div>
         <ul className="navbar-menu">
           <li className="navbar-item">
