@@ -20,7 +20,7 @@ export default function TagsPage() {
   );
 
   return (
-    <>
+    <div>
       <header>
         {/* Navbar */}
         <Navbar />
@@ -52,6 +52,6 @@ export default function TagsPage() {
           </div>
         ))}
       </main>
-    </>
+    </div>
   );
 }
