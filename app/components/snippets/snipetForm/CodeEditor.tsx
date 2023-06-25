@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-
+import styles from "./styles.module.css";
 interface CodeEditorProps {
   code: string;
   onChange: (newCode: string) => void;
@@ -19,6 +19,7 @@ const CodeEditor = ({
   return (
     <div>
       <textarea
+        className={styles.textarea}
         value={code}
         onChange={handleCodeChange}
         placeholder={`Enter your ${language} code`}
