@@ -27,13 +27,6 @@ const SnippetDetails: React.FC = () => {
   const { data: session } = useSession();
   console.log(session);
   const userId = session?.user?.email?.toString();
-  // const addToFavorite = async () => {
-  //   await fetch(`/api/snippets/${snippetId}`, {
-  //     method: "PUT",
-  //     credentials: "include",
-  //   });
-  //   mutate();
-  // };
 
   const addToFavorite = (idSnippet: string) => {
     const users: string[] = [...snippet?.favoriteByIds];
@@ -48,62 +41,14 @@ const SnippetDetails: React.FC = () => {
       console.log("was added");
     }
     if (snippet?.favoriteByIds.includes(userId)) {
-      const index = users.indexOf(userId);
-      const updateFavorites = users.splice(index, 1);
+      const updateFavorites = users.filter((user) => user !== userId);
       updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
         favoriteByIds: updateFavorites,
       });
       setTrigger("true");
       console.log("was removed");
     }
-    // if (snippet?.favoriteByIds.includes(authorId)) {
-    //   updatedSnippet?.favoriteByIds.push(authorId);
-    //   return console.log("it already include");
-    // }
   };
-  // const markAsFavorite = async (snippetId: string) => {
-  //   console.log("markAsFavorite is working");
-  //   console.log(snippetId);
-  //   if (session?.user) {
-  //     try {
-  //       // const updatedSnippet = snippets.find(
-  //       //   (snippet: snippetModel) => snippet._id === snippetId
-  //       // );
-  //       // if (!updatedSnippet) {
-  //       //   throw new Error("Snippet not found");
-  //       // }
-  //       const filteredIds = snippet?.favoriteByIds.filter(
-  //         (id) => id !== null && id !== undefined
-  //       );
-  //       const addOrRemoveIds = filteredIds?.includes(userId ? userId : "")
-  //         ? filteredIds.filter((id) => id !== userId)
-  //         : [...filteredIds, userId];
-  //       const response = await fetch(`/api/snippets/${snippetId}`, {
-  //         method: "PUT",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ favoriteByIds: addOrRemoveIds }),
-  //       });
-  //       if (response.ok) {
-  //         // const updatedSnippets = snippets.map((snippet: snippetModel) =>
-  //         //   snippet._id === snippetId
-  //         //     ? { ...snippet, favoriteByIds: addOrRemoveIds }
-  //         //     : snippet
-  //         // );
-  //         // console.log("success");
-  //         // setSnippets(updatedSnippets);
-  //         setTrigger("true");
-  //         console.log(trigger);
-  //       } else {
-  //         throw new Error("Failed to update favorite status.");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // };
-  // console.log("done ");
 
   const normalizeDate = (dateString: Date) => {
     const date = new Date(dateString);
