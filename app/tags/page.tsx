@@ -3,9 +3,9 @@ import useSWR from "swr";
 import styles from "./page.module.css";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
-import Navbar from "@/app/navbar";
+import Header from "../components/shared/header/header";
 
-export default function TagsPage() {
+const TagsPage: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
     "/api/snippets",
     async (url) => {
@@ -20,12 +20,10 @@ export default function TagsPage() {
   );
 
   return (
-    <>
+    <div>
       <header>
-        {/* Navbar */}
-        <Navbar />
+        <Header />
       </header>
-
       <main className={styles.main}>
         {snippets?.map((snippet) => (
           <div
@@ -52,6 +50,8 @@ export default function TagsPage() {
           </div>
         ))}
       </main>
-    </>
+    </div>
   );
 }
+
+export default TagsPage;
