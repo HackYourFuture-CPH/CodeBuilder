@@ -29,9 +29,9 @@ const SnippetDetails: React.FC = () => {
   const userId = session?.user?.email?.toString();
 
   const addToFavorite = (idSnippet: string) => {
-    const users: string[] = [...snippet?.favoriteByIds];
+    const users: string[] = [...(snippet?.favoriteByIds || [])];
     console.log(users);
-    if (!snippet?.favoriteByIds.includes(userId)) {
+    if (userId && !snippet?.favoriteByIds.includes(userId)) {
       const updateFavorites: string[] = [...users, userId];
       console.log(updateFavorites);
       updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
@@ -40,7 +40,7 @@ const SnippetDetails: React.FC = () => {
       setTrigger("false");
       console.log("was added");
     }
-    if (snippet?.favoriteByIds.includes(userId)) {
+    if (userId && snippet?.favoriteByIds.includes(userId)) {
       const updateFavorites = users.filter((user) => user !== userId);
       updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
         favoriteByIds: updateFavorites,
@@ -79,7 +79,10 @@ const SnippetDetails: React.FC = () => {
                 <Link href={`/snippet/${snippetId}/edit`}>
                   <button type="button">Edit</button>
                 </Link>
-                <button type="button" onClick={() => addToFavorite(snippetId)}>
+                <button
+                  type="button"
+                  onClick={() => addToFavorite(snippetId ? snippetId : "")}
+                >
                   ❤️
                   {/* here will be heart icon */}
                 </button>
