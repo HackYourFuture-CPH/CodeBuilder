@@ -1,5 +1,6 @@
+import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import UserIcon from "@/app/icons/user";
+//import UserIcon from "@/app/icons/user";
 import styles from "./tags/page.module.css";
 
 export default function Component() {
@@ -16,7 +17,7 @@ export default function Component() {
           session?.user ? signOut() : signIn();
         }}
       >
-        <UserIcon />
+        {/* <UserIcon /> */}
         <span>{session?.user ? session.user.name : "Login"}</span>
       </button>
     </>
