@@ -7,8 +7,9 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 // get one snippet by id
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } } //needs testing after changes
+  { params }: { params: { id: string } }
 ) {
+  res: NextResponse;
   try {
     const snippetId = params.id;
     const db = getMongoDb();
@@ -19,7 +20,7 @@ export async function GET(
     return NextResponse.json(oneSnippetFromDatabase);
     // new NextResponse(JSON.stringify(oneSnippetFromDatabase));
   } catch (error) {
-    return new NextResponse(JSON.stringify(error));
+    NextResponse.json(error);
   }
 }
 
@@ -30,7 +31,8 @@ export async function PUT(
     params,
   }: {
     params: { id: string };
-  }
+  },
+  res: NextResponse
 ) {
   // I'm trying to modify the API so that can be used to update an array favoriteByIds.
   // we can use a user name instead of an id
@@ -75,6 +77,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
+  res: NextResponse;
   try {
     const snippetId = params.id;
     const db = getMongoDb();
