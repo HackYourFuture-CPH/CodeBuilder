@@ -19,6 +19,7 @@ const SnippetDetails: React.FC = () => {
   const [trigger, setTrigger] = useState("true");
   const snippetId = searchParams?.get("fetchedId");
   console.log(snippetId);
+
   const { data: snippet, mutate } = useSWR<snippetModel>(
     `/api/snippets/${snippetId}`,
     getSnippets
@@ -48,6 +49,7 @@ const SnippetDetails: React.FC = () => {
     }
     if (snippet?.favoriteByIds.includes(userId)) {
       const index = users.indexOf(userId);
+      console.log(index);
       const updateFavorites = users.splice(index, 1);
       updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
         favoriteByIds: updateFavorites,
@@ -59,9 +61,50 @@ const SnippetDetails: React.FC = () => {
     //   updatedSnippet?.favoriteByIds.push(authorId);
     //   return console.log("it already include");
     // }
-
-    console.log("done ");
   };
+  // const markAsFavorite = async (snippetId: string) => {
+  //   console.log("markAsFavorite is working");
+  //   console.log(snippetId);
+  //   if (session?.user) {
+  //     try {
+  //       // const updatedSnippet = snippets.find(
+  //       //   (snippet: snippetModel) => snippet._id === snippetId
+  //       // );
+  //       // if (!updatedSnippet) {
+  //       //   throw new Error("Snippet not found");
+  //       // }
+  //       const filteredIds = snippet?.favoriteByIds.filter(
+  //         (id) => id !== null && id !== undefined
+  //       );
+  //       const addOrRemoveIds = filteredIds?.includes(userId ? userId : "")
+  //         ? filteredIds.filter((id) => id !== userId)
+  //         : [...filteredIds, userId];
+  //       const response = await fetch(`/api/snippets/${snippetId}`, {
+  //         method: "PUT",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ favoriteByIds: addOrRemoveIds }),
+  //       });
+  //       if (response.ok) {
+  //         // const updatedSnippets = snippets.map((snippet: snippetModel) =>
+  //         //   snippet._id === snippetId
+  //         //     ? { ...snippet, favoriteByIds: addOrRemoveIds }
+  //         //     : snippet
+  //         // );
+  //         // console.log("success");
+  //         // setSnippets(updatedSnippets);
+  //         setTrigger("true");
+  //         console.log(trigger);
+  //       } else {
+  //         throw new Error("Failed to update favorite status.");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
+  // console.log("done ");
 
   const normalizeDate = (dateString: Date) => {
     const date = new Date(dateString);
@@ -92,7 +135,7 @@ const SnippetDetails: React.FC = () => {
                 <Link href={`/snippet/${snippetId}/edit`}>
                   <button type="button">Edit</button>
                 </Link>
-                <button type="button" onClick={() => addToFavorite(snippetId)}>
+                <button type="button" onClick={() => addToFavorite(userId)}>
                   ❤️
                   {/* here will be heart icon */}
                 </button>
