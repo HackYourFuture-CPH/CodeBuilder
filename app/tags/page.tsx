@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import useSWR from "swr";
 import styles from "./page.module.css";
 import { snippetModel } from "../snippetModel-DB";

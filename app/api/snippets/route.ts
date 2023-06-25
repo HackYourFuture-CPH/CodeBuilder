@@ -9,8 +9,8 @@ export async function GET(req: Request): Promise<NextResponse> {
 
 //Then I used route.ts file from tags folder as a reference
 
-import { getMongoDb } from "@/app/mongodb";
-import { snippetModel } from "@/app/snippetModel-DB";
+import { getMongoDb } from "../../mongodb";
+import { snippetModel } from "../../snippetModel-DB";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: Request): Promise<NextResponse> {

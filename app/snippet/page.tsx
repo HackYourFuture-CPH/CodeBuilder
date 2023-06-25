@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
@@ -7,7 +8,7 @@ import { useSession } from "next-auth/react";
 import { getServerSession } from "next-auth";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
-import UserIcon from "@/app/icons/user";
+// import UserIcon from "@/app/icons/user";
 import { useState } from "react";
 
 interface RouteParams {
@@ -87,7 +88,7 @@ const SnippetDetails: React.FC = () => {
                   {/* here will be heart icon */}
                 </button>
               </div>
-              <UserIcon />
+              {/* <UserIcon /> */}
               <p>
                 {snippet.authorId} {normalizeDate(new Date(snippet.updatedAt))}
               </p>

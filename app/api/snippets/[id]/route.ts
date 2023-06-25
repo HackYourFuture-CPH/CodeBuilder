@@ -1,8 +1,8 @@
-import { getMongoDb } from "@/app/mongodb";
+import { getMongoDb } from "../../../mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+// import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 // get one snippet by id
 export async function GET(
