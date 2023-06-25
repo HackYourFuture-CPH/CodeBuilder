@@ -1,12 +1,12 @@
 "use client";
 import useSWR from "swr";
 import styles from "./page.module.css";
-import { Tag } from "../api/tags/route";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
-import Navbar from "@/app/navbar";
+import Header from "../components/shared/header/header";
 
-export default function TagsPage() {
+
+const TagsPage: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
     "/api/snippets",
     async (url) => {
@@ -20,16 +20,11 @@ export default function TagsPage() {
     }
   );
 
-    return (
-        <>
-            <main className={styles.main}>
-                <div className={styles.description}>
-                    <p>
-                        Get started by editing&nbsp;
-                        <code className={styles.code}>app/page.tsx</code>
-                    </p>
-                </div>
-
+  return (
+    <div>
+      <header>
+        <Header />
+      </header>
       <main className={styles.main}>
         {snippets?.map((snippet) => (
           <div
@@ -56,6 +51,8 @@ export default function TagsPage() {
           </div>
         ))}
       </main>
-    </>
+    </div>
   );
 }
+
+export default TagsPage;
