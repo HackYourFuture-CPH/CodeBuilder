@@ -49,7 +49,6 @@ const SnippetDetails: React.FC = () => {
     }
     if (snippet?.favoriteByIds.includes(userId)) {
       const index = users.indexOf(userId);
-      console.log(index);
       const updateFavorites = users.splice(index, 1);
       updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
         favoriteByIds: updateFavorites,
@@ -135,7 +134,7 @@ const SnippetDetails: React.FC = () => {
                 <Link href={`/snippet/${snippetId}/edit`}>
                   <button type="button">Edit</button>
                 </Link>
-                <button type="button" onClick={() => addToFavorite(userId)}>
+                <button type="button" onClick={() => addToFavorite(snippetId)}>
                   ❤️
                   {/* here will be heart icon */}
                 </button>
