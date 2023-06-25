@@ -1,11 +1,11 @@
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-import styles from './CreateSnippetButton.css'
+import styles from './CreateSnippetButton.module.css'
 
 export default function CreateSnippetButton() {
-  const [ session, loading ] = useSession()
+  const { data: session, status } = useSession()
 
-  if (loading) return null
+  if (status === 'loading') return null
 
   return session ? (
     <Link href="/components/snippets/Create">
