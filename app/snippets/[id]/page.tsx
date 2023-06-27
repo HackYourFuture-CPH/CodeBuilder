@@ -1,22 +1,126 @@
+// "use client";
+// import useSWR from "swr";
+// import { getSnippets } from "../../services/SnippetService";
+// import { snippetModel } from "../../snippetModel-DB";
+// import Link from "next/link";
+
+// type Props = {
+//   params: {
+//     id: string;
+//   };
+// };
+
+// const SnippetsId: React.FC<Props> = ({ params: { id } }) => {
+//   const { data: snippets } = useSWR<snippetModel>(
+//     `/api/snippets/${id}`,
+//     getSnippets
+//   );
+
+//   return <div>Here we have snippets by id</div>;
+// };
+// export default SnippetsId;
 "use client";
 import React from "react";
-import useSWR from "swr";
-import { getSnippets } from "../../services/SnippetService";
-import { snippetModel } from "../../snippetModel-DB";
 import Link from "next/link";
+import { useParams, useSearchParams } from "next/navigation";
+import useSWR from "swr";
+import { getSnippets, updateSnippet } from "../../services/SnippetService";
+import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { snippetModel } from "../../snippetModel-DB";
+import CodeEditor from "../../components/shared/codeEditor/code-editor";
+// import UserIcon from "@/app/icons/user";
+import { useState } from "react";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
+interface RouteParams {
+  id: string;
+}
 
-const SnippetsId: React.FC<Props> = ({ params: { id } }) => {
-  const { data: snippets } = useSWR<snippetModel>(
+const SnippetDetails: React.FC = () => {
+  const { id } = useParams();
+  const [trigger, setTrigger] = useState("true");
+  // const id = searchParams?.get("fetchedId");
+  console.log(id);
+  const { data: snippet, mutate } = useSWR<snippetModel>(
     `/api/snippets/${id}`,
     getSnippets
   );
+  const { data: session } = useSession();
+  console.log(session);
+  const userId = session?.user?.email?.toString();
 
-  return <div>Here we have snippets by id</div>;
+  const addToFavorite = (idSnippet: string) => {
+    const users: string[] = [...(snippet?.favoriteByIds || [])];
+    console.log(users);
+    if (userId && !snippet?.favoriteByIds.includes(userId)) {
+      const updateFavorites: string[] = [...users, userId];
+      console.log(updateFavorites);
+      updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
+        favoriteByIds: updateFavorites,
+      });
+      setTrigger("false");
+      console.log("was added");
+    }
+    if (userId && snippet?.favoriteByIds.includes(userId)) {
+      const updateFavorites = users.filter((user) => user !== userId);
+      updateSnippet("http://localhost:3000/api/snippets", idSnippet, {
+        favoriteByIds: updateFavorites,
+      });
+      setTrigger("true");
+      console.log("was removed");
+    }
+  };
+
+  const normalizeDate = (dateString: Date) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "short" });
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+  };
+
+  return (
+    <>
+      {snippet ? (
+        <div>
+          <div>
+            <div>
+              <h1>{snippet.title}</h1>
+              <ul>
+                {snippet.tags.map((tag: string) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+              <p>{snippet.description}</p>
+            </div>
+            <div>
+              <div>
+                {" "}
+                <Link href={`/snippet/${id}/edit`}>
+                  <button type="button">Edit</button>
+                </Link>
+                <button type="button" onClick={() => addToFavorite(id)}>
+                  ❤️
+                  {/* here will be heart icon */}
+                </button>
+              </div>
+              {/* <UserIcon /> */}
+              <p>
+                {snippet.authorId} {normalizeDate(new Date(snippet.updatedAt))}
+              </p>
+            </div>
+          </div>
+          <CodeEditor
+            initialValue={snippet.snippetCode}
+            readOnly={true}
+            tags={snippet.tags}
+          />
+        </div>
+      ) : (
+        <div>Loading...</div>
+      )}
+    </>
+  );
 };
-export default SnippetsId;
+export default SnippetDetails;
