@@ -2,7 +2,12 @@
 import useSWR from "swr";
 import styles from "./page.module.css";
 import { Tag } from "./api/tags/route";
-import BurgerMenu from "./api/components/shared/burgerMenu/BurgerMenu";
+
+import MediaQuery from "react-responsive";
+import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
+import Header from "./components/shared/header/header";
+
+
 
 export default function Home() {
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
@@ -12,11 +17,16 @@ export default function Home() {
 
   return (
     <div className={styles.main}>
-      <BurgerMenu />
+      <Navbar />
+      <MediaQuery minWidth={1824}>
+        <Header />
+      </MediaQuery>
 
+      <MediaQuery minWidth={414}>
+        <BurgerMenu />
+      </MediaQuery>
 
-      {
-        /*
+      {/*
         <h1>Categories from the database</h1>
         
     
@@ -30,9 +40,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-         */
-      }
-
+         */}
     </div>
   );
 }

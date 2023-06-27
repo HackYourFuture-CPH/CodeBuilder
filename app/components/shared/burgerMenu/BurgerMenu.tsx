@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useState } from 'react';
 import { FaBars, FaSpaceShuttle, FaUser } from 'react-icons/fa';
 
 import styles from './BurgerMenu.module.css';
