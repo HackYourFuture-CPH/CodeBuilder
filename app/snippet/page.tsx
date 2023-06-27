@@ -5,11 +5,10 @@ import { useSearchParams } from "next/navigation";
 import useSWR from "swr";
 import { getSnippets, updateSnippet } from "../services/SnippetService";
 import { useSession } from "next-auth/react";
-import { getServerSession } from "next-auth";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
-// import UserIcon from "@/app/icons/user";
 import { useState } from "react";
+import "./page.css";
 
 interface RouteParams {
   id: string;
@@ -61,26 +60,28 @@ const SnippetDetails: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="big-container">
       {snippet ? (
-        <div>
-          <div>
-            <div>
-              <h1>{snippet.title}</h1>
+        <div className="container">
+          <div className="details">
+            <div className="details-left">
+              <h1 className="title">{snippet.title}</h1>
               <ul>
                 {snippet.tags.map((tag: string) => (
                   <li key={tag}>{tag}</li>
                 ))}
               </ul>
-              <p>{snippet.description}</p>
+              <p className="description">{snippet.description}</p>
             </div>
-            <div>
-              <div>
-                {" "}
+            <div className="details-right">
+              <div className="buttons-container">
                 <Link href={`/snippet/${snippetId}/edit`}>
-                  <button type="button">Edit</button>
+                  <button className="edit-button" type="button">
+                    Edit
+                  </button>
                 </Link>
                 <button
+                  className="favorite-button"
                   type="button"
                   onClick={() => addToFavorite(snippetId ? snippetId : "")}
                 >
@@ -88,22 +89,25 @@ const SnippetDetails: React.FC = () => {
                   {/* here will be heart icon */}
                 </button>
               </div>
-              {/* <UserIcon /> */}
-              <p>
+              <p className="user-date">
                 {snippet.authorId} {normalizeDate(new Date(snippet.updatedAt))}
-              </p>
+              </p>{" "}
+              {/* <UserIcon /> */}
             </div>
           </div>
-          <CodeEditor
-            initialValue={snippet.snippetCode}
-            readOnly={true}
-            tags={snippet.tags}
-          />
+          <div className="card-container">
+            <CodeEditor
+              initialValue={snippet.snippetCode}
+              readOnly={true}
+              tags={snippet.tags}
+            />
+          </div>
         </div>
       ) : (
         <div>Loading...</div>
       )}
-    </>
+    </div>
   );
 };
+
 export default SnippetDetails;

@@ -1,0 +1,94 @@
+body {
+    background-color: #104d85;
+    margin: 0;
+    padding: 0;
+  }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.details {
+  display: flex;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #042d54;
+  height: fit-content;
+  justify-content: space-between;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.details-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.details-right {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin-right: 20px;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-date {
+  font-size: 20px;
+  color: white;
+}
+
+.title {
+  font-size: 60px;
+  font-weight: bold;
+  margin-top: 100px;
+  color: white;
+}
+
+.tags {
+  font-size: 12px;
+  margin-bottom: 5px;
+  align-items: flex-end;
+}
+
+.description {
+  font-size: 16px;
+}
+
+.edit-button,
+.favorite-button {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 35px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #104d85;
+  background-color: white;
+}
+
+.favorite-button {
+  background-color: #f18686;
+  font-size: 22px;
+  width: 40px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin: 0 200px 10px 200px;
+}
