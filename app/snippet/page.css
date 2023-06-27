@@ -1,8 +1,8 @@
 body {
-    background-color: #104d85;
-    margin: 0;
-    padding: 0;
-  }
+  background-color: #104d85;
+  margin: 0;
+  padding: 0;
+}
 
 .container {
   display: flex;
