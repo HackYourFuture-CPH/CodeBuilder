@@ -4,7 +4,7 @@ import useSWR from "swr";
 import styles from "./page.module.css";
 import { snippetModel } from "../snippetModel-DB";
 import CodeEditor from "../components/shared/codeEditor/code-editor";
-import SnippetGallery from "../components/SnippetsGalleryComponent";
+// import SnippetGallery from "../components/SnippetsGalleryComponent";
 import Header from "../components/shared/header/header";
 
 const TagsPage: React.FC = () => {
@@ -26,7 +26,7 @@ const TagsPage: React.FC = () => {
       <header>
         <Header />
       </header>
-      <SnippetGallery />
+      {/* <SnippetGallery /> */}
     </div>
   );
 };
