@@ -114,7 +114,7 @@ const SnippetGallery = () => {
                 left: "10px",
               }}
             >
-              <img src="" alt="user profile pic" />
+              {/* <img src="" alt="user profile pic" /> */}
               <p
                 style={{
                   margin: "0",
@@ -131,10 +131,7 @@ const SnippetGallery = () => {
                 bottom: "10px",
                 right: "10px",
               }}
-              href={{
-                pathname: `/snippet`,
-                query: { fetchedId: snippet._id },
-              }}
+              href={`/snippets/${snippet._id}`}
             >
               Learn more..
             </Link>
