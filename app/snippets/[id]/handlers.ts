@@ -8,10 +8,8 @@ export const addToFavorite = async (
     userId: string
 ) => {
     const users: string[] = [...(snippet?.favoriteByIds || [])];
-    console.log(users);
     if (userId && !snippet?.favoriteByIds.includes(userId)) {
         const updateFavorites: string[] = [...users, userId];
-        console.log(updateFavorites);
         const updateSnippetRequest = await updateSnippet(
             "http://localhost:3000/api/snippets",
             idSnippet,
@@ -20,7 +18,7 @@ export const addToFavorite = async (
             }
         );
         mutate(`/api/snippets/${idSnippet}`, updateSnippetRequest, {
-            optimisticData: (snippet: any) => ({
+            optimisticData: (snippet: snippetModel) => ({
                 ...snippet,
                 favoriteByIds: updateFavorites,
             }),
@@ -37,7 +35,7 @@ export const addToFavorite = async (
             }
         );
         mutate(`/api/snippets/${idSnippet}`, updateSnippetRequest, {
-            optimisticData: (snippet: any) => ({
+            optimisticData: (snippet: snippetModel) => ({
                 ...snippet,
                 favoriteByIds: updateFavorites,
             }),
