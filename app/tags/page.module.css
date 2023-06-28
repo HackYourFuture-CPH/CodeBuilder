@@ -1,3 +1,22 @@
+/* Styles for navigation bar */
+.navbar {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 80px;
+  position: sticky;
+  width: 100%;
+  top: 0px;
+  z-index: 5;
+  height: auto;
+  left: 0px;
+  background: #ffffff;
+  border-bottom: 8px solid #e3ecf3;
+}
+
+/* Styles for main */
 .main {
   display: flex;
   flex-direction: column;
@@ -210,6 +229,7 @@
   from {
     transform: rotate(360deg);
   }
+
   to {
     transform: rotate(0deg);
   }

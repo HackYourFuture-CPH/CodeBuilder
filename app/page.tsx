@@ -1,7 +1,6 @@
-"use client";
-import useSWR from "swr";
-import styles from "./page.module.css";
-import { Tag } from "./api/tags/route";
+import React from "react";
+import Link from "next/link";
+import Header from "./components/shared/header/header";
 
 import MediaQuery from "react-responsive";
 import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
@@ -9,12 +8,7 @@ import Header from "./components/shared/header/header";
 
 
 
-export default function Home() {
-  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
-    const response = await fetch(url);
-    return response.json();
-  });
-
+const Home: React.FC = () => {
   return (
     <div className={styles.main}>
       <Navbar />
@@ -43,4 +37,6 @@ export default function Home() {
          */}
     </div>
   );
-}
+};
+
+export default Home;
