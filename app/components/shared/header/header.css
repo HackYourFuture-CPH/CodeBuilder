@@ -94,24 +94,39 @@
   }
 }
 
-/* Mobile Phones */
+/* Mobile Phones --- This is just a draft since there is another group working on the burger menu for the phone view.*/
 @media screen and (max-width: 480px) {
   body {
-    font-size: 16px;
+    font-size: 12px;
   }
 
-  body {
-    font-size: 16px;
+  .navbar {
+    height: auto;
+    padding: 10px;
+  }
+
+  .corner-logo {
+    margin-bottom: 10px;
   }
 
   .navbar-menu {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    padding-left: 10px;
+    margin-right: 5px;
+    margin-left: 0;
   }
 
   .navbar-item {
     margin-right: 0;
+    margin-left: 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  .create-btn {
+    padding: 8px 12px;
+    min-width: auto;
+    height: 32px;
   }
 }

@@ -9,7 +9,8 @@
   color: #104d85;
 }
 
-.login-btn:hover, .login-btn:hover .icon {
+.login-btn:hover,
+.login-btn:hover .icon {
   color: #427fb7;
 }
 
