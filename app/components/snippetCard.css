@@ -15,7 +15,7 @@
   height: 615px;
   left: 40;
   top: 33px;
-  background: #ffffff;
+ background: var(--white, #FFF);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -58,13 +58,12 @@ div.code-editor:hover {
   left: 510px;
   top: 14px;
   margin-left: 5px;
-  background: rgba(181, 135, 135, 0.2);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
+ 
+  border: none;
 }
-.icon {
-  /* background-color:  rgba(207, 63, 63, 0.2); */
-  background-color: #ffffff;
-}
+
 
 /* frame2
 ------------------------ */
@@ -97,7 +96,7 @@ div.code-editor:hover {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 30px;
   line-height: 23px;
   color: var(--dark-600, #151515);
   flex: none;
@@ -108,7 +107,7 @@ div.code-editor:hover {
 
 .description-container {
   display: flex;
-  height: 80px;
+  height: 120px;
   flex-direction: column;
   align-self: stretch;
   width: 525px;
@@ -119,21 +118,23 @@ div.code-editor:hover {
   line-height: 23px;
   font-size: 20px;
   font-family: Arial;
-  /* order: 1; */
+  order: 1;
   align-self: stretch;
-  /* flex-grow: 0;  */
+  flex-grow: 0; 
   overflow: hidden;
   color: var(--dark-500, #363636);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  text-overflow: ellipsis; 
+display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .tags-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 8px;
+  gap: 16px;
   width: 117px;
   height: 34px;
   flex: none;
@@ -163,7 +164,7 @@ div.code-editor:hover {
 
 .info-frame {
   display: flex;
-  flex-direction: row;
+flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0px;
@@ -200,24 +201,17 @@ div.code-editor:hover {
   gap: 8px;
   width: 251px;
   height: 40px;
+
+}
+.img-container{
+width: 40px;
+height: 40px;
+  border-radius: 40px;
+background: lightgray 50% / cover no-repeat;
 }
 
-.avatar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 8px 0px;
-  gap: 8px;
-  width: 40px;
-  height: 40px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  border-radius: 40px;
-  background: lightgray 50% / cover no-repeat;
-}
 .avatar-text {
-  width: 203px;
+  width: 230px;
   height: 18px;
   color: var(--dark-400, #757575);
   font-family: 'Arial';
@@ -235,7 +229,7 @@ div.code-editor:hover {
   padding: 12px;
   align-items: center;
   gap: 12px;
-  width: 103px;
+  width: 180px;
   height: 23px;
   border-radius: 8px;
   font-family: 'Arial';

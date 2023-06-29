@@ -18,10 +18,12 @@ const SnippetCardComponent = ({
   snippetCode,
   formatDate,
   changes,
+
   setChanges,
 }: any) => {
   const { data: session } = useSession();
   const userId = session?.user?.email;
+  // const userAvatar = session?.user?.image;
 
   const handleFavoriteButton = async () => {
     await fetch(`/api/snippets/${snippet._id}`, {
@@ -43,7 +45,7 @@ const SnippetCardComponent = ({
       });
     await setChanges(!changes);
   };
-
+  console.log(session?.user?.image);
   return (
     <div className="container">
       <div className="code-group">
@@ -61,7 +63,6 @@ const SnippetCardComponent = ({
             className="favorite-button"
             style={{
               border: 'none',
-              background: 'transparent',
               position: 'absolute',
               top: '10px',
               right: '10px',
@@ -106,14 +107,23 @@ const SnippetCardComponent = ({
               // bottom: '10px',
               // left: '10px',
             }}>
-            {/* <Image className="avatar"
- src="" alt="user profile pic" /> */}
+            <div className="img-container">
+              <img
+                src={userId ? session?.user?.image : ''}
+                alt="user profile pic"
+                width={40}
+                height={40}
+                style={{ borderRadius: '50%', objectFit: 'cover' }}
+              />
+            </div>
             <p
               className="avatar-text"
               style={{
                 margin: '0',
               }}>
-              by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}{' '}
+              by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
+              {/* by {userId ? session?.user?.name : 'user name'} */}
+              {/* {formatDate(new Date(snippet.createdAt))}{' '} */}
             </p>
           </div>
           {session ? (
@@ -124,13 +134,13 @@ const SnippetCardComponent = ({
                 position: 'absolute',
                 bottom: '10px',
                 right: '10px',
-                color: '#104D85',
               }}
               href={`/snippets/${snippet._id}`}>
-              Learn more..
+              Learn more
             </Link>
           ) : (
             <Link
+              className="link-button"
               style={{
                 textDecoration: 'none',
                 position: 'absolute',
