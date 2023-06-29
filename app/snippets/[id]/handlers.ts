@@ -1,17 +1,18 @@
 import { mutate } from "swr";
+import { getSnippets } from "@/app/services/SnippetService";
 import { snippetModel } from "@/app/snippetModel-DB";
 import { updateSnippet } from "@/app/services/SnippetService";
 
 export const addToFavorite = async (
     idSnippet: string,
     snippet: snippetModel,
-    userId: string
+    userId: string,
 ) => {
     const users: string[] = [...(snippet?.favoriteByIds || [])];
     if (userId && !snippet?.favoriteByIds.includes(userId)) {
         const updateFavorites: string[] = [...users, userId];
         const updateSnippetRequest = await updateSnippet(
-            "http://localhost:3000/api/snippets",
+            "/api/snippets",
             idSnippet,
             {
                 favoriteByIds: updateFavorites,
@@ -28,7 +29,7 @@ export const addToFavorite = async (
     if (userId && snippet?.favoriteByIds.includes(userId)) {
         const updateFavorites = users.filter((user) => user !== userId);
         const updateSnippetRequest = await updateSnippet(
-            "http://localhost:3000/api/snippets",
+            "/api/snippets",
             idSnippet,
             {
                 favoriteByIds: updateFavorites,
