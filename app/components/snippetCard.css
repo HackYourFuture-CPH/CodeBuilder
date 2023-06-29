@@ -83,6 +83,7 @@ div.code-editor:hover {
   order: 0;
   align-self: stretch;
   flex-grow: 0;
+  flex-wrap: nowrap;
 }
 
 .title-container {
