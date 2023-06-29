@@ -21,3 +21,26 @@
 .login-btn:hover .icon {
   color: #427fb7;
 }
+
+/* Responsive Styles */
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+  .login-btn {
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 480px) {
+  .login-btn {
+    height: 32px;
+    font-size: 16px;
+    display: inline-block;
+  }
+
+  .login-btn .icon {
+    margin-right: 3px;
+  }
+}
