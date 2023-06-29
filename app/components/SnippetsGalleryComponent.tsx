@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import Header from "./shared/header/header";
 // import SnippetCardComponent from "./SnippetCardComponent";
+import useSWR from "swr";
 
 export interface Tag {
   displayName: string;
@@ -32,38 +33,33 @@ const SnippetGalleryComponent = () => {
   const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
     []
   );
-  const [changes, setChanges] = useState(false);
   const [search, setSearch] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const { data: snippetsData, error: snippetError } = useSWR(
+    "http://localhost:3000/api/snippets",
+    (url) => fetch(url).then((response) => response.json())
+  );
+
+  const { data: tagsData, error: tagError } = useSWR(
+    "http://localhost:3000/api/tags",
+    (url) => fetch(url).then((response) => response.json())
+  );
 
   useEffect(() => {
-    const fetchSnippets = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/snippets");
-        const snippets = await response.json();
-        setSnippets(snippets);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    if (snippetsData) {
+      setSnippets(snippetsData);
+      setIsLoading(false);
+    }
+  }, [snippetsData]);
 
-    fetchSnippets();
-  }, [changes]);
-
-  // get tags
   useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/tags");
-        const tags = await response.json();
-        setTags(tags);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchTags();
-  }, []);
+    if (tagsData) {
+      setTags(tagsData);
+      setIsLoading(false);
+    }
+  }, [tagsData]);
 
-  // get snippets each time tags are changed
   useEffect(() => {
     filterSnippets();
   }, [tags, search]);
@@ -112,7 +108,7 @@ const SnippetGalleryComponent = () => {
   };
 
   const ShownTags = tags
-    .filter((tag) => tag.selected)
+    ?.filter((tag) => tag.selected)
     .map((tag) => (
       <div key={tag._id}>
         {tag.displayName}
@@ -123,7 +119,7 @@ const SnippetGalleryComponent = () => {
     ));
 
   const Options = tags
-    .filter((tag) => !tag.selected)
+    ?.filter((tag) => !tag.selected)
     .map((tag, i) => (
       <option key={tag._id} value={tag._id}>
         {tag.displayName}
@@ -137,6 +133,14 @@ const SnippetGalleryComponent = () => {
 
     return `${day} ${month} ${year}`;
   };
+
+  if (snippetError || tagError) {
+    return <div>Error fetching data</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <>
@@ -194,7 +198,6 @@ const SnippetGalleryComponent = () => {
                 height: "573px",
               }}
             >
-              snippet card component
               {/* <SnippetCardComponent
                 snippet={snippet}
                 key={snippet._id}
@@ -203,13 +206,10 @@ const SnippetGalleryComponent = () => {
                 tags={snippet.tags}
                 snippetCode={snippet.snippetCode}
                 formatDate={formatDate}
-                changes={changes}
-                setChanges={setChanges}
               /> */}
             </div>
           </li>
         ))}
-        ;
       </ul>
     </>
   );
