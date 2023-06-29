@@ -1,8 +1,9 @@
 "use client";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { snippetModel } from "../snippetModel-DB";
+
 import { useEffect, useState } from "react";
-import Header from "./shared/header/header";
 // import SnippetCardComponent from "./SnippetCardComponent";
 import useSWR from "swr";
 
@@ -10,18 +11,6 @@ export interface Tag {
   displayName: string;
   shortName: string;
   _id?: string;
-}
-
-export interface snippetModel {
-  _id: string;
-  title: string;
-  description: string;
-  favoriteByIds: string[];
-  tags: string[];
-  snippetCode: string;
-  createdAt: Date;
-  updatedAt: Date;
-  authorId: string;
 }
 
 type SelectableTag = Tag & { selected: boolean };
@@ -144,11 +133,6 @@ const SnippetGalleryComponent = () => {
 
   return (
     <>
-      <header>
-        {/* Navbar */}
-        <Header />
-      </header>
-
       <div>
         <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
           <option key={0} value="">
