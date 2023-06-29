@@ -1,7 +1,9 @@
 "use client";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-import SnippetCardComponent from "./SnippetCardComponent";
 import Header from "./shared/header/header";
+// import SnippetCardComponent from "./SnippetCardComponent";
 
 export interface Tag {
   displayName: string;
@@ -74,7 +76,7 @@ const SnippetGalleryComponent = () => {
     const filtered = snippets.filter((snippet) => {
       const hasSelectedTags =
         filteredTags.length === 0 ||
-        filteredTags.every((tag) => snippet.tags.includes(tag));
+        filteredTags.every((tag) => snippet.tags?.includes(tag));
       const hasSearchText =
         search === "" ||
         snippet.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -112,12 +114,12 @@ const SnippetGalleryComponent = () => {
   const ShownTags = tags
     .filter((tag) => tag.selected)
     .map((tag) => (
-      <span className="tag" key={tag._id}>
+      <div key={tag._id}>
         {tag.displayName}
-        <span onClick={(e) => handleRemoveTag(tag._id)}>
-          <i className="fa fa-times-circle"></i>
+        <span onClick={() => handleRemoveTag(tag._id)}>
+          <FontAwesomeIcon icon={faTimesCircle} />
         </span>
-      </span>
+      </div>
     ));
 
   const Options = tags
@@ -143,27 +145,28 @@ const SnippetGalleryComponent = () => {
         <Header />
       </header>
 
-      <>
-        <div>
-          <select onChange={(e) => handleSelectChange(e.target.value)}>
-            <option key={0} selected={true} value="">
-              {"All"}
-            </option>
-            {Options}
-          </select>
-          {ShownTags}
-        </div>
-        <div className="search">
-          <label htmlFor="search">Search</label>
-          <input
-            type="text"
-            id="search"
-            placeholder="Search snippets"
-            autoComplete="off"
-            onChange={(e) => handleSearch(e.target.value)}
-          />
-        </div>
-      </>
+      <div>
+        <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
+          <option key={0} value="">
+            {"All"}
+          </option>
+          {Options}
+        </select>
+
+        {ShownTags}
+      </div>
+
+      <div id="search">
+        <label htmlFor="search">Search</label>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search snippets"
+          autoComplete="off"
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
+
       <ul
         style={{
           padding: "3em",
@@ -191,7 +194,8 @@ const SnippetGalleryComponent = () => {
                 height: "573px",
               }}
             >
-              <SnippetCardComponent
+              snippet card component
+              {/* <SnippetCardComponent
                 snippet={snippet}
                 key={snippet._id}
                 title={snippet.title}
@@ -201,7 +205,7 @@ const SnippetGalleryComponent = () => {
                 formatDate={formatDate}
                 changes={changes}
                 setChanges={setChanges}
-              />
+              /> */}
             </div>
           </li>
         ))}
