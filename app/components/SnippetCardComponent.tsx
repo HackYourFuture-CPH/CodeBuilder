@@ -109,12 +109,18 @@ const SnippetCardComponent = ({
             }}>
             <div className="img-container">
               <img
-                src={userId ? session?.user?.image : ''}
+                // src={userId?  session?.user?.image : ''}
+                src={
+                  session?.user?.image
+                    ? session.user.image
+                    : 'fallback-image-url'
+                }
                 alt="user profile pic"
                 width={40}
                 height={40}
                 style={{ borderRadius: '50%', objectFit: 'cover' }}
               />
+              
             </div>
             <p
               className="avatar-text"
