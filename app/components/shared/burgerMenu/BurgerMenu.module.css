@@ -1,7 +1,6 @@
 .container {
-  margin-left: 400px;
   position: relative;
-  width: 20%;
+  width: 100%;
   background-color: white;
   height: 30px;
   display: flex;
@@ -28,20 +27,15 @@
   padding: 5px;
 }
 
-.CreateSnippet{
-  color: rgb(255, 255, 255);
-  background-color: rgb(4, 45, 84);
-  border-radius: 5px;
-  width: 120px;
-  text-align: center;
-}
-
-
 .FaSpaceShuttle:hover,
 .FaUser:hover,
 .FaSnippet:hover,
 .CreateSnippet:hover {
     transform: translateX(1px);
+    background-color: rgb(4, 45, 84);
+    color: white;
+    border-radius: 8px;
+
 }
 
 .menuIcon {
@@ -81,11 +75,12 @@
   transform: scaleY(1);
   visibility: visible;
   opacity: 1;
+  border-radius: 10px;
 }
 
 
 .menu.open li {
-  width: 180px;
+  width: 120px;
   padding: 5px;
-  margin: 5px 20px;
+  margin: 5px 30px;
 }
