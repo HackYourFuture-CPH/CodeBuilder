@@ -9,3 +9,4 @@ export interface snippetModel {
   updatedAt: Date;
   authorId: string;
 }
+

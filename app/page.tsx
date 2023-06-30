@@ -2,6 +2,8 @@
 import useSWR from "swr";
 import styles from "./page.module.css";
 import { Tag } from "./api/tags/route";
+ import React from "react";
+import Link from "next/link";
 
 import MediaQuery from "react-responsive";
 import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
@@ -15,6 +17,8 @@ export default function Home() {
     return response.json();
   });
 
+
+const Home: React.FC = () => {
   return (
     <div className={styles.main}>
       <Navbar />
@@ -43,4 +47,6 @@ export default function Home() {
          */}
     </div>
   );
-}
+};
+
+export default Home;
