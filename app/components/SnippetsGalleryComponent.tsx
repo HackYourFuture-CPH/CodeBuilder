@@ -1,10 +1,4 @@
 "use client";
-// import SnippetCard from "./SnippetCard";
-import useSWR from "swr";
-import { useSession } from "next-auth/react";
-import { getSnippets } from "../services/SnippetService";
-import { addToFavorite, normalizeDate } from "../snippets/[id]/handlers";
-import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { snippetModel } from "../snippetModel-DB";
@@ -20,9 +14,11 @@ export interface Tag {
   _id?: string;
 }
 
+type SelectableTag = Tag & { selected: boolean };
 type favoriteSnippet = snippetModel & { favorite: boolean };
 
-const SnippetGallery = () => {
+const SnippetGalleryComponent = () => {
+  const [tags, setTags] = useState<SelectableTag[]>([]);
   const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
   const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
     []
@@ -41,29 +37,84 @@ const SnippetGallery = () => {
   );
 
   useEffect(() => {
-    const fetchSnippets = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/snippets");
-        const snippets = await response.json();
-        setSnippets(snippets);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    if (snippetsData) {
+      setSnippets(snippetsData);
+      setIsLoading(false);
+    }
+  }, [snippetsData]);
 
-    fetchSnippets();
-  }, []);
+  useEffect(() => {
+    if (tagsData) {
+      setTags(tagsData);
+      setIsLoading(false);
+    }
+  }, [tagsData]);
 
-  const markAsFavorite = (snippetId: string) => {
-    const updatedSnippets = snippets.map((snippet) => {
-      if (snippet._id === snippetId) {
-        return { ...snippet, favorite: !snippet.favorite };
-      }
-      return snippet;
+  useEffect(() => {
+    filterSnippets();
+  }, [tags, search]);
+
+  const filterSnippets = () => {
+    const filteredTags = tags
+      .filter((tag) => tag.selected)
+      .map((tag) => tag.shortName.toUpperCase());
+
+    const filtered = snippets.filter((snippet) => {
+      const hasSelectedTags =
+        filteredTags.length === 0 ||
+        filteredTags.every((tag) => snippet.tags?.includes(tag));
+      const hasSearchText =
+        search === "" ||
+        snippet.title.toLowerCase().includes(search.toLowerCase()) ||
+        snippet.description.toLowerCase().includes(search.toLowerCase());
+
+      return hasSelectedTags && hasSearchText;
     });
 
-    setSnippets(updatedSnippets);
+    setFilteredSnippets(filtered);
   };
+
+  const handleSelectChange = (id: string) => {
+    const newTags = tags.map((tag) => {
+      if (tag._id === id) {
+        return { ...tag, selected: true };
+      } else if (id === "") {
+        return { ...tag, selected: false };
+      }
+      return tag;
+    });
+    setTags(newTags);
+  };
+
+  const handleRemoveTag = (id?: string) => {
+    const newVal = tags.map((tag) =>
+      tag._id === id ? { ...tag, selected: false } : tag
+    );
+    setTags(newVal);
+  };
+
+  const handleSearch = async (searchInput: string) => {
+    setSearch(searchInput);
+  };
+
+  const ShownTags = tags
+    ?.filter((tag) => tag.selected)
+    .map((tag) => (
+      <div key={tag._id}>
+        {tag.displayName}
+        <span onClick={() => handleRemoveTag(tag._id)}>
+          <FontAwesomeIcon icon={faTimesCircle} />
+        </span>
+      </div>
+    ));
+
+  const Options = tags
+    ?.filter((tag) => !tag.selected)
+    .map((tag, i) => (
+      <option key={tag._id} value={tag._id}>
+        {tag.displayName}
+      </option>
+    ));
 
   const formatDate = (date: Date) => {
     const day = date.getDate();
@@ -127,75 +178,21 @@ const SnippetGallery = () => {
             }}
             key={snippet._id}
           >
-            <button
-              className="favorite-button"
-              disabled={userId ? false : true}
-              style={{
-                border: "none",
-                background: "transparent",
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-              }}
-              onClick={() =>
-                addToFavorite(snippet._id, snippet, userId ? userId : "")
-              }
-            >
-              {userId && snippet.favoriteByIds.includes(userId) ? (
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  style={{ color: "#D25B5B" }}
-                  size="2xl"
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  style={{ color: "#000000" }}
-                  size="2xl"
-                />
-              )}
-            </button>
-
             <div
               style={{
                 height: "573px",
               }}
             >
-              snippet card
-              {/* <SnippetCard snippet={snippet} /> */}
+              {/* <SnippetCardComponent
+                snippet={snippet}
+                key={snippet._id}
+                title={snippet.title}
+                description={snippet.description}
+                tags={snippet.tags}
+                snippetCode={snippet.snippetCode}
+                formatDate={formatDate}
+              /> */}
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                position: "absolute",
-                bottom: "10px",
-                left: "10px",
-              }}
-            >
-              {/* <img src="" alt="user profile pic" /> */}
-              <p
-                style={{
-                  margin: "0",
-                }}
-              >
-                by {snippet.authorId}{" "}
-                {normalizeDate(new Date(snippet.createdAt))}{" "}
-              </p>
-            </div>
-
-            <Link
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-              }}
-              href={userId ? `/snippets/${snippet._id}` : "/snippets"}
-            >
-              Learn more..
-            </Link>
           </li>
         ))}
       </ul>
