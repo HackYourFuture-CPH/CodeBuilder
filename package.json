@@ -30,10 +30,7 @@
     "node": "^20.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-<<<<<<< HEAD
-=======
 
->>>>>>> 21b4e825aad9785adf97938bcd97f37a173326f7
     "react-icons": "^4.10.1",
     "react-responsive": "^9.0.2",
     "react-select": "^5.7.3",
@@ -54,18 +51,10 @@
   "bugs": {
     "url": "https://github.com/HackYourFuture-CPH/class24-project/issues"
   },
-  "homepage": "https://github.com/HackYourFuture-CPH/class24-project#readme"
-<<<<<<< HEAD
-=======
+  "homepage": "https://github.com/HackYourFuture-CPH/class24-project#readme",
 
     "react-icons": "^4.9.0",
     "react-select": "^5.7.3",
     "swr": "^2.1.5",
     "typescript": "5.0.4"
-  },
-  "devDependencies": {
-    "prettier": "2.8.8"
-  }
-
->>>>>>> 21b4e825aad9785adf97938bcd97f37a173326f7
 }
