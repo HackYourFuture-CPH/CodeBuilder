@@ -2,7 +2,7 @@
 import React from "react";
 import "./header.css";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { useSession, SessionProvider } from "next-auth/react";
 import LoginBtn from "./loginBtn/login-btn";
 import Image from "next/image";
 import Logo from "../../../assets/logo/logo.png";
@@ -11,6 +11,8 @@ import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
 
 const Header = () => {
+
+
   const { data: session } = useSession();
   return (
     <React.Fragment>
@@ -50,3 +52,4 @@ const Header = () => {
 };
 
 export default Header;
+
