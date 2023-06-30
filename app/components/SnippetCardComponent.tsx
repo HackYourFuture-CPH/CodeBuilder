@@ -1,15 +1,14 @@
 /** @format */
 
-'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
+"use client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faHeart);
-import Link from 'next/link';
-import CodeEditor from './shared/codeEditor/code-editor';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import './snippetCard.css';
+import Link from "next/link";
+import CodeEditor from "./shared/codeEditor/code-editor";
+import { useSession } from "next-auth/react";
+import "./snippetCard.css";
 const SnippetCardComponent = ({
   snippet,
   title,
@@ -17,19 +16,18 @@ const SnippetCardComponent = ({
   tags,
   snippetCode,
   formatDate,
-  changes,
-
-  setChanges,
-}: any) => {
+}: // changes,
+// setChanges,
+any) => {
   const { data: session } = useSession();
   const userId = session?.user?.email;
   // const userAvatar = session?.user?.image;
 
   const handleFavoriteButton = async () => {
     await fetch(`/api/snippets/${snippet._id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ addToFavorite: userId }),
     })
@@ -37,13 +35,13 @@ const SnippetCardComponent = ({
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error('Error publishing snippet');
+          throw new Error("Error publishing snippet");
         }
       })
       .catch((error) => {
         console.error(error);
       });
-    await setChanges(!changes);
+    // await setChanges(!changes);
   };
   console.log(session?.user?.image);
   return (
@@ -62,22 +60,23 @@ const SnippetCardComponent = ({
           <button
             className="favorite-button"
             style={{
-              border: 'none',
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
+              border: "none",
+              position: "absolute",
+              top: "10px",
+              right: "10px",
             }}
-            onClick={() => handleFavoriteButton()}>
+            onClick={() => handleFavoriteButton()}
+          >
             {snippet.favoriteByIds.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}
-                style={{ color: '#ff0000' }}
+                style={{ color: "#ff0000" }}
                 size="2xl"
               />
             ) : (
               <FontAwesomeIcon
                 icon={faHeart}
-                style={{ color: '#000000' }}
+                style={{ color: "#000000" }}
                 size="2xl"
               />
             )}
@@ -101,32 +100,33 @@ const SnippetCardComponent = ({
           <div
             className="avatar-container"
             style={{
-              display: 'flex',
-              justifyContent: 'space-between',
+              display: "flex",
+              justifyContent: "space-between",
               // position: 'absolute',
               // bottom: '10px',
               // left: '10px',
-            }}>
+            }}
+          >
             <div className="img-container">
               <img
                 // src={userId?  session?.user?.image : ''}
                 src={
                   session?.user?.image
                     ? session.user.image
-                    : 'fallback-image-url'
+                    : "fallback-image-url"
                 }
                 alt="user profile pic"
                 width={40}
                 height={40}
-                style={{ borderRadius: '50%', objectFit: 'cover' }}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
               />
-              
             </div>
             <p
               className="avatar-text"
               style={{
-                margin: '0',
-              }}>
+                margin: "0",
+              }}
+            >
               by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
               {/* by {userId ? session?.user?.name : 'user name'} */}
               {/* {formatDate(new Date(snippet.createdAt))}{' '} */}
@@ -136,24 +136,26 @@ const SnippetCardComponent = ({
             <Link
               className="link-button"
               style={{
-                textDecoration: 'none',
-                position: 'absolute',
-                bottom: '10px',
-                right: '10px',
+                textDecoration: "none",
+                position: "absolute",
+                bottom: "10px",
+                right: "10px",
               }}
-              href={`/snippets/${snippet._id}`}>
+              href={`/snippets/${snippet._id}`}
+            >
               Learn more
             </Link>
           ) : (
             <Link
               className="link-button"
               style={{
-                textDecoration: 'none',
-                position: 'absolute',
-                bottom: '10px',
-                right: '10px',
+                textDecoration: "none",
+                position: "absolute",
+                bottom: "10px",
+                right: "10px",
               }}
-              href={`/login`}>
+              href={`/login`}
+            >
               Login to learn more
             </Link>
           )}

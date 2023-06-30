@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, token, user }) {
       if (session?.user) {
-        // I am trying to add the single property as Id in session, but TS gives me an error. It needs a type of Id. I trying to add it, but can't
+        // I am trying to add the single property as Id in session, but TS gives me an error. It needs a type of Id. I trying to add it, but can't and if we use email it gives ID but in email properties
         session.user.email = token.sub;
       }
       return session;

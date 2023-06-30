@@ -1,22 +1,21 @@
-import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-// import UserIcon from "@/app/icons/user";
-import styles from "./tags/page.module.css";
+import "./login-btn.css";
+import { FaUserAlt } from "react-icons/fa";
 
-export default function Component() {
+export default function LoginBtn() {
   const { data: session } = useSession();
 
   return (
     <>
       {/* Logout or Login */}
       <button
-        className={styles.button}
+        className={"login-btn"}
         onClick={(e) => {
           e.preventDefault();
           session?.user ? signOut() : signIn();
         }}
       >
-        {/* <UserIcon /> */}
+        <FaUserAlt className="icon" />
         <span>{session?.user ? session.user.name : "Login"}</span>
       </button>
     </>

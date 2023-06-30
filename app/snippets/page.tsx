@@ -1,6 +1,11 @@
-import SnippetGalleryComponent from "../components/SnippetsGalleryComponent";
+"use client";
+import SnippetGallery from "../components/SnippetsGalleryComponent";
 
-const SnippetsTest: React.FC = () => {
-  return <SnippetGalleryComponent />;
+const Snippets: React.FC = () => {
+  return (
+    <>
+      <SnippetGallery />
+    </>
+  );
 };
-export default SnippetsTest;
+export default Snippets;
