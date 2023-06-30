@@ -19,7 +19,6 @@ const Home: React.FC = () => {
   const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
   const isTablet = useMediaQuery({ query: '(max-width: 1224px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
-  const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
  
   return (
     <div className='main'>
@@ -27,7 +26,6 @@ const Home: React.FC = () => {
           {isBigScreen && <Header />}
           {isTablet &&  <Header />}
           {isMobile && <BurgerMenu />}
-          {isRetina && <BurgerMenu />}
 
       {/*
         <h1>Categories from the database</h1>
