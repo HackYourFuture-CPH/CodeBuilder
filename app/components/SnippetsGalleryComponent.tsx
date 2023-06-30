@@ -1,12 +1,23 @@
 "use client";
 // import SnippetCard from "./SnippetCard";
-import { useState, useEffect } from "react";
+import useSWR from "swr";
+import { useSession } from "next-auth/react";
+import { getSnippets } from "../services/SnippetService";
+import { addToFavorite, normalizeDate } from "../snippets/[id]/handlers";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import Link from "next/link";
-library.add(faHeart);
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { snippetModel } from "../snippetModel-DB";
+
+import { useState, useEffect } from "react";
+// import SnippetCardComponent from "./SnippetCardComponent";
+import useSWR from "swr";
+
+export interface Tag {
+  displayName: string;
+  shortName: string;
+  _id?: string;
+}
 
 type favoriteSnippet = snippetModel & { favorite: boolean };
 
@@ -46,17 +57,47 @@ const SnippetGallery = () => {
     return `${day} ${month} ${year}`;
   };
 
+  if (snippetError || tagError) {
+    return <div>Error fetching data</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <ul
-      style={{
-        padding: "3em",
-        display: "grid",
-        gridGap: "3em",
-        gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-      }}
-    >
-      {snippets?.map((snippet) => {
-        return (
+    <>
+      <div>
+        <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
+          <option key={0} value="">
+            {"All"}
+          </option>
+          {Options}
+        </select>
+
+        {ShownTags}
+      </div>
+
+      <div id="search">
+        <label htmlFor="search">Search</label>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search snippets"
+          autoComplete="off"
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
+
+      <ul
+        style={{
+          padding: "3em",
+          display: "grid",
+          gridGap: "3em",
+          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
+        }}
+      >
+        {filteredSnippets.map((snippet) => (
           <li
             style={{
               display: "flex",
@@ -72,6 +113,7 @@ const SnippetGallery = () => {
           >
             <button
               className="favorite-button"
+              disabled={userId ? false : true}
               style={{
                 border: "none",
                 background: "transparent",
@@ -79,12 +121,14 @@ const SnippetGallery = () => {
                 top: "10px",
                 right: "10px",
               }}
-              onClick={() => markAsFavorite(snippet._id)}
+              onClick={() =>
+                addToFavorite(snippet._id, snippet, userId ? userId : "")
+              }
             >
-              {snippet.favorite ? (
+              {userId && snippet.favoriteByIds.includes(userId) ? (
                 <FontAwesomeIcon
                   icon={faHeart}
-                  style={{ color: "#ff0000" }}
+                  style={{ color: "#D25B5B" }}
                   size="2xl"
                 />
               ) : (
@@ -120,7 +164,8 @@ const SnippetGallery = () => {
                   margin: "0",
                 }}
               >
-                by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}{" "}
+                by {snippet.authorId}{" "}
+                {normalizeDate(new Date(snippet.createdAt))}{" "}
               </p>
             </div>
 
@@ -131,15 +176,15 @@ const SnippetGallery = () => {
                 bottom: "10px",
                 right: "10px",
               }}
-              href={`/snippets/${snippet._id}`}
+              href={userId ? `/snippets/${snippet._id}` : "/snippets"}
             >
               Learn more..
             </Link>
           </li>
-        );
-      })}
-    </ul>
+        ))}
+      </ul>
+    </>
   );
 };
 
-export default SnippetGallery;
+export default SnippetGalleryComponent;
