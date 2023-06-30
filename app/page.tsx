@@ -1,6 +1,5 @@
 "use client";
 import useSWR from "swr";
-import styles from "./page.module.css";
 import { Tag } from "./api/tags/route";
 import React from "react";
 import Link from "next/link";
@@ -23,8 +22,7 @@ const Home: React.FC = () => {
   const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
  
   return (
-    <div className={styles.main}>
-      <Navbar />
+    <div className='main'>
           {isDesktopOrLaptop &&  <Header />}
           {isBigScreen && <Header />}
           {isTablet &&  <Header />}
