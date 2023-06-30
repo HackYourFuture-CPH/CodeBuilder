@@ -1,8 +1,13 @@
-"use client"
+"use client";
+import useSWR from "swr";
+import styles from "./page.module.css";
+import { Tag } from "./api/tags/route";
 import React from "react";
+import Link from "next/link";
 import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
 import Header from "./components/shared/header/header";
+
 
 
 
@@ -14,15 +19,14 @@ const Home: React.FC = () => {
   const isTablet = useMediaQuery({ query: '(max-width: 1224px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
   const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
+
   return (
-    
-    <div className='main'>
+    <div className={styles.main}>
           {isDesktopOrLaptop &&  <Header />}
           {isBigScreen && <Header />}
           {isTablet &&  <Header />}
           {isMobile && <BurgerMenu />}
           {isRetina && <BurgerMenu />}
-
 
       {/*
         <h1>Categories from the database</h1>
