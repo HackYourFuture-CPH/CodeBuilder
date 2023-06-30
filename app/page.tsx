@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import { Tag } from "./api/tags/route";
 import React from "react";
 import Link from "next/link";
+
 import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
 import Header from "./components/shared/header/header";
@@ -12,16 +13,18 @@ import Header from "./components/shared/header/header";
 
 
 const Home: React.FC = () => {
-  const isDesktopOrLaptop = useMediaQuery({
+
+   const isDesktopOrLaptop = useMediaQuery({
     query: '(min-width: 1224px)'
   })
   const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
   const isTablet = useMediaQuery({ query: '(max-width: 1224px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
   const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
-
+ 
   return (
     <div className={styles.main}>
+      <Navbar />
           {isDesktopOrLaptop &&  <Header />}
           {isBigScreen && <Header />}
           {isTablet &&  <Header />}
