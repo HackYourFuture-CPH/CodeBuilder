@@ -6,30 +6,98 @@ import { getSnippets } from "../services/SnippetService";
 import { addToFavorite, normalizeDate } from "../snippets/[id]/handlers";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import Link from "next/link";
-library.add(faHeart);
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import { snippetModel } from "../snippetModel-DB";
+
+import { useState, useEffect } from "react";
+// import SnippetCardComponent from "./SnippetCardComponent";
+import useSWR from "swr";
+
+export interface Tag {
+  displayName: string;
+  shortName: string;
+  _id?: string;
+}
+
+type favoriteSnippet = snippetModel & { favorite: boolean };
 
 const SnippetGallery = () => {
-  const { data: snippets } = useSWR<snippetModel[]>(
-    "/api/snippets",
-    getSnippets
-  );
-  const { data: session } = useSession();
-  const userId = session?.user?.email?.toString();
+  const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
+
+  useEffect(() => {
+    const fetchSnippets = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/snippets");
+        const snippets = await response.json();
+        setSnippets(snippets);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSnippets();
+  }, []);
+
+  const markAsFavorite = (snippetId: string) => {
+    const updatedSnippets = snippets.map((snippet) => {
+      if (snippet._id === snippetId) {
+        return { ...snippet, favorite: !snippet.favorite };
+      }
+      return snippet;
+    });
+
+    setSnippets(updatedSnippets);
+  };
+
+  const formatDate = (date: Date) => {
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "short" });
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+  };
+
+  if (snippetError || tagError) {
+    return <div>Error fetching data</div>;
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <ul
-      style={{
-        padding: "3em",
-        display: "grid",
-        gridGap: "3em",
-        gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-      }}
-    >
-      {snippets?.map((snippet) => {
-        return (
+    <>
+      <div>
+        <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
+          <option key={0} value="">
+            {"All"}
+          </option>
+          {Options}
+        </select>
+
+        {ShownTags}
+      </div>
+
+      <div id="search">
+        <label htmlFor="search">Search</label>
+        <input
+          type="text"
+          id="search"
+          placeholder="Search snippets"
+          autoComplete="off"
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
+
+      <ul
+        style={{
+          padding: "3em",
+          display: "grid",
+          gridGap: "3em",
+          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
+        }}
+      >
+        {filteredSnippets.map((snippet) => (
           <li
             style={{
               display: "flex",
@@ -113,10 +181,10 @@ const SnippetGallery = () => {
               Learn more..
             </Link>
           </li>
-        );
-      })}
-    </ul>
+        ))}
+      </ul>
+    </>
   );
 };
 
-export default SnippetGallery;
+export default SnippetGalleryComponent;
