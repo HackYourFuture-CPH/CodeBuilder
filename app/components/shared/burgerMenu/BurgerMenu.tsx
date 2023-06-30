@@ -13,7 +13,7 @@ const BurgerMenu = () => {
     <div className={styles.container}>
       <button className={styles.menuButton} onClick={toggleMenu}>
         <div style={{ transform: "rotate(90deg)" }}>
-          <FaBars className={styles.faBars} size={24} />
+          <FaBars className={styles.FaBars} size={24} />
         </div>
         <span
           className={`${styles.menuIcon} ${isOpen ? styles.open : ""}`}
