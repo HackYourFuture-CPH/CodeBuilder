@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { snippetModel } from "../snippetModel-DB";
+import { getSnippets } from "../services/SnippetService";
 
 import { useState, useEffect } from "react";
 // import SnippetCardComponent from "./SnippetCardComponent";
@@ -26,8 +27,8 @@ const SnippetGalleryComponent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { data: snippetsData, error: snippetError } = useSWR(
-    "http://localhost:3000/api/snippets",
-    (url) => fetch(url).then((response) => response.json())
+    "/api/snippets",
+    getSnippets
   );
 
   const { data: tagsData, error: tagError } = useSWR(
