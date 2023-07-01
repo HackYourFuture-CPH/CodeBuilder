@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
 import Link from "next/link";
+import SnippetGallery from "../components/SnippetsGalleryComponent";
 
 const UserId: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
@@ -16,7 +17,8 @@ const UserId: React.FC = () => {
         This component(route) we will use as the page after the user logs in
         Here we gonna show all snippets, created by logged in user
       </p>
-      <ul>
+      <SnippetGallery />
+      {/* <ul>
         {snippets ? (
           snippets.map((snippet) => (
             <li key={snippet._id}>
@@ -30,7 +32,7 @@ const UserId: React.FC = () => {
         ) : (
           <div>Loading...</div>
         )}
-      </ul>
+      </ul> */}
     </>
   );
 };

@@ -20,7 +20,7 @@ const Header = () => {
         </div>
         <ul className="navbar-menu">
           <li className="navbar-item">
-            <a href="/explore" className="explore-btn">
+            <a href="/snippets" className="explore-btn">
               <IoRocket className="icon" />
               Explore
             </a>
