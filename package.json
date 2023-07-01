@@ -27,14 +27,37 @@
     "morgan": "^1.10.0",
     "next": "13.4.1",
     "next-auth": "^4.22.1",
+<<<<<<< HEAD
+=======
+    "node": "^20.3.1",
+>>>>>>> a208f2bd96908ea90f78ba102db8858dd4b6c054
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.9.0",
+
+    "react-icons": "^4.10.1",
+    "react-responsive": "^9.0.2",
     "react-select": "^5.7.3",
     "swr": "^2.1.5",
     "typescript": "5.0.4"
   },
   "devDependencies": {
     "prettier": "2.8.8"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HackYourFuture-CPH/class24-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HackYourFuture-CPH/class24-project/issues"
+  },
+  "homepage": "https://github.com/HackYourFuture-CPH/class24-project#readme",
+
+    "react-icons": "^4.9.0",
+    "react-select": "^5.7.3",
+    "swr": "^2.1.5",
+    "typescript": "5.0.4"
 }
