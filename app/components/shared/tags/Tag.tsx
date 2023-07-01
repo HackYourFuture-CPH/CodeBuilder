@@ -1,11 +1,9 @@
 "use client";
 import React from "react";
 import useSWR from "swr";
-import styles from "./page.module.css";
-import { snippetModel } from "../snippetModel-DB";
-import CodeEditor from "../components/shared/codeEditor/code-editor";
-// import SnippetGallery from "../components/SnippetsGalleryComponent";
-import Header from "../components/shared/header/header";
+import "./Tag.css";
+import { snippetModel } from "../../../snippetModel-DB";
+
 
 const TagsPage: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
@@ -22,11 +20,8 @@ const TagsPage: React.FC = () => {
   );
 
   return (
-    <div>
-      <header>
-        <Header />
-      </header>
-      {/* <SnippetGallery /> */}
+    <div className="Tag_container">
+      <h1>Tags will be rerndered here</h1> 
     </div>
   );
 };

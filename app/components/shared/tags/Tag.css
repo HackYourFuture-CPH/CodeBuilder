@@ -1,0 +1,12 @@
+.Tag_container {
+  height: 50px;
+  width: 100%;
+  background-color: rgb(227, 236, 246);
+  color: rgb(4, 45, 84);
+  margin: 0px;
+  padding: 0px;
+}
+
+.Tag_container h1 {
+  color: rgb(4, 45, 84);
+}
