@@ -1,29 +1,30 @@
-import build from "next/dist/build"
-import React from 'react';
-import useSWR from 'swr';
+"use client";
+import build from "next/dist/build";
+import React from "react";
+import useSWR from "swr";
 import { snippetModel } from "@/app/snippetModel-DB";
 //import { snippetModel } from '../snippetModel-DB';
 
 const UserId: React.FC = () => {
-  
   const getAllSnippets = async (): Promise<snippetModel[]> => {
     try {
-    
-      const response = await fetch('/api/snippets');
+      const response = await fetch("/api/snippets");
       if (!response.ok) {
-        throw new Error('Failed to fetch snippets');
+        throw new Error("Failed to fetch snippets");
       }
-  
+
       const snippets: snippetModel[] = await response.json();
       return snippets;
     } catch (error) {
-      console.error('Error fetching snippets:', error); 
+      console.error("Error fetching snippets:", error);
       throw error;
     }
   };
-  
 
-  const { data: snippets } = useSWR<snippetModel[]>('/api/snippets', getAllSnippets);
+  const { data: snippets } = useSWR<snippetModel[]>(
+    "/api/snippets",
+    getAllSnippets
+  );
 
   return (
     <>
@@ -36,7 +37,7 @@ const UserId: React.FC = () => {
           snippets.map((snippet: snippetModel) => (
             <li key={snippet._id}>
               <h2>{snippet.title}</h2>
-              <p>{snippet.createdAt.slice(0, 10)}</p>
+              <p>{snippet.createdAt.toLocaleDateString().slice(0, 10)}</p>
               <p>{snippet.snippetCode}</p>
             </li>
           ))

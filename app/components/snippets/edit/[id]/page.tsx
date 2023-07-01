@@ -1,11 +1,11 @@
 "use client";
 
-import useSWR from 'swr';
-import { Tag } from '../api/tags/route';
-import { useState, useEffect } from 'react';
-import TextInput from '@/app/components/TextInput';
-import CodeEditor from '@/app/api/components/shared/codeEditor/code-editor';
-import SelectTags from '@app/components/SelectTags';
+import useSWR from "swr";
+import { useState, useEffect } from "react";
+import TextInput from "@/app/components/TextInput";
+import CodeEditor from "@/app/api/components/shared/codeEditor/code-editor";
+import SelectTags from "@/app/components/SelectTags";
+import { Tag } from "@/app/api/tags/route";
 
 interface SnippetData {
   title: string;
@@ -17,15 +17,19 @@ interface SnippetData {
 }
 
 interface EditSnippetProps {
-  snippetId: string; 
+  snippetId: string;
 }
 
-const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
+const EditSnippetComponent = ({
+  params,
+}: {
+  params: { snippetId: string };
+}): JSX.Element => {
   const [isPublished, setIsPublished] = useState(false);
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
   const [selectTags, setSelectTags] = useState<string[]>([]);
-  const [description, setDescription] = useState<string>('');
-  const [code, setCode] = useState<string>('');
+  const [description, setDescription] = useState<string>("");
+  const [code, setCode] = useState<string>("");
 
   const currentDate = new Date();
   const updatedDate = new Date();
@@ -36,13 +40,12 @@ const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
   };
 
   useEffect(() => {
-    
-    fetch(`/api/snippets/${snippetId}`)
+    fetch(`/api/snippets/${params.snippetId}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error('Error fetching snippet');
+          throw new Error("Error fetching snippet");
         }
       })
       .then((snippetData: SnippetData) => {
@@ -54,7 +57,7 @@ const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
       .catch((error) => {
         console.error(error);
       });
-  }, [snippetId]);
+  }, [params.snippetId]);
 
   const handleUpdate = (): void => {
     const snippetData: SnippetData = {
@@ -66,10 +69,10 @@ const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
       updated_at: updatedDate,
     };
 
-    fetch(`/api/snippets/${snippetId}`, {
-      method: 'PUT',
+    fetch(`/api/snippets/${params.snippetId}`, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(snippetData),
     })
@@ -77,7 +80,7 @@ const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
         if (response.ok) {
           setIsPublished(true);
         } else {
-          throw new Error('Error updating snippet');
+          throw new Error("Error updating snippet");
         }
       })
       .catch((error) => {
@@ -85,7 +88,7 @@ const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
       });
   };
 
-  const { data: tags } = useSWR<Tag[]>('/api/tags', async (url) => {
+  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
     const response = await fetch(url);
     return response.json();
   });
@@ -136,12 +139,6 @@ const EditSnippetComponent = ({ snippetId }: EditSnippetProps): JSX.Element => {
 };
 
 export default EditSnippetComponent;
-
-
-
-
-
-
 
 /*
 import React from "react";

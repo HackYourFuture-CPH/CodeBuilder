@@ -1,6 +1,6 @@
 "use client";
+import { updateSnippet } from "@/app/service/SnippetService";
 import { mutate } from "swr";
-import { updateSnippet } from "@/app/services/SnippetService";
 
 type Props = {
   params: {

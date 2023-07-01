@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import SnippetForm from "../snipetForm/SnippetForm";
 import { SnippetData } from "./interfaces";
+import SnippetForm from "../snipetForm/snippetForm";
 
 const CreateSnippet = () => {
   const [title, setTitle] = useState<string>("");
