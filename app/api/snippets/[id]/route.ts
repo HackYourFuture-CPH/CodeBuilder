@@ -1,6 +1,8 @@
-import { getMongoDb } from "@/app/mongodb";
+import { getMongoDb } from "../../../mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
+// import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 // get one snippet by id
 export async function GET(
@@ -32,6 +34,11 @@ export async function PUT(
   },
   res: NextResponse
 ) {
+  // I'm trying to modify the API so that can be used to update an array favoriteByIds.
+  // we can use a user name instead of an id
+  // const session = await getServerSession(authOptions)
+  // const userId = session?.user?.email;
+  // console.log(session)
   try {
     const snippetId = params.id;
     const body = await req.json();
@@ -39,6 +46,23 @@ export async function PUT(
     const updateOneSnippetFromDatabase = await db
       .collection("snippets")
       .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
+    const oneSnippetFromDatabase = await db
+      .collection("snippets")
+      .findOne({ _id: new ObjectId(snippetId) });
+    // if a user in array, we delete him
+    // if (oneSnippetFromDatabase?.favoriteByIds.include("randomuser1")) {
+    //   await db
+    //     .collection("snippets")
+    //     .updateOne({ _id: new ObjectId(snippetId) },
+    //       { $pull: { favoriteByIds: { $in: ["randomuser1"] } } });
+    // } else {
+    //   // if a usr not in array, we add him
+    //   await db
+    //     .collection("snippets")
+    //     .updateOne({ _id: new ObjectId(snippetId) },
+    //       { $addToSet: { favoriteByIds: "randomuser1" } })
+
+    // }
     return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
   } catch (error) {
     return NextResponse.json({

@@ -1,52 +1,35 @@
 "use client";
 // import SnippetCard from "./SnippetCard";
-import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { getSnippets } from "../services/SnippetService";
+import { addToFavorite, normalizeDate } from "../snippets/[id]/handlers";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
+import { useState, useEffect } from "react";
+// import SnippetCardComponent from "./SnippetCardComponent";
+import useSWR from "swr";
+
+export interface Tag {
+  displayName: string;
+  shortName: string;
+  _id?: string;
+}
+
+type favoriteSnippet = snippetModel & { favorite: boolean };
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";
 library.add(faHeart);
 
-type favoriteSnippet = snippetModel & { favorite: boolean };
-
 const SnippetGallery = () => {
-  const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
-
-  useEffect(() => {
-    const fetchSnippets = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/api/snippets"
-        );
-        const snippets = await response.json();
-        setSnippets(snippets);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchSnippets();
-  }, []);
-
-  const markAsFavorite = (snippetId: string) => {
-    const updatedSnippets = snippets.map((snippet) => {
-      if (snippet._id === snippetId) {
-        return { ...snippet, favorite: !snippet.favorite };
-      }
-      return snippet;
-    });
-
-    setSnippets(updatedSnippets);
-  };
-
-  const formatDate = (date: Date) => {
-    const day = date.getDate();
-    const month = date.toLocaleString("default", { month: "short" });
-    const year = date.getFullYear();
-
-    return `${day} ${month} ${year}`;
-  };
+  const { data: snippets } = useSWR<snippetModel[]>(
+    "/api/snippets",
+    getSnippets
+  );
+  const { data: session } = useSession();
+  const userId = session?.user?.email?.toString();
 
   return (
     <ul
@@ -74,6 +57,7 @@ const SnippetGallery = () => {
           >
             <button
               className="favorite-button"
+              disabled={userId ? false : true}
               style={{
                 border: "none",
                 background: "transparent",
@@ -81,12 +65,14 @@ const SnippetGallery = () => {
                 top: "10px",
                 right: "10px",
               }}
-              onClick={() => markAsFavorite(snippet._id)}
+              onClick={() =>
+                addToFavorite(snippet._id, snippet, userId ? userId : "")
+              }
             >
-              {snippet.favorite ? (
+              {userId && snippet.favoriteByIds.includes(userId) ? (
                 <FontAwesomeIcon
                   icon={faHeart}
-                  style={{ color: "#ff0000" }}
+                  style={{ color: "#D25B5B" }}
                   size="2xl"
                 />
               ) : (
@@ -98,9 +84,11 @@ const SnippetGallery = () => {
               )}
             </button>
 
-            <div style={{
-              height: "573px"
-            }}>
+            <div
+              style={{
+                height: "573px",
+              }}
+            >
               snippet card
               {/* <SnippetCard snippet={snippet} /> */}
             </div>
@@ -114,11 +102,15 @@ const SnippetGallery = () => {
                 left: "10px",
               }}
             >
-              <img src="" alt="user profile pic" />
-              <p 
-              style={{
-                margin: "0"
-              }}>by {snippet.authorId} {formatDate(new Date(snippet.createdAt))} </p>
+              {/* <img src="" alt="user profile pic" /> */}
+              <p
+                style={{
+                  margin: "0",
+                }}
+              >
+                by {snippet.authorId}{" "}
+                {normalizeDate(new Date(snippet.createdAt))}{" "}
+              </p>
             </div>
 
             <Link
@@ -128,7 +120,7 @@ const SnippetGallery = () => {
                 bottom: "10px",
                 right: "10px",
               }}
-              href="/learn-more"
+              href={userId ? `/snippets/${snippet._id}` : "/snippets"}
             >
               Learn more..
             </Link>
