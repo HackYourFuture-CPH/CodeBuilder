@@ -8,6 +8,7 @@ library.add(faHeart);
 import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import "./snippetCard.css";
 import { snippetModel } from "../snippetModel-DB";
 
@@ -45,6 +46,7 @@ const SnippetCard = ({
         if (response.ok) {
           return response.json();
         } else {
+          throw new Error("Error publishing snippet");
           throw new Error("Error publishing snippet");
         }
       })

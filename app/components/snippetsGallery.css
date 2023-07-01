@@ -1,15 +1,15 @@
 .gallery-container {
-  padding: 3em;
   display: grid;
-  grid-gap: 3em;
-  grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
+
+  grid-column-gap: 42px;
+  grid-row-gap: 42px;
 }
 
 .gallery-item {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 2em;
+  background-color: #ffffff;
   border-radius: 0.3em;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
   list-style: none;
@@ -17,11 +17,7 @@
   overflow: hidden;
 }
 
-.card {
-  height: 573px;
-}
-
-/* Media Query for devices with maximum width of 768px */
+/* Media Query for devices with maximum width of 768px 
 @media (max-width: 767px) {
   .gallery-container {
     padding: 2em;
@@ -36,7 +32,7 @@
   }
 }
 
-/* Media Query for devices with maximum width of 480px */
+/* Media Query for devices with maximum width of 480px 
 @media (max-width: 479px) {
   .gallery-container {
     padding: 1em;
@@ -51,9 +47,9 @@
   }
 }
 
-/* Media Query for devices with maximum width of 320px */
-@media (max-width: 319px) {
-  .gallery-container ul {
+ Media Query for devices with maximum width of 320px */
+@media (max-width: 320px) {
+  .gallery-container {
     padding: 0.5em;
     grid-gap: 0.5em;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -61,11 +57,9 @@
 
   .gallery-item {
     display: flex;
-    flex-wrap: wrap;
-    margin: 0.1em;
-    padding: 3em;
-    border-radius: 0.05em;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+    flex-wrap: nowrap;
+    font-size: 16px;
+    border-radius: 0.5em;
   }
   
 }
