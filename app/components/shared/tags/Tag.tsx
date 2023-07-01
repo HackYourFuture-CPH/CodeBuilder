@@ -14,15 +14,20 @@ import Link from "next/link";
 library.add(faHeart);
 
 
+
 const SnippetGallery = () => {
-    const { data: session } = useSession();
+
+{/**
+const { data: session } = useSession();
+const userId = session?.user?.email?.toString();
+ */}
+  let userId = "";
   
     const { data: snippets } = useSWR<snippetModel[]>(
       "/api/snippets",
       getSnippets
     );
     
-    const userId = session?.user?.email?.toString();
 
 
   return (
@@ -56,13 +61,14 @@ const SnippetGallery = () => {
               snippet card
               {/* <SnippetCard snippet={snippet} /> */}
 
- 
+            
+
             </div>
 
             <div className="Tags_AuthorDetails">
               {/* <img src="" alt="user profile pic" /> */}
 
- 
+
               <p>
                 by {snippet.authorId}{" "}
                 {normalizeDate(new Date(snippet.createdAt))}{" "}
@@ -82,21 +88,21 @@ const SnippetGallery = () => {
   );
 };
 
-export default SnippetGallery;
+export default SnippetGallery; 
 
 
 
 {
   /**
-   const SnippetGallery = () => {
-     return ( 
-       <div className="Tags_unordered_list">
-         tags will be export here!!!
-       </div>
-      );
-   }
-    
-   export default SnippetGallery;
+
+ const SnippetGallery = () => {
+   return ( 
+     <div className="Tags_unordered_list">
+       tags will be export here!!!
+     </div>
+    );
+ }
+  
+ export default SnippetGallery;
    * 
-   */
-}
+  */ }
