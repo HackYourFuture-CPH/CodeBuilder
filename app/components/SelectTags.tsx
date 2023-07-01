@@ -1,4 +1,4 @@
-/** @format */
+
 import React, { ChangeEvent, useState } from 'react';
 import Select from 'react-select';
 
@@ -15,7 +15,7 @@ interface SelectTagProps {
   onChange: (value: Option[] | null | any) => void;
 }
 
-export default function SelectTags(props: SelectTagProps): JSX.Element {
+export default function SelectTags (props: SelectTagProps): JSX.Element {
   return (
     <div>
       <Select
