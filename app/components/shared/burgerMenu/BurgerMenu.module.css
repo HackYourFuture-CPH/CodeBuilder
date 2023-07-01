@@ -51,8 +51,8 @@
     text-align: center;
   }
 
-  .CreateSnippet a {
-    color: white !important;
+  .container .CreateSnippet a {
+    color: white;
   }
 
   .menuIcon {
