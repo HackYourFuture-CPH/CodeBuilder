@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import Header from "./components/shared/header/header";
 import Providers from "./providers";
+import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
+import { useMediaQuery } from "react-responsive";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Header />
+         <Header/>
           {children}
         </Providers>
       </body>
