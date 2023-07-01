@@ -9,6 +9,7 @@ import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
 import "./snippetCard.css";
+
 const SnippetCardComponent = ({
   snippet,
   title,
@@ -16,12 +17,10 @@ const SnippetCardComponent = ({
   tags,
   snippetCode,
   formatDate,
-}: // changes,
-// setChanges,
-any) => {
+  mutate,
+}: any) => {
   const { data: session } = useSession();
   const userId = session?.user?.email;
-  // const userAvatar = session?.user?.image;
 
   const handleFavoriteButton = async () => {
     await fetch(`/api/snippets/${snippet._id}`, {
@@ -41,7 +40,7 @@ any) => {
       .catch((error) => {
         console.error(error);
       });
-    // await setChanges(!changes);
+    mutate();
   };
   console.log(session?.user?.image);
   return (
@@ -102,14 +101,10 @@ any) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
-              // position: 'absolute',
-              // bottom: '10px',
-              // left: '10px',
             }}
           >
             <div className="img-container">
               <img
-                // src={userId?  session?.user?.image : ''}
                 src={
                   session?.user?.image
                     ? session.user.image
@@ -128,8 +123,6 @@ any) => {
               }}
             >
               by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
-              {/* by {userId ? session?.user?.name : 'user name'} */}
-              {/* {formatDate(new Date(snippet.createdAt))}{' '} */}
             </p>
           </div>
           {session ? (

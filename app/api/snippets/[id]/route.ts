@@ -17,7 +17,6 @@ export async function GET(
       .collection("snippets")
       .findOne({ _id: new ObjectId(snippetId) });
     return NextResponse.json(oneSnippetFromDatabase);
-    // new NextResponse(JSON.stringify(oneSnippetFromDatabase));
   } catch (error) {
     NextResponse.json(error);
   }
@@ -42,7 +41,6 @@ export async function PUT(
         .collection("snippets")
         .findOne({ _id: new ObjectId(snippetId) });
       if (oneSnippetFromDatabase?.favoriteByIds.includes(userId)) {
-        // if a user in array, we delete him
         await db
           .collection("snippets")
           .updateOne(
@@ -51,7 +49,6 @@ export async function PUT(
           );
         return new NextResponse(JSON.stringify({ message: "user removed" }));
       } else {
-        // if a usr not in array, we add him
         await db
           .collection("snippets")
           .updateOne(
