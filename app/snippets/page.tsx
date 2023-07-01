@@ -2,8 +2,11 @@
 import useSWR from "swr";
 import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
-import Link from "next/link";
-import SnippetGallery from "../components/SnippetsGalleryComponent";
+import SnippetGallery from "../components/shared/tags/Tag";
+import FilterBar from "../components/shared/FilterBar/FilterBar";
+
+
+
 
 const UserId: React.FC = () => {
   const { data: snippets } = useSWR<snippetModel[]>(
@@ -13,10 +16,7 @@ const UserId: React.FC = () => {
 
   return (
     <>
-      <p>
-        This component(route) we will use as the page after the user logs in
-        Here we gonna show all snippets, created by logged in user
-      </p>
+      <FilterBar />
       <SnippetGallery />
       {/* <ul>
         {snippets ? (

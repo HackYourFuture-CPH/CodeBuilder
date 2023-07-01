@@ -47,3 +47,9 @@
   bottom: "10px";
   right: "10px";
 }
+
+.Tags_unordered_list {
+  z-index: 10;
+  margin-top: 200px;
+  color: aliceblue;
+}
