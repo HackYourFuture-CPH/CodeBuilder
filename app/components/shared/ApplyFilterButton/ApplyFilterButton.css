@@ -1,3 +1,15 @@
-.ApplyFilterButton{
-margin-top: 2px;
-}
+
+.button {
+    background-color: #104d85;
+    color: #ffffff;
+    border: none;
+    font-family: "Arial";
+    font-size: 20px;
+    line-height: 23px;
+    width: 400;
+    padding: 12px 16px 12px 16px;
+    border-radius: 8px;
+  }
+  .button:hover {
+    background-color: #427fb7;
+  }
