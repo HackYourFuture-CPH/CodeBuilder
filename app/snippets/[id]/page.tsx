@@ -6,7 +6,6 @@ import { getSnippets } from "../../services/SnippetService";
 import { useSession } from "next-auth/react";
 import { snippetModel } from "../../snippetModel-DB";
 import CodeEditor from "../../components/shared/codeEditor/code-editor";
-// import UserIcon from "@/app/icons/user";
 import { addToFavorite, normalizeDate } from "./handlers";
 
 export default function SnippetDetails({ params }: { params: { id: string } }) {
@@ -45,10 +44,8 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
                   }
                 >
                   ❤️
-                  {/* here will be heart icon */}
                 </button>
               </div>
-              {/* <UserIcon /> */}
               <p>
                 {snippet.authorId} {normalizeDate(new Date(snippet.updatedAt))}
               </p>
