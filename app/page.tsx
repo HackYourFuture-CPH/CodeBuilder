@@ -1,12 +1,13 @@
 "use client";
 import React from "react";
-import SnippetGallery from "./components/shared/tags/Tag";
+import NavbarForTags from "./components/shared/NavbarForTags/NavbarForTags";
+
 
 const Home: React.FC = () => {
   
   return (
     <div className='main'>
-      <SnippetGallery />
+      <NavbarForTags />
     </div>
   );
 };
