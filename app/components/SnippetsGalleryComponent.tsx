@@ -133,38 +133,16 @@ const SnippetGalleryComponent = () => {
   }
 
   return (
-    <>
-      <div>
-        <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
-          <option key={0} value="">
-            {"All"}
-          </option>
-          {Options}
-        </select>
-
-        {ShownTags}
-      </div>
-
-      <div id="search">
-        <label htmlFor="search">Search</label>
-        <input
-          type="text"
-          id="search"
-          placeholder="Search snippets"
-          autoComplete="off"
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-      </div>
-
-      <ul
-        style={{
-          padding: "3em",
-          display: "grid",
-          gridGap: "3em",
-          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-        }}
-      >
-        {filteredSnippets.map((snippet) => (
+    <ul
+      style={{
+        padding: "3em",
+        display: "grid",
+        gridGap: "3em",
+        gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
+      }}
+    >
+      {snippets?.map((snippet) => {
+        return (
           <li
             style={{
               display: "flex",
@@ -194,9 +172,9 @@ const SnippetGalleryComponent = () => {
               /> */}
             </div>
           </li>
-        ))}
-      </ul>
-    </>
+        );
+      })}
+    </ul>
   );
 };
 
