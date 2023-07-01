@@ -18,84 +18,30 @@ export interface Tag {
 }
 
 type favoriteSnippet = snippetModel & { favorite: boolean };
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import Link from "next/link";
+library.add(faHeart);
 
 const SnippetGallery = () => {
-  const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
-
-  useEffect(() => {
-    const fetchSnippets = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/snippets");
-        const snippets = await response.json();
-        setSnippets(snippets);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchSnippets();
-  }, []);
-
-  const markAsFavorite = (snippetId: string) => {
-    const updatedSnippets = snippets.map((snippet) => {
-      if (snippet._id === snippetId) {
-        return { ...snippet, favorite: !snippet.favorite };
-      }
-      return snippet;
-    });
-
-    setSnippets(updatedSnippets);
-  };
-
-  const formatDate = (date: Date) => {
-    const day = date.getDate();
-    const month = date.toLocaleString("default", { month: "short" });
-    const year = date.getFullYear();
-
-    return `${day} ${month} ${year}`;
-  };
-
-  if (snippetError || tagError) {
-    return <div>Error fetching data</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  const { data: snippets } = useSWR<snippetModel[]>(
+    "/api/snippets",
+    getSnippets
+  );
+  const { data: session } = useSession();
+  const userId = session?.user?.email?.toString();
 
   return (
-    <>
-      <div>
-        <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
-          <option key={0} value="">
-            {"All"}
-          </option>
-          {Options}
-        </select>
-
-        {ShownTags}
-      </div>
-
-      <div id="search">
-        <label htmlFor="search">Search</label>
-        <input
-          type="text"
-          id="search"
-          placeholder="Search snippets"
-          autoComplete="off"
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-      </div>
-
-      <ul
-        style={{
-          padding: "3em",
-          display: "grid",
-          gridGap: "3em",
-          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-        }}
-      >
-        {filteredSnippets.map((snippet) => (
+    <ul
+      style={{
+        padding: "3em",
+        display: "grid",
+        gridGap: "3em",
+        gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
+      }}
+    >
+      {snippets?.map((snippet) => {
+        return (
           <li
             style={{
               display: "flex",
@@ -179,10 +125,10 @@ const SnippetGallery = () => {
               Learn more..
             </Link>
           </li>
-        ))}
-      </ul>
-    </>
+        );
+      })}
+    </ul>
   );
 };
 
-export default SnippetGalleryComponent;
+export default SnippetGallery;
