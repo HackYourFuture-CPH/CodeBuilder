@@ -1,11 +1,5 @@
 "use client";
-import useSWR from "swr";
-import { Tag } from "./api/tags/route";
 import React from "react";
-import Link from "next/link";
-
-import { useMediaQuery } from 'react-responsive';
-import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
 
 const Home: React.FC = () => {
   
