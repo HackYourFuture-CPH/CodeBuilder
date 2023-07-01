@@ -4,8 +4,9 @@ import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import SnippetCardComponent from "./SnippetCardComponent";
+import SnippetCard from "./SnippetCard";
 library.add(faHeart);
+import { SnippetCardModel } from "./SnippetCard";
 
 const SnippetGallery = () => {
   const { data: snippets, mutate } = useSWR<snippetModel[]>(
@@ -50,8 +51,7 @@ const SnippetGallery = () => {
                 height: "573px",
               }}
             >
-              snippet card
-              <SnippetCardComponent
+              <SnippetCard
                 snippet={snippet}
                 key={snippet._id}
                 title={snippet.title}

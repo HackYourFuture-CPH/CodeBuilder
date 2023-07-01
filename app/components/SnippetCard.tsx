@@ -9,8 +9,19 @@ import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
 import "./snippetCard.css";
+import { snippetModel } from "../snippetModel-DB";
 
-const SnippetCardComponent = ({
+export interface SnippetCardModel {
+  snippet: snippetModel;
+  title: string;
+  description: string;
+  tags: string[];
+  snippetCode: string;
+  formatDate: Function;
+  mutate: Function;
+}
+
+const SnippetCard = ({
   snippet,
   title,
   description,
@@ -18,9 +29,9 @@ const SnippetCardComponent = ({
   snippetCode,
   formatDate,
   mutate,
-}: any) => {
+}: SnippetCardModel) => {
   const { data: session } = useSession();
-  const userId = session?.user?.email;
+  const userId: any = session?.user?.email;
 
   const handleFavoriteButton = async () => {
     await fetch(`/api/snippets/${snippet._id}`, {
@@ -42,7 +53,6 @@ const SnippetCardComponent = ({
       });
     mutate();
   };
-  console.log(session?.user?.image);
   return (
     <div className="container">
       <div className="code-group">
@@ -158,4 +168,4 @@ const SnippetCardComponent = ({
   );
 };
 
-export default SnippetCardComponent;
+export default SnippetCard;

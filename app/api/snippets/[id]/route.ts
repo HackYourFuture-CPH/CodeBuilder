@@ -3,6 +3,8 @@
 import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 // get one snippet by id
 export async function GET(
@@ -31,12 +33,13 @@ export async function PUT(
   }
 ) {
   try {
+    const session = await getServerSession(authOptions);
     const snippetId = params.id;
     const body = await req.json();
     const db = getMongoDb();
 
     if (body.addToFavorite) {
-      const userId = body.addToFavorite;
+      const userId = session?.user?.email;
       const oneSnippetFromDatabase = await db
         .collection("snippets")
         .findOne({ _id: new ObjectId(snippetId) });
