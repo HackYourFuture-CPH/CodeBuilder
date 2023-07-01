@@ -9,19 +9,14 @@
     position: fixed;
     width: 100%;
     background-color: white;
-    height: 80px;
+    height: 95px;
     top: 0;
     left: 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
-  .logo-container {
-    margin-left: 20px;
-    margin-right: auto;
-    top: 10px;
-    left: 10px;
-  }
 
   .menuButton {
     background: none;
@@ -61,16 +56,12 @@
   }
 
   .menuIcon {
-    display: block;
+    display: flex;
     width: 25px;
     height: 3px;
     transition: transform 0.3s ease;
   }
-
-  .menuIcon.open {
-    transform: rotate(45deg);
-  }
-
+  
   .menu {
     list-style-type: none;
     padding: 0;

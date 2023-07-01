@@ -16,7 +16,7 @@ const BurgerMenu = () => {
   return (
     <div className={`${styles.container} logo-container`}>
       <div>
-        <Image src="/images/Logo.png" alt="Logo" width={300} height={70} />
+        <Image src="/images/Logo.png" alt="Logo" width={245} height={58} />
       </div>
       <button className={styles.menuButton} onClick={toggleMenu}>
         <div style={{ transform: "rotate(90deg)" }}>
