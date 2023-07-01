@@ -6,7 +6,6 @@ import Link from "next/link";
 
 import { useMediaQuery } from 'react-responsive';
 import BurgerMenu from "./components/shared/burgerMenu/BurgerMenu";
-import Header from "./components/shared/header/header";
 
 const Home: React.FC = () => {
   
