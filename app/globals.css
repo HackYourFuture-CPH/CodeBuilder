@@ -45,3 +45,43 @@ p {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--additional-color-2);
 }
+
+/* Responsive Styles */
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
