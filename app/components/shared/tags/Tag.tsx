@@ -2,7 +2,7 @@
 import React from "react";
 import "./Tag.css";
 import useSWR from "swr";
-import { useSession } from "next-auth/react";
+import { useSession } from 'next-auth/react'
 import { getSnippets } from "@/app/services/SnippetService";
 import { snippetModel } from "@/app/snippetModel-DB";
 import { addToFavorite } from "@/app/snippets/[id]/handlers";
@@ -15,17 +15,15 @@ library.add(faHeart);
 
 
 const SnippetGallery = () => {
-  {
-    /**
-     * 
+    const { data: session } = useSession();
+  
     const { data: snippets } = useSWR<snippetModel[]>(
       "/api/snippets",
       getSnippets
     );
-    const { data: session } = useSession();
+    
     const userId = session?.user?.email?.toString();
-     */
-  }
+
 
   return (
     <ul  className="Tags_unordered_list" >
@@ -37,9 +35,7 @@ const SnippetGallery = () => {
             <button
               className="favorite-button"
               disabled={userId ? false : true}
-              onClick={() =>
-                addToFavorite(snippet._id, snippet, userId ? userId : "")
-              }
+              onClick={() => addToFavorite(snippet._id, snippet, userId ? userId : "")}
             >
               {userId && snippet.favoriteByIds.includes(userId) ? (
                 <FontAwesomeIcon
@@ -56,11 +52,7 @@ const SnippetGallery = () => {
               )}
             </button>
 
-            <div
-              style={{
-                height: "573px",
-              }}
-            >
+            <div className="Tags_sippet_cards">
               snippet card
               {/* <SnippetCard snippet={snippet} /> */}
             </div>
