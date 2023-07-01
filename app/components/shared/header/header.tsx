@@ -1,17 +1,20 @@
 "use client";
 import React from "react";
 import "./header.css";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoginBtn from "./loginBtn/login-btn";
 import Image from "next/image";
-import Logo from "../../../assets/logo/logo.png";
-
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
+import BurgerMenu from "../burgerMenu/BurgerMenu";
+import { useMediaQuery } from "react-responsive";
 
 const Header = () => {
     const { data: session } = useSession();
+  const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
+  if (isMobile) {
+    return <BurgerMenu />
+  }
     return (
         <React.Fragment>
             <nav className="navbar">

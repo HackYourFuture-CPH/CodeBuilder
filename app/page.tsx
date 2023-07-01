@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import styles from "./page.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper";
@@ -184,7 +183,7 @@ const Home: React.FC = () => {
                     <div className={styles.containerTwo}>
                         <div className={styles.sliderIntro}>
                             <p className={styles.paragraph}>
-                                At Code Builder, we have a vibrant and supportive community of
+                                In CodeBuilder, we have a vibrant and supportive community of
                                 students and mentors who play a crucial role in our mission to
                                 foster learning and growth in the tech industry. Our community
                                 is made up of individuals who are passionate about coding, eager

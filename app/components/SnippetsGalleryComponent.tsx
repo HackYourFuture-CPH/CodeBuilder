@@ -1,11 +1,23 @@
 "use client";
 // import SnippetCard from "./SnippetCard";
-import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import { getSnippets } from "../services/SnippetService";
 import { addToFavorite, normalizeDate } from "../snippets/[id]/handlers";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
+import { useState, useEffect } from "react";
+// import SnippetCardComponent from "./SnippetCardComponent";
+import useSWR from "swr";
+
+export interface Tag {
+  displayName: string;
+  shortName: string;
+  _id?: string;
+}
+
+type favoriteSnippet = snippetModel & { favorite: boolean };
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import Link from "next/link";

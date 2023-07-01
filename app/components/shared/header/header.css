@@ -72,3 +72,25 @@
   margin-right: 5px;
   color: #104d85;
 }
+
+/* Responsive Styles */
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+
+  .navbar-menu {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .navbar-item {
+    margin-right: 8px;
+  }
+
+  .create-btn {
+    min-width: 100px;
+  }
+}
