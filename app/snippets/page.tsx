@@ -2,10 +2,6 @@
 import SnippetGallery from "../components/SnippetsGallery";
 
 const Snippets: React.FC = () => {
-  return (
-    <>
-      <SnippetGallery />
-    </>
-  );
+  return <SnippetGallery withFilters={false} />;
 };
 export default Snippets;

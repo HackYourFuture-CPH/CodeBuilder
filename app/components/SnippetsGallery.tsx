@@ -14,15 +14,14 @@ export interface Tag {
 }
 
 type SelectableTag = Tag & { selected: boolean };
-type favoriteSnippet = snippetModel;
 
-const SnippetGallery = () => {
+const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
-  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
-    []
-  );
+  const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
   const { data: session } = useSession();
+  const [likedSnippets, setLikedSnippet] = useState(false);
+  const [createdByYou, setCreatedByYou] = useState(false);
   const userId: any = session?.user?.email;
 
   const {
@@ -30,7 +29,15 @@ const SnippetGallery = () => {
     mutate,
     error: snippetError,
     isLoading: isLoadingSnippets,
-  } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
+  } = useSWR<snippetModel[]>("/api/snippets", async (url) => {
+    const loadedSnippets: snippetModel[] = await getSnippets(url);
+    const result = likedSnippets
+      ? loadedSnippets?.filter((snippet) =>
+          snippet.favoriteByIds?.includes(userId)
+        ) ?? []
+      : loadedSnippets?.filter((snippet) => snippet.authorId === userId) ?? [];
+    return result;
+  });
 
   const {
     data: tagsData,
@@ -40,13 +47,13 @@ const SnippetGallery = () => {
     fetch(url).then((response) => response.json())
   );
 
-  const isLoading = isLoadingSnippets || isLoadingTags;
-
   useEffect(() => {
     if (tagsData) {
       setTags(tagsData);
     }
   }, [tagsData]);
+
+  const isLoading = isLoadingSnippets || isLoadingTags;
 
   const filterSnippets = () => {
     const filteredTags = tags
@@ -65,7 +72,11 @@ const SnippetGallery = () => {
       return hasSelectedTags && hasSearchText;
     });
 
-    setFilteredSnippets(filtered ?? []);
+    if (withFilters) {
+      setFilteredSnippets(filtered ?? []);
+    } else {
+      setFilteredSnippets(snippetsData ?? []);
+    }
   };
 
   useEffect(() => {
@@ -122,12 +133,12 @@ const SnippetGallery = () => {
     return `${day} ${month} ${year}`;
   };
 
-  const LikedSnippets = () => {
-    snippetsData?.filter((snippet) => snippet.favoriteByIds?.includes(userId));
+  const LikedByYouSnippets = () => {
+    setLikedSnippet(true);
   };
 
-  const CreatedByYou = () => {
-    snippetsData?.filter((snippet) => snippet.authorId === userId);
+  const CreatedByYouSnippets = () => {
+    setCreatedByYou(true);
   };
 
   if (snippetError || tagError) {
@@ -173,8 +184,8 @@ const SnippetGallery = () => {
       </nav>
 
       <div>
-        <button onClick={() => LikedSnippets()}>Liked Snippets</button>
-        <button onClick={() => CreatedByYou()}>Created by you</button>
+        <button onClick={() => LikedByYouSnippets()}>Liked Snippets</button>
+        <button onClick={() => CreatedByYouSnippets()}>Created by you</button>
       </div>
 
       <ul
