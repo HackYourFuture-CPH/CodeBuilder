@@ -5,18 +5,18 @@ import SnippetForm from "../../snipetForm/snippetForm";
 import { SnippetData } from "./interfaces";
 import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
-import SelectTags from "../../SelectTags";
+import styles from "./styles.module.css";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   //use SWR to fetch the snipet with id params.id
 
   const { data: snippetData, error } = useSWR(`/api/snippets/${params.id}`);
-const [title, setTitle] = useState<string>(snippetData?.title || "");
-const [tags, setTags] = useState<string[]>(snippetData?.tags || []);
-const [description, setDescription] = useState<string>(
-  snippetData?.description || ""
-);
-const [code, setCode] = useState<string>(snippetData?.code || "");
+  const [title, setTitle] = useState<string>(snippetData?.title || "");
+  const [tags, setTags] = useState<string[]>(snippetData?.tags || []);
+  const [description, setDescription] = useState<string>(
+    snippetData?.description || ""
+  );
+  const [code, setCode] = useState<string>(snippetData?.code || "");
   const [selectTags, setSelectTags] = useState<string[]>([]);
 
   const handlePublish = (): void => {
@@ -26,8 +26,9 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
       description: description,
       code: code,
     };
-  
-    fetch(`/api/snippets/${params.id}`, { // Corrected URL using template literal
+
+    fetch(`/api/snippets/${params.id}`, {
+      // Corrected URL using template literal
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -45,7 +46,7 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
         console.error(error);
       });
   };
-  
+
   /*const handlePublish = (): void => {
     const snippetData: SnippetData = {
       title: title,
@@ -74,20 +75,26 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
   };
 */
   return (
-    <div>
-      <h2>Edit Snippet</h2>
-      <SnippetForm
-        description={description}
-        code={code}
-        title={title}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setCode={setCode}
-        selectTags={selectTags}
-        setSelectTags={setSelectTags}
-      />
-      <button onClick={handlePublish}>Update</button>
-      <button>Cancel</button>
+    <div className={styles.container}>
+      <h2 className={styles.title}>Edit Snippet</h2>
+      <div className={styles.form}>
+        <SnippetForm
+          description={description}
+          code={code}
+          title={title}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setCode={setCode}
+          selectTags={selectTags}
+          setSelectTags={setSelectTags}
+        />
+        <div className={styles.wrapperBtns}>
+          <button className={styles.submitBtn}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={handlePublish}>
+            Update
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,47 @@
+.login-btn {
+  height: 10px;
+  border-radius: 12px;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  font-size: 16px;
+  color: #104d85;
+}
+
+.login-btn:hover,
+.login-btn:hover .icon {
+  color: #427fb7;
+}
+
+.login-btn .icon {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.login-btn:hover .icon {
+  color: #427fb7;
+}
+
+/* Responsive Styles */
+
+/* Tablets */
+@media screen and (max-width: 768px) {
+  .login-btn {
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Phones */
+@media screen and (max-width: 480px) {
+  .login-btn {
+    height: 32px;
+    font-size: 16px;
+    display: inline-block;
+  }
+
+  .login-btn .icon {
+    margin-right: 3px;
+  }
+}

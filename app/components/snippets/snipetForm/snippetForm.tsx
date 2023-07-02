@@ -1,9 +1,10 @@
 import React from "react";
 import { SnippetFormProps, TextInputProps, Option } from "./interfaces";
-import CodeEditor from "../../CodeEditor";
+import CodeEditor from "./CodeEditor";
 import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
-import SelectTags from "../../SelectTags";
+import SelectTags from "./SelectTags";
+import styles from "./styles.module.css";
 
 const SnippetForm = (props: SnippetFormProps) => {
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
@@ -17,40 +18,39 @@ const SnippetForm = (props: SnippetFormProps) => {
     })) || [];
 
   return (
-    <div>
+    <>
       <TextInput
         label="Title"
+        placeholder="Title"
         value={props.title}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           props.setTitle(e.target.value)
         }
       />
+      <SelectTags
+        placeholder="Select Tags"
+        options={tagOptions}
+        value={props.selectTags}
+        onChange={(tags: string[]): void => props.setSelectTags(tags)}
+        isMulti
+      />
 
-      <div>
-        <h4>Tags</h4>
-        <SelectTags
-          placeholder="Select Tags"
-          options={tagOptions}
-          value={props.selectTags}
-          onChange={(tags: string[]): void => props.setSelectTags(tags)}
-          isMulti
-        />
-      </div>
-
+      {/* instead of this component, there should be a textarea with className=
+      {styles.textarea}  👇 */}
       <TextInput
         label="Description"
+        placeholder="Title"
         value={props.description}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           props.setDescription(e.target.value)
         }
       />
-
       <CodeEditor
         code={props.code}
         onChange={(newCode: string) => props.setCode(newCode)}
         language="javascript"
       />
-    </div>
+    </>
   );
 };
 
@@ -61,9 +61,10 @@ const TextInput = ({
   placeholder,
 }: TextInputProps): JSX.Element => {
   return (
-    <div>
-      <label>{label}</label>
+    <div className={styles.inputWrapper}>
+      <label className={styles.span}>{label}</label>
       <input
+        className={styles.input}
         type="text"
         value={value}
         onChange={onChange}

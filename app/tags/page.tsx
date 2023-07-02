@@ -1,34 +1,34 @@
 "use client";
+import React from "react";
 import useSWR from "swr";
 import styles from "./page.module.css";
-import { Tag } from "../api/tags/route";
+import { snippetModel } from "../snippetModel-DB";
+import CodeEditor from "../components/shared/codeEditor/code-editor";
+// import SnippetGallery from "../components/SnippetsGalleryComponent";
+import Header from "../components/shared/header/header";
 
-export default function TagsPage() {
-  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
-    const response = await fetch(url);
-    return response.json();
-  });
+const TagsPage: React.FC = () => {
+  const { data: snippets } = useSWR<snippetModel[]>(
+    "/api/snippets",
+    async (url) => {
+      try {
+        const response = await fetch(url);
+        const dataSnippets = await response.json();
+        return dataSnippets;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  );
 
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-      </div>
-
-      <h1>Categories from the database</h1>
-      <h2>This is the main page (user not logged in)</h2>
-
-      <div className={styles.grid}>
-        {tags?.map((tag) => (
-          <div className={styles.card} key={tag.shortName}>
-            <h2>{tag.displayName}</h2>
-            <p>{tag.shortName}</p>
-          </div>
-        ))}
-      </div>
-    </main>
+    <div>
+      <header>
+        <Header />
+      </header>
+      {/* <SnippetGallery /> */}
+    </div>
   );
-}
+};
+
+export default TagsPage;

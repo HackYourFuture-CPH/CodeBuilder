@@ -1,14 +1,12 @@
-import Link from "next/link";
+"use client";
+import React from "react";
 
 const Home: React.FC = () => {
+  
   return (
-    <main>
-      <div>This is a home page</div>
-      <p>
-        {/* Don't mind about this link, I've tested meta */}
-        <Link href="/tags">Tags</Link>
-      </p>
-    </main>
+    <div className='main'>
+    </div>
   );
 };
+
 export default Home;
