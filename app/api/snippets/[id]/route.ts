@@ -40,21 +40,24 @@ export async function PUT(
     const oneSnippetFromDatabase = await db
       .collection("snippets")
       .findOne({ _id: new ObjectId(snippetId) });
-    const updateOneSnippetFromDatabase = await db
-      .collection("snippets")
-      .updateOne(
-        { _id: new ObjectId(snippetId) },
-        {
-          $set: {
-            title: body.title,
-            description: body.description,
-            tags: [body.tags],
-            snippetCode: body.snippetCode,
-          },
-        }
-      );
-    if (oneSnippetFromDatabase?.authorId === session?.user?.id)
+    if (oneSnippetFromDatabase?.authorId === session?.user?.id) {
+      const updateOneSnippetFromDatabase = await db
+        .collection("snippets")
+        .updateOne(
+          { _id: new ObjectId(snippetId) },
+          {
+            $set: {
+              title: body.title,
+              description: body.description,
+              tags: [body.tags],
+              snippetCode: body.snippetCode,
+            },
+          }
+        );
       return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
+    } else {
+      throw new Error("Not authorized");
+    }
   } catch (error) {
     return NextResponse.json({
       message: "something went wrong",
