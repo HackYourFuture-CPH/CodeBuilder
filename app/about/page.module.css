@@ -1,0 +1,111 @@
+.container {
+    width: 100%;
+    margin: 150px auto;
+    align-items: center;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+}
+
+.heading1 {
+    margin: auto;
+    font-size: 60px;
+    text-align: center;
+}
+
+.mentorslistWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mentorslist {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+.team {
+    width: 100%;
+    margin: auto;
+    background-color: #ffffff;
+    padding: 20px 0;
+}
+
+.containerTwo {
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.sliderIntro {
+    flex: 1;
+}
+
+.sliderIntro .paragraph {
+    justify-content: center;
+    line-height: 2;
+    margin-top: 80px;
+}
+
+.slider {
+    flex: 2;
+    width: 100%;
+}
+
+.member {
+    border: none;
+    text-align: center;
+    margin: 10px;
+}
+
+.image {
+    width: 100%;
+    border-radius: 50%;
+}
+
+@media screen and (max-width: 650px) {
+    .container {
+        width: 100%;
+        margin: 120px auto;
+        align-items: center;
+        line-height: 1.2;
+    }
+
+    .heading1 {
+        font-size: 40px;
+    }
+
+    .slider {
+        width: 100%;
+    }
+
+    .containerTwo {
+        width: 90%;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.paragraph {
+    text-align: center;
+    margin: 30px auto;
+    width: 80%;
+}
+
+.mentors {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    justify-content: center;
+}
+
+.mentorname {
+    text-align: center;
+    width: 60%;
+    color: #c3d9ed;
+    font-size: 25px;
+    line-height: 30px;
+}
