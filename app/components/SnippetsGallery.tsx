@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import { useSession } from "next-auth/react";
 import SnippetCard from "./SnippetCard";
+import "./snippetsGallery.css";
 export interface Tag {
   displayName: string;
   shortName: string;
@@ -177,29 +178,10 @@ const SnippetGallery = () => {
         <button onClick={() => CreatedByYou()}>Created by you</button>
       </div>
 
-      <ul
-        style={{
-          padding: "3em",
-          display: "grid",
-          gridGap: "3em",
-          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-        }}
-      >
+      <ul className="gallery-container">
         {filteredSnippets?.map((snippet) => {
           return (
-            <li
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                padding: "2em",
-                borderRadius: ".3em",
-                boxShadow: "10px 10px 30px rgba(0,0,0,0.1)",
-                listStyle: "none",
-                position: "relative",
-              }}
-              key={snippet._id}
-            >
+            <li className="gallery-item" key={snippet._id}>
               <div
                 style={{
                   height: "573px",

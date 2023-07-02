@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /** @format */
 
 "use client";
@@ -8,6 +9,7 @@ library.add(faHeart);
 import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import "./snippetCard.css";
 import { snippetModel } from "../snippetModel-DB";
 
@@ -67,12 +69,6 @@ const SnippetCard = ({
         {session && (
           <button
             className="favorite-button"
-            style={{
-              border: "none",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
             onClick={() => handleFavoriteButton()}
           >
             {userId && snippet.favoriteByIds.includes(userId) ? (
@@ -105,13 +101,7 @@ const SnippetCard = ({
         </div>
 
         <div className="card-footer">
-          <div
-            className="avatar-container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
+          <div className="avatar-container">
             <div className="img-container">
               <img
                 src={
@@ -135,29 +125,11 @@ const SnippetCard = ({
             </p>
           </div>
           {session ? (
-            <Link
-              className="link-button"
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-              }}
-              href={`/snippets/${snippet._id}`}
-            >
+            <Link className="link-button" href={`/snippets/${snippet._id}`}>
               Learn more
             </Link>
           ) : (
-            <Link
-              className="link-button"
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-              }}
-              href={`/login`}
-            >
+            <Link className="link-button" href={`/login`}>
               Login to learn more
             </Link>
           )}
