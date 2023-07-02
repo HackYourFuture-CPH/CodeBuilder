@@ -1,3 +1,8 @@
+.code-group {
+  background-color: #211e1e;
+  overflow: hidden;
+}
+
 .favorite-button {
   display: flex;
   padding: 7px;
@@ -6,6 +11,10 @@
   margin-left: 5px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 div.code-editor {
@@ -22,8 +31,8 @@ div.code-editor:hover {
 .content-group {
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  gap: 16px;
+  padding: 1rem;
+  margin: 0;
   background: #ffffff;
   flex-wrap: nowrap;
 }
@@ -33,7 +42,8 @@ div.code-editor:hover {
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
-
+  margin: 0;
+  padding: 0;
   color: var(--dark-600, #151515);
 }
 
@@ -44,6 +54,8 @@ div.code-editor:hover {
   font-size: 20px;
   font-family: Arial;
   color: var(--dark-600, #151515);
+  margin: 0;
+  padding: 1rem;
 }
 
 .tags-container {
@@ -71,6 +83,7 @@ div.code-editor:hover {
 
 .card-footer {
   display: flex;
+  justify-content: space-between;
 }
 
 .avatar-container {
@@ -101,88 +114,6 @@ div.code-editor:hover {
   color: var(--blue-500, #104d85);
 }
 
-/*.container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px 0px 20px;
-  gap: 6px;
-  position: absolute;
-  width: 36em;
-  height: 38.4375em;
-  left: 40;
-  top: 33px;
-  background: var(--white, #fff);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
- frame1
------------------
-
-
-
-
-.code-editor {
-  position: absolute;
-  width: 100%;
-  height: 333px;
-  left: 0px;
-  top: 0px;
-  border-radius: 8px 8px 0px 0px;
-}
-
-
-
-
-
-/* frame2
------------------------- 
-
-.title-container {
-  display: flex;
-  flex-direction: column;
-  align-self: stretch;
-  width: 36em;
-  height: 38px;
-}
-
-
-.description-container {
-  display: flex;
-  /*height: 120px;
-  flex-direction: column;
-  align-self: stretch;
-  width: 36em;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-
-
-
-
-
-.info-frame {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px;
-  gap: 16px;
-
-  width: 36em;
-  height: 56px;
-
-  flex: none;
-  order: 3;
-  align-self: stretch;
-  flex-grow: 0;
-}
-
-
-*/
-
 @media (max-width: 320px) {
   .title-container {
     display: flex;
@@ -209,45 +140,8 @@ div.code-editor:hover {
   .link-button {
     display: none;
   }
-  /* group2
---------------- 
-  .content-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+
+  div.code-editor:hover {
+    transform: scale(1);
   }
-
-  .title-container {
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    width: 17em;
-  }
-  .title {
-    font-family: "Arial";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 28px;
-    /* identical to box height */
-
-  /* Dark/600 */
-  color: var(--dark-600, red);
-
-  /* Inside auto layout 
-
-    order: 0;
-    align-self: stretch;
-    flex-grow: 0;
-  }
-
-  .description-container {
-    display: flex;
-
-    flex-direction: column;
-    align-self: stretch;
-    width: 17em;
-  }
-}
-*/
 }
