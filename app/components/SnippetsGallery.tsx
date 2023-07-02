@@ -20,24 +20,16 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
   const { data: session } = useSession();
-  const [likedSnippets, setLikedSnippet] = useState(false);
-  const [createdByYou, setCreatedByYou] = useState(false);
-  const userId: any = session?.user?.email;
+  const [snippets, setSnippets] = useState<snippetModel[]>([]);
+  // const userId: any = session?.user?.email;
+  const userId: any = "randomuser5"; // just for testing
 
   const {
     data: snippetsData,
     mutate,
     error: snippetError,
     isLoading: isLoadingSnippets,
-  } = useSWR<snippetModel[]>("/api/snippets", async (url) => {
-    const loadedSnippets: snippetModel[] = await getSnippets(url);
-    const result = likedSnippets
-      ? loadedSnippets?.filter((snippet) =>
-          snippet.favoriteByIds?.includes(userId)
-        ) ?? []
-      : loadedSnippets?.filter((snippet) => snippet.authorId === userId) ?? [];
-    return result;
-  });
+  } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
 
   const {
     data: tagsData,
@@ -47,20 +39,52 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
     fetch(url).then((response) => response.json())
   );
 
+  const LikedByYouSnippets = () => {
+    const ID = userId; // Replace with the actual user ID
+    fetch(`/api/snippets/filter/myFavorite?userId=${ID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSnippets(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const CreatedByYouSnippets = () => {
+    const ID = userId; // Replace with the actual user ID
+    fetch(`/api/snippets/filter/mySnippets?userId=${ID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSnippets(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    if (snippetsData) {
+      setSnippets(snippetsData);
+    }
+  }, []);
+
   useEffect(() => {
     if (tagsData) {
       setTags(tagsData);
     }
   }, [tagsData]);
 
-  const isLoading = isLoadingSnippets || isLoadingTags;
+  useEffect(() => {
+    filterSnippets();
+  }, [tags, search, snippets]);
 
   const filterSnippets = () => {
     const filteredTags = tags
       .filter((tag) => tag.selected)
       .map((tag) => tag.shortName.toUpperCase());
 
-    const filtered = snippetsData?.filter((snippet) => {
+    const filtered = snippets?.filter((snippet) => {
       const hasSelectedTags =
         filteredTags.length === 0 ||
         filteredTags.every((tag) => snippet.tags?.includes(tag));
@@ -75,13 +99,9 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
     if (withFilters) {
       setFilteredSnippets(filtered ?? []);
     } else {
-      setFilteredSnippets(snippetsData ?? []);
+      setFilteredSnippets(snippets ?? []);
     }
   };
-
-  useEffect(() => {
-    filterSnippets();
-  }, [tags, search, snippetsData]);
 
   const handleSelectChange = (id: string) => {
     const newTags = tags.map((tag) => {
@@ -133,13 +153,7 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
     return `${day} ${month} ${year}`;
   };
 
-  const LikedByYouSnippets = () => {
-    setLikedSnippet(true);
-  };
-
-  const CreatedByYouSnippets = () => {
-    setCreatedByYou(true);
-  };
+  const isLoading = isLoadingSnippets || isLoadingTags;
 
   if (snippetError || tagError) {
     return <div>Error fetching data</div>;
@@ -216,7 +230,7 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
                   height: "573px",
                 }}
               >
-                <SnippetCard
+                {/* <SnippetCard
                   snippet={snippet}
                   key={snippet._id}
                   title={snippet.title}
@@ -225,7 +239,24 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
                   snippetCode={snippet.snippetCode}
                   formatDate={formatDate}
                   mutate={mutate}
-                />
+                /> */}
+
+                {/*just for testing */}
+
+                <p>snippetId</p>
+                {snippet._id}
+                <br />
+                <p>snippetAutorId</p>
+                {snippet.authorId}
+                <br />
+                <p>snippetDescription</p>
+                {snippet.description}
+                <br />
+                <p>snippetFavoriteByIds</p>
+                {snippet.favoriteByIds}
+                <br />
+                <p>snippet.title</p>
+                {snippet.title}
               </div>
             </li>
           );
