@@ -4,7 +4,6 @@ import useSWR from "swr";
 import SelectTags from "../../snippets/snipetForm/SelectTags";
 import { Tag } from "@/app/api/tags/route";
 import { useState } from "react";
-import SearchBar from "../SearchBar/SearchBar";
 import { snippetModel } from "@/app/snippetModel-DB";
 import SnippetGallery from "../../SnippetsGallery";
 
