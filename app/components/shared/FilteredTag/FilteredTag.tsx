@@ -10,7 +10,9 @@ import "./FilteredTag.css";
 
 
 const FilteredTag = (props: any) => {
-  const [selectTags, setSelectTags] = useState<string[]>([]);
+    const [selectTag, setSelectTag] = useState<string[]>([]);  
+    const [queryForTags, setQueryForTags] = useState<string>("");  
+    
 
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
     const response = await fetch(url);
@@ -30,7 +32,7 @@ const FilteredTag = (props: any) => {
                 options={tagOptions}
                 value={props.selectTags}
                 onChange={(tags: string[]): void => props.setSelectTags(tags)}
-                isMulti
+              isMulti              
       />
       Filtered tags will be rendered here!!!!
     </div>
