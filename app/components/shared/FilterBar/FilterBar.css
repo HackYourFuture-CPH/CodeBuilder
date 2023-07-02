@@ -1,7 +1,21 @@
 .FilterBar_Container {
-    height: 50px;
-    width: 100%;
-    margin: 200px;
-    padding: 0px;
-    background-color: aquamarine;
+  height: 50px;
+  width: 100%;
+  margin: 200px;
+  padding: 0px;
+  background-color: aquamarine;
+}
+
+.button {
+  background-color: rgb(4, 45, 84);
+  color: #ffffff;
+  border: none;
+  font-size: 15px;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+}
+.button:hover {
+  background-color: #427fb7;
 }

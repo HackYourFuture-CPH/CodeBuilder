@@ -3,22 +3,25 @@ import useSWR from "swr";
 import SelectTags from "../../snippets/snipetForm/SelectTags";
 import { Tag } from "@/app/api/tags/route";
 import { useState } from "react";
-import ApplyFilterButton from "../ApplyFilterButton/ApplyFilterButton";
 import SearchBar from "../SearchBar/SearchBar";
+import { snippetModel } from "@/app/snippetModel-DB";
+import SnippetGallery from "../../SnippetsGallery";
 
 export interface Option {
   label: string;
   value: string;
 }
 
-const FilterBar = (props: any) => {
-  const [selectTags, setSelectTags] = useState<string[]>([]);
+const FilterBar = (snippets: snippetModel[] | undefined) => {
+  const [selectTags, setSelectTags] = useState<any[]>([]);
   const [queryTitle, setQueryTitle] = useState<string>("");
+  const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   console.log("selectTags", selectTags);
   console.log(" queryTitle", queryTitle);
 
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
     const response = await fetch(url);
+
     return response.json();
   });
 
@@ -28,6 +31,16 @@ const FilterBar = (props: any) => {
       label: tag.displayName,
     })) || [];
 
+  const handlerSubmit = () => {
+    const snippetsAfterFilter = snippets?.filter((snippet: snippetModel) => {
+      snippet.tags.some((tag) =>
+        selectTags.map((tag) => tag.value).includes(tag)
+      ) || snippet.title.includes(queryTitle);
+    });
+    console.log(snippetsAfterFilter);
+    return snippetsAfterFilter;
+  };
+  // filtered_snippets = snippets.filter(snippet => snippet.tags.some(tag => tags.map(tag => tag.title).includes(tag))).map(snippet => );
   return (
     <div className="FilterBar_Container">
       <SelectTags
@@ -37,8 +50,19 @@ const FilterBar = (props: any) => {
         onChange={(tags: string[]): void => setSelectTags(tags)}
         isMulti
       />
-      <ApplyFilterButton />
-      <SearchBar queryTitle={queryTitle} onChange={setQueryTitle} />
+      <button className="button" type="submit" onClick={handlerSubmit}>
+        Apply filter
+      </button>
+      <input
+        type="text"
+        onChange={(e) => setQueryTitle(e.target.value)}
+        value={queryTitle}
+        // key="search-bar"
+        // value={keyword}
+        placeholder="search news"
+        // onChange={(e) => onChange(e.target.value)}
+      />
+      <SnippetGallery />
     </div>
   );
 };
