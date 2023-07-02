@@ -6,9 +6,10 @@ import LoginBtn from "./loginBtn/login-btn";
 import Image from "next/image";
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
-import { TbBulbFilled } from "react-icons/Tb"
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import { useMediaQuery } from "react-responsive";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -31,7 +32,7 @@ const Header = () => {
           </li>
           <li className="navbar-item">
               <a href="/about">
-                <TbBulbFilled className="icon"/>
+              <FontAwesomeIcon icon={faLightbulb} className="icon" />
                 About
               </a>
             </li>
