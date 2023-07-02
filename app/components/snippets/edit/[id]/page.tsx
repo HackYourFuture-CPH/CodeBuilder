@@ -5,27 +5,17 @@ import { useState } from "react";
 import SnippetForm from "../../snipetForm/snippetForm";
 import { SnippetData } from "./interfaces";
 import useSWR, { mutate } from "swr";
-import { Tag } from "@/app/api/tags/route";
-import styles from "./styles.module.css";
+import { updateSnippet, getSnippets } from "@/app/services/SnippetService";
+import { useRouter } from "next/navigation";
+
+// import styles from "./styles.module.css";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
-  const fetchSnippet = async () => {
-    try {
-      const response = await fetch(`/api/snippets/${params.id}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch snippet");
-      }
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error("Error fetching snippet data", error);
-      throw error;
-    }
-  };
+  const router = useRouter();
 
   const { data: snippetData, error } = useSWR(
-    `http//localhost:3000/api/snippets/${params.id}`,
-    fetchSnippet
+    `/api/snippets/${params.id}`,
+    getSnippets
   );
 
   const [title, setTitle] = useState<string>(snippetData?.title || "");
@@ -35,46 +25,30 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
   );
   const [code, setCode] = useState<string>(snippetData?.code || "");
 
-  const updateSnippet = async (id: string, snippetData: SnippetData) => {
-    try {
-      const response = await fetch(`http//localhost:3000/api/snippets/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(snippetData),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to update snippet");
-      }
-    } catch (error) {
-      console.error("Error updating the snippet", error);
-      throw error;
-    }
+  const updatedSnippetData: SnippetData = {
+    title: title,
+    tags: selectTags,
+    description: description,
+    code: code,
   };
 
-  const handlePublish = (): void => {
-    const updatedSnippetData: SnippetData = {
-      title: title,
-      tags: selectTags,
-      description: description,
-      code: code,
-    };
+  const handleClick = async () => {
+    const updatedSnippet = await updateSnippet(
+      `/api/snippets/`,
+      params.id,
+      updatedSnippetData
+    );
 
-    updateSnippet(params.id, updatedSnippetData)
-      .then(() => {
-        console.log("Snippet updated!");
-        mutate(`/api/snippets/${params.id}`, updatedSnippetData);
-      })
-      .catch((error) => {
-        console.error("Error updating the snippet", error);
-      });
+    mutate(`/api/snippets/${params.id}`, updatedSnippet, {
+      optimisticData: (snippet: any) => ({
+        ...snippet,
+        title: updatedSnippetData,
+      }),
+      rollbackOnError: true,
+    });
+
+    router.push(`/snippets/${params.id}`);
   };
-
-  if (error) {
-    console.error("Error fetching snippet data", error);
-  }
-
   return (
     <div>
       <h2>Edit Snippet</h2>
@@ -88,7 +62,7 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
         selectTags={selectTags}
         setSelectTags={setSelectTags}
       />
-      <button onClick={handlePublish}>Update</button>
+      <button onClick={handleClick}>Update</button>
       <button>Cancel</button>
     </div>
   );
