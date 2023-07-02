@@ -1,18 +1,27 @@
 "use client";
+// import { useState } from "react";
 import useSWR from "swr";
+import { useSession } from "next-auth/react";
 import { getSnippets } from "../services/SnippetService";
-import { snippetModel } from "../snippetModel-DB";
+import { addToFavorite, normalizeDate } from "../snippets/[id]/handlers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import SnippetCard from "./SnippetCard";
-library.add(faHeart);
+import Link from "next/link";
+
 import "./snippetsGallery.css";
+import SnippetCardComponent from "./SnippetCardComponent";
+import { snippetModel } from "../snippetModel-DB";
+library.add(faHeart);
 
 const SnippetGallery = () => {
-  const { data: snippets, mutate } = useSWR<snippetModel[]>(
+  // const [changes, setChanges] = useState(false);
+  const { data: snippets } = useSWR<snippetModel[]>(
     "/api/snippets",
     getSnippets
   );
+  const { data: session } = useSession();
+  const userId = session?.user?.email?.toString();
 
   const formatDate = (date: Date) => {
     const day = date.getDate();
@@ -23,11 +32,11 @@ const SnippetGallery = () => {
   };
 
   return (
-    <ul className="gallery-container">
+    <ul className="gallery-container ">
       {snippets?.map((snippet) => {
         return (
           <li className="gallery-item" key={snippet._id}>
-            <SnippetCard
+            <SnippetCardComponent
               snippet={snippet}
               key={snippet._id}
               title={snippet.title}
@@ -35,7 +44,8 @@ const SnippetGallery = () => {
               tags={snippet.tags}
               snippetCode={snippet.snippetCode}
               formatDate={formatDate}
-              mutate={mutate}
+              // changes={changes}
+              // setChanges={setChanges}
             />
           </li>
         );

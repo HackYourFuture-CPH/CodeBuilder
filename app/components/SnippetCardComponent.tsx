@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 /** @format */
 
 "use client";
@@ -11,29 +10,19 @@ import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import "./snippetCard.css";
-import { snippetModel } from "../snippetModel-DB";
-
-export interface SnippetCardModel {
-  snippet: snippetModel;
-  title: string;
-  description: string;
-  tags: string[];
-  snippetCode: string;
-  formatDate: Function;
-  mutate: Function;
-}
-
-const SnippetCard = ({
+const SnippetCardComponent = ({
   snippet,
   title,
   description,
   tags,
   snippetCode,
   formatDate,
-  mutate,
-}: SnippetCardModel) => {
+}: // changes,
+// setChanges,
+any) => {
   const { data: session } = useSession();
-  const userId: any = session?.user?.email;
+  const userId = session?.user?.email;
+  // const userAvatar = session?.user?.image;
 
   const handleFavoriteButton = async () => {
     await fetch(`/api/snippets/${snippet._id}`, {
@@ -53,8 +42,9 @@ const SnippetCard = ({
       .catch((error) => {
         console.error(error);
       });
-    mutate();
+    // await setChanges(!changes);
   };
+  console.log(session?.user?.image);
   return (
     <div className="container">
       <div className="code-group">
@@ -123,6 +113,8 @@ const SnippetCard = ({
               }}
             >
               by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
+              {/* by {userId ? session?.user?.name : 'user name'} */}
+              {/* {formatDate(new Date(snippet.createdAt))}{' '} */}
             </p>
           </div>
           {session ? (
@@ -140,4 +132,4 @@ const SnippetCard = ({
   );
 };
 
-export default SnippetCard;
+export default SnippetCardComponent;
