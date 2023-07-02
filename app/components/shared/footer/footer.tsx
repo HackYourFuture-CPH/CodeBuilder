@@ -1,8 +1,14 @@
 "use client";
 import React from "react";
 import "./footer.css";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname()
+  const showFooter = pathname != "/"
+  if (!showFooter) {
+    return null
+  }
   return (
     <footer className="footer">
       <div className="footer-container">
