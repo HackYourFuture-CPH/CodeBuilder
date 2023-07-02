@@ -1,13 +1,11 @@
 "use client";
 import React from "react";
-import NavbarForTags from "./components/shared/NavbarForTags/NavbarForTags";
-
+import CreateSnippet from "./components/snippets/create/page";
 
 const Home: React.FC = () => {
-  
   return (
-    <div className='main'>
-      <NavbarForTags />
+    <div className="main">
+      <CreateSnippet />
     </div>
   );
 };
