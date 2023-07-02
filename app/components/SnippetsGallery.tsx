@@ -18,35 +18,33 @@ type favoriteSnippet = snippetModel;
 
 const SnippetGallery = () => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
-  const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
-  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>([]);
+  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
+    []
+  );
   const [search, setSearch] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const { data: session } = useSession();
-  const userId: any = session?.user?.email
+  const userId: any = session?.user?.email;
 
   const {
     data: snippetsData,
     mutate,
     error: snippetError,
+    isLoading: isLoadingSnippets,
   } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
 
-  useEffect(() => {
-    if (snippetsData) {
-      setSnippets(snippetsData);
-      setIsLoading(false);
-    }
-  }, [snippets]);
-
-  const { data: tagsData, error: tagError } = useSWR<SelectableTag[]>(
-    "/api/tags",
-    (url) => fetch(url).then((response) => response.json())
+  const {
+    data: tagsData,
+    error: tagError,
+    isLoading: isLoadingTags,
+  } = useSWR<SelectableTag[]>("/api/tags", (url) =>
+    fetch(url).then((response) => response.json())
   );
+
+  const isLoading = isLoadingSnippets || isLoadingTags;
 
   useEffect(() => {
     if (tagsData) {
       setTags(tagsData);
-      setIsLoading(false);
     }
   }, [tagsData]);
 
@@ -55,7 +53,7 @@ const SnippetGallery = () => {
       .filter((tag) => tag.selected)
       .map((tag) => tag.shortName.toUpperCase());
 
-    const filtered = snippets.filter((snippet) => {
+    const filtered = snippetsData?.filter((snippet) => {
       const hasSelectedTags =
         filteredTags.length === 0 ||
         filteredTags.every((tag) => snippet.tags?.includes(tag));
@@ -67,12 +65,12 @@ const SnippetGallery = () => {
       return hasSelectedTags && hasSearchText;
     });
 
-    setFilteredSnippets(filtered);
+    setFilteredSnippets(filtered ?? []);
   };
 
   useEffect(() => {
     filterSnippets();
-  }, [tags, search, snippets]);
+  }, [tags, search, snippetsData]);
 
   const handleSelectChange = (id: string) => {
     const newTags = tags.map((tag) => {
@@ -124,9 +122,13 @@ const SnippetGallery = () => {
     return `${day} ${month} ${year}`;
   };
 
-  const LikedSnippets = () => {snippets?.filter((snippet) => snippet.favoriteByIds?.includes(userId))}
+  const LikedSnippets = () => {
+    snippetsData?.filter((snippet) => snippet.favoriteByIds?.includes(userId));
+  };
 
-  const CreatedByYou = () => { snippets?.filter((snippet) => snippet.authorId === userId)}
+  const CreatedByYou = () => {
+    snippetsData?.filter((snippet) => snippet.authorId === userId);
+  };
 
   if (snippetError || tagError) {
     return <div>Error fetching data</div>;
@@ -137,11 +139,14 @@ const SnippetGallery = () => {
   }
 
   return (
-    <div className="snippet-gallery-container" style={{
-      height: "100vh",
-      marginTop: "300px",
-      marginBottom: "300px"
-    }}>
+    <div
+      className="snippet-gallery-container"
+      style={{
+        height: "100vh",
+        marginTop: "300px",
+        marginBottom: "300px",
+      }}
+    >
       <nav>
         <div>
           <p>Tags:</p>
