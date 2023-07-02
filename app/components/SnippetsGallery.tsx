@@ -5,13 +5,8 @@ import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-
-// import { faHeart } from "@fortawesome/free-solid-svg-icons";
-// import { library } from "@fortawesome/fontawesome-svg-core";
+import { useSession } from "next-auth/react";
 import SnippetCard from "./SnippetCard";
-// library.add(faHeart);
-import { SnippetCardModel } from "./SnippetCard";
-
 export interface Tag {
   displayName: string;
   shortName: string;
@@ -20,14 +15,15 @@ export interface Tag {
 
 type SelectableTag = Tag & { selected: boolean };
 type favoriteSnippet = snippetModel;
+
 const SnippetGallery = () => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
   const [snippets, setSnippets] = useState<favoriteSnippet[]>([]);
-  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
-    []
-  );
+  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>([]);
   const [search, setSearch] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { data: session } = useSession();
+  const userId: any = session?.user?.email
 
   const {
     data: snippetsData,
@@ -40,7 +36,7 @@ const SnippetGallery = () => {
       setSnippets(snippetsData);
       setIsLoading(false);
     }
-  }, [snippetsData]);
+  }, [snippets]);
 
   const { data: tagsData, error: tagError } = useSWR<SelectableTag[]>(
     "/api/tags",
@@ -65,8 +61,8 @@ const SnippetGallery = () => {
         filteredTags.every((tag) => snippet.tags?.includes(tag));
       const hasSearchText =
         search === "" ||
-        snippet.title.toLowerCase().includes(search.toLowerCase()) ||
-        snippet.description.toLowerCase().includes(search.toLowerCase());
+        snippet?.title?.toLowerCase().includes(search.toLowerCase()) ||
+        snippet?.description?.toLowerCase().includes(search.toLowerCase());
 
       return hasSelectedTags && hasSearchText;
     });
@@ -76,7 +72,7 @@ const SnippetGallery = () => {
 
   useEffect(() => {
     filterSnippets();
-  }, [tags, search]);
+  }, [tags, search, snippets]);
 
   const handleSelectChange = (id: string) => {
     const newTags = tags.map((tag) => {
@@ -128,6 +124,10 @@ const SnippetGallery = () => {
     return `${day} ${month} ${year}`;
   };
 
+  const LikedSnippets = () => {snippets?.filter((snippet) => snippet.favoriteByIds?.includes(userId))}
+
+  const CreatedByYou = () => { snippets?.filter((snippet) => snippet.authorId === userId)}
+
   if (snippetError || tagError) {
     return <div>Error fetching data</div>;
   }
@@ -137,8 +137,12 @@ const SnippetGallery = () => {
   }
 
   return (
-    <>
-      <div className="component-header">
+    <div className="snippet-gallery-container" style={{
+      height: "100vh",
+      marginTop: "300px",
+      marginBottom: "300px"
+    }}>
+      <nav>
         <div>
           <p>Tags:</p>
           <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
@@ -161,6 +165,11 @@ const SnippetGallery = () => {
             onChange={(e) => handleSearch(e.target.value)}
           />
         </div>
+      </nav>
+
+      <div>
+        <button onClick={() => LikedSnippets()}>Liked Snippets</button>
+        <button onClick={() => CreatedByYou()}>Created by you</button>
       </div>
 
       <ul
@@ -206,7 +215,7 @@ const SnippetGallery = () => {
           );
         })}
       </ul>
-    </>
+    </div>
   );
 };
 
