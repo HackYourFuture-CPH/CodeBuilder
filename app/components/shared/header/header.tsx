@@ -6,6 +6,7 @@ import LoginBtn from "./loginBtn/login-btn";
 import Image from "next/image";
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
+import { TbBulbFilled } from "react-icons/Tb"
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import { useMediaQuery } from "react-responsive";
 
@@ -28,6 +29,12 @@ const Header = () => {
               Explore
             </a>
           </li>
+          <li className="navbar-item">
+              <a href="/about">
+                <TbBulbFilled className="icon"/>
+                About
+              </a>
+            </li>
           {session?.user ? ( // to test how it looks when the user logs in we can write {true? instead of this line.
             <li className="navbar-item">
               <a href="/snippets">
