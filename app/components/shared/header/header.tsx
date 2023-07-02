@@ -8,9 +8,11 @@ import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
 import { useMediaQuery } from "react-responsive";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
-  const { data: session } = useSession();
+    const { data: session } = useSession();
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
   if (isMobile) {
     return <BurgerMenu />
@@ -28,6 +30,12 @@ const Header = () => {
               Explore
             </a>
           </li>
+          <li className="navbar-item">
+              <a href="/about">
+              <FontAwesomeIcon icon={faLightbulb} className="icon" />
+                About
+              </a>
+            </li>
           {session?.user ? ( // to test how it looks when the user logs in we can write {true? instead of this line.
             <li className="navbar-item">
               <a href="/snippets">
