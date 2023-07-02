@@ -19,8 +19,8 @@ export interface SnippetCardModel {
   snippetCode: string;
   formatDate: Function;
   mutate: Function;
-  author: string;
-  authorImage: string;
+  author?: string;
+  authorImage?: string;
 }
 
 const SnippetCard = ({
