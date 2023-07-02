@@ -5,7 +5,8 @@ import SelectTags from "../../snippets/snipetForm/SelectTags";
 import { Tag } from "@/app/api/tags/route";
 import { useState } from "react";
 import { snippetModel } from "@/app/snippetModel-DB";
-//import SnippetGallery from "../../SnippetsGallery";
+import SnippetGallery from "../../SnippetsGallery";
+import { log } from "console";
 
 export interface Option {
   label: string;
@@ -21,6 +22,8 @@ const FilterBar = ({ snippets }: { snippets: snippetModel[] }) => {
  // console.log("selectTags", selectTags);
   //console.log(" queryTitle", queryTitle);
   //console.log(snippets);
+  console.log(filteredSnippets);
+  
 
 
   const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
@@ -33,7 +36,6 @@ const FilterBar = ({ snippets }: { snippets: snippetModel[] }) => {
       value: tag.shortName,
       label: tag.displayName,
     })) || [];
-
 
 
   const handlerSubmit = () => {
@@ -74,7 +76,7 @@ const FilterBar = ({ snippets }: { snippets: snippetModel[] }) => {
         placeholder="search news"
         // onChange={(e) => onChange(e.target.value)}
       />
-      {/* <SnippetGallery filteredSnippets={filteredSnippets} /> */}
+      <SnippetGallery filteredSnippets={filteredSnippets} /> 
     </div>
   );
 };

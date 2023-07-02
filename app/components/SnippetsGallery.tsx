@@ -8,7 +8,7 @@ import SnippetCard from "./SnippetCard";
 library.add(faHeart);
 import { SnippetCardModel } from "./SnippetCard";
 
-const SnippetGallery = (filteredSnippets: snippetModel[]) => {
+const SnippetGallery = ({filteredSnippets}: {filteredSnippets: snippetModel[]}) => {
   const { data, mutate } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
 
   const formatDate = (date: Date) => {
