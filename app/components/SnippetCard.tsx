@@ -106,7 +106,7 @@ const SnippetCard = ({
           <div className="button-container">
             <p className="tags">
               {tags.map((item) => (
-                <span>{item}</span>
+                <span key={item}>{item}</span>
               ))}
             </p>
           </div>
