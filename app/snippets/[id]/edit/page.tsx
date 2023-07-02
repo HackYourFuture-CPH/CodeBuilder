@@ -1,5 +1,5 @@
 "use client";
-import { updateSnippet } from "@/app/service/SnippetService";
+import { updateSnippet } from "../../../services/SnippetService";
 import { mutate } from "swr";
 import { useRouter } from "next/navigation";
 
