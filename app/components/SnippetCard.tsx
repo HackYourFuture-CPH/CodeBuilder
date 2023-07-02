@@ -31,15 +31,14 @@ const SnippetCard = ({
   mutate,
 }: SnippetCardModel) => {
   const { data: session } = useSession();
-  const userId: any = session?.user?.email;
+  const userId = session?.user?.id;
 
   const handleFavoriteButton = async () => {
-    await fetch(`/api/snippets/${snippet._id}`, {
+    await fetch(`/api/snippets/${snippet._id}/favorite`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ addToFavorite: userId }),
     })
       .then((response) => {
         if (response.ok) {
@@ -76,7 +75,7 @@ const SnippetCard = ({
             }}
             onClick={() => handleFavoriteButton()}
           >
-            {snippet.favoriteByIds.includes(userId) ? (
+            {userId && snippet.favoriteByIds.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}
                 style={{ color: "#ff0000" }}
