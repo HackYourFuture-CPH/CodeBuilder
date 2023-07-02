@@ -19,6 +19,8 @@ export interface SnippetCardModel {
   snippetCode: string;
   formatDate: Function;
   mutate: Function;
+  author: string;
+  authorImage: string;
 }
 
 const SnippetCard = ({
@@ -28,6 +30,8 @@ const SnippetCard = ({
   tags,
   snippetCode,
   formatDate,
+  author,
+  authorImage,
   mutate,
 }: SnippetCardModel) => {
   const { data: session } = useSession();
@@ -100,7 +104,11 @@ const SnippetCard = ({
         </div>
         <div className="tags-container">
           <div className="button-container">
-            <p className="tags">{tags}</p>
+            <p className="tags">
+              {tags.map((item) => (
+                <span>{item}</span>
+              ))}
+            </p>
           </div>
         </div>
 
@@ -114,11 +122,7 @@ const SnippetCard = ({
           >
             <div className="img-container">
               <img
-                src={
-                  session?.user?.image
-                    ? session.user.image
-                    : "fallback-image-url"
-                }
+                src={authorImage}
                 alt="user profile pic"
                 width={40}
                 height={40}
@@ -131,7 +135,7 @@ const SnippetCard = ({
                 margin: "0",
               }}
             >
-              by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
+              by {author} {formatDate(new Date(snippet.createdAt))}
             </p>
           </div>
           {session ? (

@@ -6,7 +6,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import SnippetCard from "./SnippetCard";
 library.add(faHeart);
-import { SnippetCardModel } from "./SnippetCard";
 
 const SnippetGallery = () => {
   const { data: snippets, mutate } = useSWR<snippetModel[]>(
@@ -58,6 +57,8 @@ const SnippetGallery = () => {
                 description={snippet.description}
                 tags={snippet.tags}
                 snippetCode={snippet.snippetCode}
+                author={snippet.author}
+                authorImage={snippet.authorImage}
                 formatDate={formatDate}
                 mutate={mutate}
               />

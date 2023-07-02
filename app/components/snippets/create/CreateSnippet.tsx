@@ -10,15 +10,24 @@ const CreateSnippet = () => {
   const [selectTags, setSelectTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
   const [code, setCode] = useState<string>("");
+  const favoriteByIds: string[] = [];
 
   const handlePublish = (): void => {
     const snippetData: SnippetData = {
       title: title,
       description: description,
-      code: code,
-      selectTags: selectTags,
-      created_at: new Date(),
-      updated_at: new Date(),
+      snippetCode: code,
+      tags: selectTags,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      favoriteByIds: favoriteByIds,
+    };
+
+    const clearInputs = (): void => {
+      setTitle("");
+      setSelectTags([]);
+      setDescription("");
+      setCode("");
     };
 
     fetch("/api/snippets", {
@@ -30,7 +39,8 @@ const CreateSnippet = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Snippet published!");
+          alert("The snippet created succesfully");
+          clearInputs();
         } else {
           throw new Error("Error publishing snippet");
         }

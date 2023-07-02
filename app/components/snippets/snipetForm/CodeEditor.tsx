@@ -6,11 +6,7 @@ interface CodeEditorProps {
   language: string;
 }
 
-const CodeEditor = ({
-  code,
-  onChange,
-  language,
-}: CodeEditorProps): JSX.Element => {
+const CodeEditor = ({ code, onChange }: CodeEditorProps): JSX.Element => {
   const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
     const newCode = e.target.value;
     onChange(newCode);
@@ -22,7 +18,7 @@ const CodeEditor = ({
         className={styles.textarea}
         value={code}
         onChange={handleCodeChange}
-        placeholder={`Enter your ${language} code`}
+        placeholder={`Enter your code`}
       />
     </div>
   );
