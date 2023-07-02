@@ -1,152 +1,11 @@
 "use client";
 
-import useSWR from "swr";
-import { useState, useEffect } from "react";
-import TextInput from "@/app/components/TextInput";
-import CodeEditor from "@/app/api/components/shared/codeEditor/code-editor";
-import SelectTags from "@/app/components/SelectTags";
-import { Tag } from "@/app/api/tags/route";
-
-interface SnippetData {
-  title: string;
-  selectTags: string[];
-  description: string;
-  code: string;
-  created_at: Date;
-  updated_at: Date;
-}
-
-interface EditSnippetProps {
-  snippetId: string;
-}
-
-const EditSnippetComponent = ({
-  params,
-}: {
-  params: { snippetId: string };
-}): JSX.Element => {
-  const [isPublished, setIsPublished] = useState(false);
-  const [title, setTitle] = useState<string>("");
-  const [selectTags, setSelectTags] = useState<string[]>([]);
-  const [description, setDescription] = useState<string>("");
-  const [code, setCode] = useState<string>("");
-
-  const currentDate = new Date();
-  const updatedDate = new Date();
-
-  type Option = {
-    label: string;
-    value: string;
-  };
-
-  useEffect(() => {
-    fetch(`/api/snippets/${params.snippetId}`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Error fetching snippet");
-        }
-      })
-      .then((snippetData: SnippetData) => {
-        setTitle(snippetData.title);
-        setSelectTags(snippetData.selectTags);
-        setDescription(snippetData.description);
-        setCode(snippetData.code);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [params.snippetId]);
-
-  const handleUpdate = (): void => {
-    const snippetData: SnippetData = {
-      title: title,
-      selectTags: selectTags,
-      description: description,
-      code: code,
-      created_at: currentDate,
-      updated_at: updatedDate,
-    };
-
-    fetch(`/api/snippets/${params.snippetId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(snippetData),
-    })
-      .then((response) => {
-        if (response.ok) {
-          setIsPublished(true);
-        } else {
-          throw new Error("Error updating snippet");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  const { data: tags } = useSWR<Tag[]>("/api/tags", async (url) => {
-    const response = await fetch(url);
-    return response.json();
-  });
-
-  const tagOptions: Option[] =
-    tags?.map((tag) => ({
-      value: tag.shortName,
-      label: tag.displayName,
-    })) || [];
-
-  return (
-    <div>
-      <h2>Edit Snippet</h2>
-      <TextInput
-        label="Title"
-        value={title}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setTitle(e.target.value)
-        }
-      />
-      <div>
-        <h4>Tags</h4>
-        <SelectTags
-          placeholder="Select Tags"
-          options={tagOptions}
-          value={selectTags}
-          onChange={(tags: string[]): void => setSelectTags(tags)}
-          isMulti
-        />
-      </div>
-      <TextInput
-        label="Description"
-        value={description}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setDescription(e.target.value)
-        }
-      />
-      <CodeEditor
-        code={code}
-        onChange={(newCode: string) => setCode(newCode)}
-        language="javascript"
-      />
-      <button onClick={handleUpdate}>Update</button>
-      <button>Cancel</button>
-      {isPublished && <p>Snippet successfully updated</p>}
-    </div>
-  );
-};
-
-export default EditSnippetComponent;
-
-/*
 import React from "react";
 import { useState } from "react";
 import SnippetForm from "../../snipetForm/SnippetForm";
 import { SnippetData } from "./interfaces";
-import { Tag } from "@/app/api/tags/route";
-import { SelectTags } from "../../SelectTags";
+import { Tag } from "../../../../..";
+import SelectTags from "../app/components/SelectTags";
 import useSWR, { mutate } from "swr";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
@@ -232,7 +91,6 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
 
 export default EditSnippet;
 
-*/
 /*
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   //use SWR to fetch the snipet with id params.id
@@ -320,3 +178,37 @@ const [code, setCode] = useState<string>(snippetData?.code || "");
 
 export default EditSnippet;
 */
+
+"use client";
+import { mutate } from "swr";
+import { updateSnippet } from "@/app/services/SnippetService";
+
+type Props = {
+  params: {
+    id: string;
+  };
+};
+
+const EditSnippet: React.FC<Props> = ({ params: { id } }) => {
+  
+  const newTitle = {
+    title: "NEWTEST",
+  };
+
+  const handleClick = async () => {
+    const updatedSnippet = await updateSnippet(`/api/snippets/`, id, newTitle);
+
+    mutate(`/api/snippets/${id}`, updatedSnippet, {
+      optimisticData: (snippet: any) => ({ ...snippet, title: newTitle }),
+      rollbackOnError: true,
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={handleClick}>Change!</button>
+    </div>
+  );
+};
+
+export default EditSnippet;
