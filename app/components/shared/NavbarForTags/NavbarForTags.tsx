@@ -7,9 +7,10 @@ import ApplyFilterButton from '../ApplyFilterButton/ApplyFilterButton';
 import SnippetGalleryTags from '../tags/Tag';
  */}
 const NavbarForTags = () => {
+    
     return (<div className='NavbarForTags'>
         <div className='TagsDisplay'>
-            <FilteredTag />'
+            <FilteredTag />
 
             
             {/**<SnippetGalleryTags/> */}            

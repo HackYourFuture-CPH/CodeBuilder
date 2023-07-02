@@ -4,9 +4,10 @@ import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
 import SelectTags from "../../snippets/snipetForm/SelectTags";
 import { Option } from "../../snippets/snipetForm/interfaces";
-import { Tag } from "../Tags/sharedTag";
+
 
 import "./FilteredTag.css";
+
 
 const FilteredTag = (props: any) => {
   const [selectTags, setSelectTags] = useState<string[]>([]);
@@ -24,12 +25,12 @@ const FilteredTag = (props: any) => {
 
   return (
     <div>
-      <SelectTags
-        placeholder={"Search here"}
-        options={tagOptions}
-        value={props.selectTags}
-        onChange={(tags: string[]): void => props.setSelectTags(tags)}
-        isMulti
+          <SelectTags
+                placeholder={"Search here"}
+                options={tagOptions}
+                value={props.selectTags}
+                onChange={(tags: string[]): void => props.setSelectTags(tags)}
+                isMulti
       />
       Filtered tags will be rendered here!!!!
     </div>

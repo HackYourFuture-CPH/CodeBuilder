@@ -4,7 +4,6 @@ import Select, { components, IndicatorSeparatorProps } from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";
-
 type Option = {
   label: string;
   value: string | any;
@@ -53,6 +52,7 @@ const customStyles = {
 const DropdownIndicator: React.FC<any> = (props) => {
   return (
     <components.DropdownIndicator {...props}>
+
       <FontAwesomeIcon icon={faChevronDown} style={{ color: "#000000" }} />
     </components.DropdownIndicator>
   );
