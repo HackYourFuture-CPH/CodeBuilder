@@ -4,10 +4,10 @@
     color: #ffffff;
     border: none;
     font-family: "Arial";
-    font-size: 20px;
-    line-height: 23px;
-    width: 400;
-    padding: 12px 16px 12px 16px;
+    font-size: 15px;
+    text-align: center;
+    width: 100px;
+    height: 40px;
     border-radius: 8px;
   }
   .button:hover {

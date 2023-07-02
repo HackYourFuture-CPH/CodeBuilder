@@ -4,8 +4,10 @@
     width: 100%;
     background-color: aquamarine;
     padding: 0px;   
-    top: 0;
-    right: 0;
-    left: 0;
-    padding: 0; 
+}
+
+.TagsDisplay {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
