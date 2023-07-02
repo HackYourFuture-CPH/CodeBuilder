@@ -5,6 +5,8 @@ import styles from "./BurgerMenu.module.css";
 import Image from "next/image";
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
 
 const BurgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +37,12 @@ const BurgerMenu = () => {
           <a href="/explore">
             <IoRocket size={20} />
             Explore
+          </a>
+        </li>
+        <li className={styles.FaSpaceShuttle}>
+          <a href="/explore">
+          <FontAwesomeIcon icon={faLightbulb} className="icon" />
+            About
           </a>
         </li>
         <li>

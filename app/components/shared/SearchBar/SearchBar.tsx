@@ -15,7 +15,7 @@ const SearchBar = (props: props) => {
   return (
     <input
       type="text"
-      onChange={(e) => props.onChange(e.target.value)}
+      // onChange={(e) => props.onChange(e.target.value)}
       value={props.queryTitle}
       // key="search-bar"
       // value={keyword}

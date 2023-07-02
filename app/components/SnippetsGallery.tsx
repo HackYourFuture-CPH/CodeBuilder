@@ -8,11 +8,8 @@ import SnippetCard from "./SnippetCard";
 library.add(faHeart);
 import { SnippetCardModel } from "./SnippetCard";
 
-const SnippetGallery = () => {
-  const { data: snippets, mutate } = useSWR<snippetModel[]>(
-    "/api/snippets",
-    getSnippets
-  );
+const SnippetGallery = (filteredSnippets: snippetModel[]) => {
+  const { data, mutate } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
 
   const formatDate = (date: Date) => {
     const day = date.getDate();
@@ -31,7 +28,7 @@ const SnippetGallery = () => {
         gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
       }}
     >
-      {snippets?.map((snippet) => {
+      {filteredSnippets?.map((snippet) => {
         return (
           <li
             style={{

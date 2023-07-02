@@ -1,4 +1,5 @@
 import "./FilterBar.css";
+import React from "react";
 import useSWR from "swr";
 import SelectTags from "../../snippets/snipetForm/SelectTags";
 import { Tag } from "@/app/api/tags/route";
@@ -12,7 +13,7 @@ export interface Option {
   value: string;
 }
 
-const FilterBar = (snippets: snippetModel[] | undefined) => {
+const FilterBar = (snippets: snippetModel[]) => {
   const [selectTags, setSelectTags] = useState<any[]>([]);
   const [queryTitle, setQueryTitle] = useState<string>("");
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
@@ -38,7 +39,8 @@ const FilterBar = (snippets: snippetModel[] | undefined) => {
       ) || snippet.title.includes(queryTitle);
     });
     console.log(snippetsAfterFilter);
-    return snippetsAfterFilter;
+
+    return setFilteredSnippets(snippetsAfterFilter);
   };
   // filtered_snippets = snippets.filter(snippet => snippet.tags.some(tag => tags.map(tag => tag.title).includes(tag))).map(snippet => );
   return (
@@ -62,7 +64,7 @@ const FilterBar = (snippets: snippetModel[] | undefined) => {
         placeholder="search news"
         // onChange={(e) => onChange(e.target.value)}
       />
-      <SnippetGallery />
+      {/* <SnippetGallery filteredSnippets={filteredSnippets} /> */}
     </div>
   );
 };
