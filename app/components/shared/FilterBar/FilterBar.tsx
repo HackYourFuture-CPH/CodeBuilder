@@ -52,7 +52,7 @@ const FilterBar = (snippets: snippetModel[]) => {
         onChange={(tags: string[]): void => setSelectTags(tags)}
         isMulti
       />
-
+ 
       <button className="button"
         type="submit"
         onClick={handlerSubmit}>
