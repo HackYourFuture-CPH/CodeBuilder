@@ -1,35 +1,41 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SnippetForm from "../../snipetForm/snippetForm";
 import { SnippetData } from "./interfaces";
 import useSWR, { mutate } from "swr";
 import { updateSnippet, getSnippets } from "@/app/services/SnippetService";
 import { useRouter } from "next/navigation";
+import { snippetModel } from "../../../../snippetModel-DB";
 
 // import styles from "./styles.module.css";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
-  const { data: snippetData, error } = useSWR(
+  const { data: snippetData, error } = useSWR<snippetModel>(
     `/api/snippets/${params.id}`,
     getSnippets
   );
-
+  useEffect(() => {
+    setTitle(snippetData ? snippetData.title : "");
+    setDescription(snippetData ? snippetData.description : "");
+    setSelectTags(snippetData ? snippetData.tags : []);
+    setCode(snippetData ? snippetData.snippetCode : "");
+  }, [snippetData]);
   const [title, setTitle] = useState<string>(snippetData?.title || "");
   const [selectTags, setSelectTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>(
     snippetData?.description || ""
   );
-  const [code, setCode] = useState<string>(snippetData?.code || "");
+  const [code, setCode] = useState<string>(snippetData?.snippetCode || "");
 
   const updatedSnippetData: SnippetData = {
     title: title,
     tags: selectTags,
     description: description,
-    code: code,
+    snippetCode: code,
   };
 
   const handleClick = async () => {
@@ -47,7 +53,7 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
       rollbackOnError: true,
     });
 
-    router.push(`/snippets/${params.id}`);
+    // router.push(`/snippets/${params.id}`);
   };
   return (
     <div>
