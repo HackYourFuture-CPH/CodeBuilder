@@ -1,5 +1,4 @@
 "use client";
-import SnippetGallery from "../components/SnippetsGallery";
 import useSWR from "swr";
 import { snippetModel } from "../snippetModel-DB";
 import { getSnippets } from "../services/SnippetService";
@@ -10,10 +9,15 @@ const Snippets: React.FC = () => {
     `/api/snippets/`,
     getSnippets
   );
+
+  if (!snippets) {
+    return <div>Loading snippets...</div>;
+  }
+
   return (
     <>
       <FilterBar snippets={snippets} />
-      {/* <SnippetGallery /> */}
+      
     </>
   );
 };
