@@ -1,21 +1,62 @@
 .FilterBar_Container {
-  height: 50px;
+  height: 60px;
+  margin-top: 97px;
   width: 100%;
-  margin: 200px;
+  background-color: rgb(227, 236, 243);
   padding: 0px;
-  background-color: aquamarine;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.button {
-  background-color: rgb(4, 45, 84);
+.FilterBar_SelectTags_Container {
+  width: 70%;
+  border: 5px solid red;
+  padding: 0px 20px;
+}
+
+.FilterBar_Button_Container{
+  width: 450px;
+  height: 50px;
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.FilterBar_Button_div{
+  width: 100px;
+  border: none;
+}
+
+
+.FilterBar_Button {
+  background-color: rgb(16, 77, 133);
   color: #ffffff;
   border: none;
   font-size: 15px;
   text-align: center;
   width: 100px;
-  height: 40px;
+  height: 35px;
   border-radius: 5px;
+  margin: auto;
+}  
+
+.FilterBar_Button:hover {
+  background-color: rgb(66, 127, 183);
+}  
+
+.FilterBar_SearchBar_div{
+  width: 300px;
+  padding: 20px;
 }
-.button:hover {
-  background-color: #427fb7;
+
+
+.FilterBar_SearchBar {
+  width: 300px;
+  height: 20px;
+  border: none;
+  border-radius: 30px;
+  margin: auto;
+  padding: 10px;
 }
