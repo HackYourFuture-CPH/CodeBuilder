@@ -15,7 +15,7 @@ library.add(faHeart);
 
 
 
-const SnippetGallery = () => {
+const SnippetGalleryTags = () => {
 
 {/**
 const { data: session } = useSession();
@@ -88,7 +88,7 @@ const userId = session?.user?.email?.toString();
   );
 };
 
-export default SnippetGallery; 
+export default SnippetGalleryTags; 
 
 
 

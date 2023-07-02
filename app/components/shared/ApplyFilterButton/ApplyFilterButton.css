@@ -1,14 +1,13 @@
 
 .button {
-    background-color: #104d85;
+    background-color: rgb(4, 45, 84);
     color: #ffffff;
     border: none;
-    font-family: "Arial";
     font-size: 15px;
     text-align: center;
     width: 100px;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 5px;
   }
   .button:hover {
     background-color: #427fb7;

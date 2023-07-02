@@ -2,8 +2,11 @@
     height: 50px;
     margin-top: 95px;
     width: 100%;
-    background-color: aquamarine;
-    padding: 0px;   
+    background-color: rgb(227, 236, 243);
+    padding: 0px;  
+    display: flex;
+    justify-content: space-around; 
+    align-items: center;
 }
 
 .TagsDisplay {

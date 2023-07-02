@@ -1,16 +1,20 @@
 import './NavbarForTags.css';
 import SearchBar from '../SearchBar/SearchBar';
-import SnippetGallery from '../tags/Tag';
+import FilteredTag from '../FilteredTag/FilteredTag';
 import ApplyFilterButton from '../ApplyFilterButton/ApplyFilterButton';
-
+{/**
+import SnippetGalleryTags from '../tags/Tag';
+ */}
 const NavbarForTags = () => {
     return (<div className='NavbarForTags'>
-        navbar is being created here for tags and search bar!!
         <div className='TagsDisplay'>
-        <SearchBar />
-        <ApplyFilterButton />
+            <FilteredTag />
+            {/**<SnippetGalleryTags/> */}            
         </div>
-        <SnippetGallery />
+        <div className='TagsDisplay'>
+        <ApplyFilterButton />
+        <SearchBar />
+        </div>
     </div> );
 }
  
