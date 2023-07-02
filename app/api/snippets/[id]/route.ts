@@ -1,5 +1,7 @@
 /** @format */
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
@@ -31,13 +33,28 @@ export async function PUT(
   }
 ) {
   try {
+    const session = await getServerSession(authOptions);
     const snippetId = params.id;
     const body = await req.json();
     const db = getMongoDb();
+    const oneSnippetFromDatabase = await db
+      .collection("snippets")
+      .findOne({ _id: new ObjectId(snippetId) });
     const updateOneSnippetFromDatabase = await db
       .collection("snippets")
-      .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
-    return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
+      .updateOne(
+        { _id: new ObjectId(snippetId) },
+        {
+          $set: {
+            title: body.title,
+            description: body.description,
+            tags: [body.tags],
+            snippetCode: body.snippetCode,
+          },
+        }
+      );
+    if (oneSnippetFromDatabase?.authorId === session?.user?.id)
+      return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
   } catch (error) {
     return NextResponse.json({
       message: "something went wrong",
