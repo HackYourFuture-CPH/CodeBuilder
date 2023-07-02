@@ -1,0 +1,99 @@
+.container {
+  display: none;
+}
+
+/*Responsive design for phones*/
+
+@media (max-width: 767px) {
+  .container {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    height: 95px;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+
+  .menuButton {
+    background: none;
+    color: rgb(4, 45, 84);
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+  }
+
+  .faBars {
+    padding: 10px;
+    color: rgb(4, 45, 84);
+  }
+
+  .FaSpaceShuttle,
+  .FaUser {
+    display: flex;
+    padding: 5px;
+  }
+
+  .menu li a {
+    text-decoration: none;
+    color: #104d85;
+  }
+
+  .CreateSnippet {
+    background-color: rgb(4, 45, 84);
+    border-radius: 5px;
+    width: 169px;
+    height: auto;
+    text-align: center;
+  }
+
+  .container .CreateSnippet a {
+    color: white;
+  }
+
+  .menuIcon {
+    display: flex;
+    width: 25px;
+    height: 3px;
+    transition: transform 0.3s ease;
+  }
+  
+  .menu {
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 200px;
+    background: white;
+    transition: transform 0.3s ease;
+    transform-origin: top right;
+    transform: scaleY(0);
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .menu.open {
+    background-color: rgb(255, 255, 255);
+    height: 230px;
+    width: 280px;
+    font-size: 20px;
+    line-height: 50px;
+    margin-top: 40px;
+    padding: 2px 12px 2px 12px;
+    transform: scale(1);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .menu.reverse {
+    transform: scale(0);
+    visibility: visible;
+    opacity: 0;
+    transition: transform 0.3s ease, visibility 0s ease, opacity 0.3s;
+  }
+}
