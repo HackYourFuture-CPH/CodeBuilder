@@ -14,7 +14,9 @@ interface SnippetGalleryProps {
   mutate: () => void;
 }
 
-const SnippetGallery = ({filteredSnippets}: {filteredSnippets: snippetModel[]}) => {
+const SnippetGallery = ({ filteredSnippets }: { filteredSnippets: snippetModel[] }) => {
+  
+  const { data, mutate } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "short" });
@@ -33,7 +35,7 @@ const SnippetGallery = ({filteredSnippets}: {filteredSnippets: snippetModel[]}) 
       }}
     >
       <ul className="gallery-container">
-        {props.filteredSnippets?.map((snippet) => {
+        {filteredSnippets?.map((snippet) => {
           return (
             <li className="gallery-item" key={snippet._id}>
               <div
@@ -49,7 +51,7 @@ const SnippetGallery = ({filteredSnippets}: {filteredSnippets: snippetModel[]}) 
                   tags={snippet.tags}
                   snippetCode={snippet.snippetCode}
                   formatDate={formatDate}
-                  mutate={props.mutate}
+                  mutate={mutate}
                 />
               </div>
             </li>
