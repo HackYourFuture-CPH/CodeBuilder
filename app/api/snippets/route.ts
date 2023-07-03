@@ -24,31 +24,36 @@ export async function GET(req: Request): Promise<NextResponse> {
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const session = await getServerSession(authOptions);
-
-    const userId = session?.user?.id;
-    const userName = session?.user?.name;
-    const userImage = session?.user?.image;
-    const db = getMongoDb();
-    const body = await req.json();
-    const postedSnippetId = await db.collection("snippets").insertOne({
-      title: body.title,
-      description: body.description,
-      tags: body.tags?.map((tag: { label: string }) => tag.label) ?? [],
-      snippetCode: body.snippetCode,
-      createdAt: body.createdAt,
-      updatedAt: body.updatedAt,
-      authorId: userId,
-      author: userName,
-      authorImage: userImage,
-      favoriteByIds: body.favoriteByIds,
-    });
-    console.log(body);
-    return NextResponse.json(postedSnippetId);
+    if (!session) {
+      throw new Error("Not authenticated");
+    } else {
+      const userId = session?.user?.id;
+      const userName = session?.user?.name;
+      const userImage = session?.user?.image;
+      const db = getMongoDb();
+      const body = await req.json();
+      const postedSnippetId = await db.collection("snippets").insertOne({
+        title: body.title,
+        description: body.description,
+        tags: body.tags?.map((tag: { label: string }) => tag.label) ?? [],
+        snippetCode: body.snippetCode,
+        createdAt: body.createdAt,
+        updatedAt: body.updatedAt,
+        authorId: userId,
+        author: userName,
+        authorImage: userImage,
+        favoriteByIds: body.favoriteByIds,
+      });
+      return NextResponse.json(postedSnippetId);
+    }
   } catch (error) {
-    return NextResponse.json({
-      message: "something went wrong",
-      error: error,
-    });
+    return NextResponse.json(
+      {
+        message: "Something went wrong",
+        error: error,
+      },
+      { status: 500 }
+    );
   }
 }
 

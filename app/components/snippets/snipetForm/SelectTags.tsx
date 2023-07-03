@@ -6,7 +6,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";
 
 type Option = {
-  label: string;
+  label: string | any;
   value: string | any;
 };
 

@@ -23,17 +23,7 @@ export interface SnippetCardModel {
   authorImage?: string;
 }
 
-const SnippetCard = ({
-  snippet,
-  title,
-  description,
-  tags,
-  snippetCode,
-  formatDate,
-  author,
-  authorImage,
-  mutate,
-}: SnippetCardModel) => {
+const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
@@ -62,9 +52,9 @@ const SnippetCard = ({
         <Link href={`/snippets/${snippet._id}`}>
           <div className="code-editor">
             <CodeEditor
-              initialValue={snippetCode}
+              initialValue={snippet.snippetCode}
               readOnly={true}
-              tags={tags}
+              tags={snippet.tags}
             />
           </div>
         </Link>
@@ -97,18 +87,18 @@ const SnippetCard = ({
       </div>
       <div className="content-group">
         <div className="title-container">
-          <h1 className="title">{title}</h1>
+          <h1 className="title">{snippet.title}</h1>
         </div>
         <div className="description-container">
-          <p className="description">{description}</p>
+          <p className="description">{snippet.description}</p>
         </div>
         <div className="tags-container">
           <div className="button-container">
-            <p className="tags">
-              {tags.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
-            </p>
+            {snippet.tags.map((item) => (
+              <p className="tags" key={item}>
+                {item}
+              </p>
+            ))}
           </div>
         </div>
 
@@ -122,7 +112,7 @@ const SnippetCard = ({
           >
             <div className="img-container">
               <img
-                src={authorImage}
+                src={snippet.authorImage}
                 alt="user profile pic"
                 width={40}
                 height={40}
@@ -135,7 +125,7 @@ const SnippetCard = ({
                 margin: "0",
               }}
             >
-              by {author} {formatDate(new Date(snippet.createdAt))}
+              by {snippet.author} {formatDate(new Date(snippet.createdAt))}
             </p>
           </div>
           {session ? (

@@ -23,13 +23,6 @@ const CreateSnippet = () => {
       favoriteByIds: favoriteByIds,
     };
 
-    const clearInputs = (): void => {
-      setTitle("");
-      setSelectTags([]);
-      setDescription("");
-      setCode("");
-    };
-
     fetch("/api/snippets", {
       method: "POST",
       headers: {
@@ -39,11 +32,13 @@ const CreateSnippet = () => {
     })
       .then((response) => {
         if (response.ok) {
-          alert("The snippet created succesfully");
-          clearInputs();
+          return response.json();
         } else {
           throw new Error("Error publishing snippet");
         }
+      })
+      .then((data) => {
+        window.location.href = `/snippets/${data.insertedId}`;
       })
       .catch((error) => {
         console.error(error);
