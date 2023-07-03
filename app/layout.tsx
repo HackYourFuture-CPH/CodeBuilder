@@ -5,6 +5,7 @@ import Header from "./components/shared/header/header";
 import Providers from "./providers";
 import Footer from "./components/shared/footer/footer";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
          <Header/>
           {children}
         </Providers>
+
         <Footer />
       </body>
     </html>
