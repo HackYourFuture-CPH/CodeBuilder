@@ -1,6 +1,24 @@
+"use client";
+import SnippetGallery from "@/app/components/SnippetsGallery";
+import { getSnippets } from "@/app/services/SnippetService";
+import { snippetModel } from "@/app/snippetModel-DB";
+import { useSession } from "next-auth/react";
+import useSWR from "swr";
+
 const Favorite: React.FC = () => {
-  return (
-    <div>Here we gonna return all snippets that user added to favorite</div>
+  const { data: snippets } = useSWR("/api/snippets", getSnippets);
+  const { data: session } = useSession();
+  const userId: any = session?.user?.email;
+
+  if (!snippets) {
+    return <div>Loading snippets...</div>;
+  }
+
+  const filteredSnippets = snippets.filter((snippet: snippetModel) =>
+    snippet.favoriteByIds.includes(userId)
   );
+
+  return <SnippetGallery snippets={filteredSnippets} />;
 };
+
 export default Favorite;

@@ -5,24 +5,24 @@ import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react";
 import SnippetCard from "./SnippetCard";
+import { useRouter } from "next/router";
 export interface Tag {
   displayName: string;
   shortName: string;
   _id?: string;
 }
+interface SnippetGalleryProps {
+  snippets: snippetModel[];
+}
 
 type SelectableTag = Tag & { selected: boolean };
 
-const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
+const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
-  const { data: session } = useSession();
-  const [snippets, setSnippets] = useState<snippetModel[]>([]);
-  // const userId: any = session?.user?.email;
-  const userId: any = "randomuser5"; // just for testing
+  const router = useRouter();
 
   const {
     data: snippetsData,
@@ -40,34 +40,12 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
   );
 
   const LikedByYouSnippets = () => {
-    const ID = userId; // Replace with the actual user ID
-    fetch(`/api/snippets/filter/myFavorite?userId=${ID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSnippets(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    router.push("/snippets/favorite");
   };
 
   const CreatedByYouSnippets = () => {
-    const ID = userId; // Replace with the actual user ID
-    fetch(`/api/snippets/filter/mySnippets?userId=${ID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setSnippets(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    router.push("/snippets/mine");
   };
-
-  useEffect(() => {
-    if (snippetsData) {
-      setSnippets(snippetsData);
-    }
-  }, []);
 
   useEffect(() => {
     if (tagsData) {
@@ -96,11 +74,7 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
       return hasSelectedTags && hasSearchText;
     });
 
-    if (withFilters) {
-      setFilteredSnippets(filtered ?? []);
-    } else {
-      setFilteredSnippets(snippets ?? []);
-    }
+    setFilteredSnippets(filtered);
   };
 
   const handleSelectChange = (id: string) => {
@@ -230,7 +204,7 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
                   height: "573px",
                 }}
               >
-                {/* <SnippetCard
+                <SnippetCard
                   snippet={snippet}
                   key={snippet._id}
                   title={snippet.title}
@@ -239,24 +213,7 @@ const SnippetGallery = ({ withFilters }: { withFilters: boolean }) => {
                   snippetCode={snippet.snippetCode}
                   formatDate={formatDate}
                   mutate={mutate}
-                /> */}
-
-                {/*just for testing */}
-
-                <p>snippetId</p>
-                {snippet._id}
-                <br />
-                <p>snippetAutorId</p>
-                {snippet.authorId}
-                <br />
-                <p>snippetDescription</p>
-                {snippet.description}
-                <br />
-                <p>snippetFavoriteByIds</p>
-                {snippet.favoriteByIds}
-                <br />
-                <p>snippet.title</p>
-                {snippet.title}
+                />
               </div>
             </li>
           );
