@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
@@ -23,13 +22,6 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
   const router = useRouter();
-
-  const {
-    data: snippetsData,
-    mutate,
-    error: snippetError,
-    isLoading: isLoadingSnippets,
-  } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
 
   const {
     data: tagsData,
@@ -127,13 +119,11 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
     return `${day} ${month} ${year}`;
   };
 
-  const isLoading = isLoadingSnippets || isLoadingTags;
-
-  if (snippetError || tagError) {
+  if (tagError) {
     return <div>Error fetching data</div>;
   }
 
-  if (isLoading) {
+  if (isLoadingTags) {
     return <div>Loading...</div>;
   }
 
@@ -212,7 +202,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
                   tags={snippet.tags}
                   snippetCode={snippet.snippetCode}
                   formatDate={formatDate}
-                  mutate={mutate}
+                  // mutate={mutate}
                 />
               </div>
             </li>
