@@ -39,7 +39,7 @@ const SnippetForm = (props: SnippetFormProps) => {
       {styles.textarea}  👇 */}
       <TextInput
         label="Description"
-        placeholder="Title"
+        placeholder="Description"
         value={props.description}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           props.setDescription(e.target.value)

@@ -1,7 +1,7 @@
 import { mutate } from "swr";
-import { getSnippets } from "@/app/services/SnippetService";
+import { getSnippets } from "../../services/SnippetService";
 import { snippetModel } from "@/app/snippetModel-DB";
-import { updateSnippet } from "@/app/services/SnippetService";
+import { updateSnippet } from "../../services/SnippetService";
 
 export const addToFavorite = async (
     idSnippet: string,

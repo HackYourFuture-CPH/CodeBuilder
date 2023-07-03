@@ -52,7 +52,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   return (
     <MonacoEditor
       value={initialValue}
-      width="573px"
+      max-width="15rem"
       height="333px"
       language={language}
       theme="vs-dark"

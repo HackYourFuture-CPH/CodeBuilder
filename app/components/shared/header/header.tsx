@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
-  const { data: session } = useSession();
+    const { data: session } = useSession();
   const isMobile = useMediaQuery({ query: '(max-width: 500px)' })
   if (isMobile) {
     return <BurgerMenu />

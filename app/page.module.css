@@ -1,0 +1,7 @@
+.container {
+    width: 100%;
+    margin: 150px auto;
+    align-items: center;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+}
