@@ -1,11 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react";
 import SnippetCard from "./SnippetCard";
 import "./snippetsGallery.css";
 

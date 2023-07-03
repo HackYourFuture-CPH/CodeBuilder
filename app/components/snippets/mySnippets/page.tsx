@@ -5,8 +5,9 @@ import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import useSWR from "swr";
 import SnippetGallery from "../../SnippetsGallery";
+import styles from "./styles.module.css";
 
-const MySnippets = () => {
+const MySnippets: React.FC = () => {
   const [buttonClicked, setButtonClicked] = useState("likedSnippets");
   const {
     data: snippetsData,
@@ -27,7 +28,7 @@ const MySnippets = () => {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       <div>
         <button onClick={() => setButtonClicked("likedSnippets")}>
           Liked Snippets
