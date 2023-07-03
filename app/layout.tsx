@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Class 24 Project (Hack Your Future Aarhus)",
   description: "A project at the end of the Hack Your Future curriculum",
+  <link rel="icon" href="/favicon.ico" />
 };
 
 export default function RootLayout({
