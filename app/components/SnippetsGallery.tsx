@@ -17,6 +17,7 @@ interface SnippetGalleryProps {
 const SnippetGallery = ({ filteredSnippets }: { filteredSnippets: snippetModel[] }) => {
   
   const { data, mutate } = useSWR<snippetModel[]>("/api/snippets", getSnippets);
+  
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "short" });
