@@ -1,9 +1,9 @@
 .container {
     width: 100%;
-    margin: 150px auto;
+    margin: 130px auto;
     align-items: center;
-    line-height: 1.5;
     letter-spacing: 0.06em;
+    line-height: 2;
 }
 
 .heading1 {
@@ -12,27 +12,62 @@
     text-align: center;
 }
 
+.paragraph {
+    text-align: center;
+    margin: 30px auto;
+    width: 80%;
+}
+
+
+/* Mentors container styles */
 .mentorslistWrapper {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-bottom: 30px;
 }
 
 .mentorslist {
+    width: 90%;
+    margin: auto;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-  }
-
-.team {
-    width: 100%;
-    margin: auto;
-    background-color: #ffffff;
-    padding: 20px 0;
+    z-index: -1;
 }
 
-.containerTwo {
+.mentors {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mentorname {
+    text-align: center;
+    width: 60%;
+    color: #c3d9ed;
+    font-size: 25px;
+    line-height: 30px;
+}
+
+
+/* Teams container styles */
+.teamWrapper {
+    width: 100%;
+    margin: auto;
+    background-color: #EFEFEF;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: -1;
+}
+
+.teamWrapper .heading1 {
+    color: #293A7D !important;
+}
+
+.teamList {
     width: 90%;
     margin: 20px auto;
     display: flex;
@@ -41,12 +76,14 @@
 
 .sliderIntro {
     flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sliderIntro .paragraph {
     justify-content: center;
-    line-height: 2;
-    margin-top: 80px;
+    color: #293A7D !important;
 }
 
 .slider {
@@ -58,6 +95,7 @@
     border: none;
     text-align: center;
     margin: 10px;
+    color: #293A7D !important;
 }
 
 .image {
@@ -65,12 +103,14 @@
     border-radius: 50%;
 }
 
+
+/* Styles for diffrent screen size */
 @media screen and (max-width: 650px) {
     .container {
         width: 100%;
         margin: 120px auto;
         align-items: center;
-        line-height: 1.2;
+        line-height: 1.5;
     }
 
     .heading1 {
@@ -81,31 +121,18 @@
         width: 100%;
     }
 
-    .containerTwo {
+    .teamWrapper {
+        padding-bottom: 170px;
+    }
+
+    .teamList {
         width: 90%;
         margin: 20px auto;
         display: flex;
         flex-direction: column;
     }
-}
 
-.paragraph {
-    text-align: center;
-    margin: 30px auto;
-    width: 80%;
-}
-
-.mentors {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    justify-content: center;
-}
-
-.mentorname {
-    text-align: center;
-    width: 60%;
-    color: #c3d9ed;
-    font-size: 25px;
-    line-height: 30px;
+    .sliderIntro .paragraph {
+        margin-top: 10px;
+    }
 }
