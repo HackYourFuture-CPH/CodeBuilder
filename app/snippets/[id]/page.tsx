@@ -50,6 +50,9 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
                 </button>
               </li>
             </div>
+            <div>
+            <p>{snippet.authorId}</p>
+            </div>
           </div>
           <div className="code-snippet">
             <CodeEditor
