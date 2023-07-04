@@ -38,10 +38,10 @@ div.code-editor:hover {
 }
 
 .title {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 2rem;
   margin: 0;
   padding: 0;
   color: var(--dark-600, #151515);
@@ -67,7 +67,7 @@ div.code-editor:hover {
 
 .button-container {
   display: flex;
-  padding: 8px 12px;
+  padding: 0px 12px;
   align-items: center;
   gap: 8px;
   border-radius: 50px;

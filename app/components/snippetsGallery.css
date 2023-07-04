@@ -1,7 +1,3 @@
-.container {
-  margin-top: 100px;
-}
-
 .gallery-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -9,6 +5,7 @@
   justify-content: center;
   width: 80%;
   margin: 7rem auto 0;
+  z-index: 0;
 }
 
 .gallery-item {
