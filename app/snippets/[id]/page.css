@@ -8,10 +8,10 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-top: 80px;
+  margin-top: 75px;
 }
 
-.title-container {
+.details-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,18 +20,33 @@ body {
   background-color: #042d54;
 }
 
-.snippets-title {
-  flex-grow: 1; 
+.tags {
+  margin-top: 10px;
+  color: #F2F9FF;
+  background-color:#104d85 ;
+  max-width: fit-content;
+  padding: 10px 10px;
+  border-radius: 20px;
+  font-size: 15px;
 }
 
 .buttons {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 120px; 
+  margin-right: 10px;
 }
 
 .buttons li {
   list-style: none;
+}
+
+.buttons li a {
+  text-decoration: none;
 }
 
 .edit-button,
@@ -48,7 +63,6 @@ body {
   font-size: 14px;
   color: #104d85;
   background-color: white;
-  text-decoration: none; /*why is this not workiiiiiiing*/
 }
 
 .edit-button:hover,
@@ -64,11 +78,6 @@ body {
   background-color: #f18686;
 }
 
-.snippet-description {
-  padding: 20px;
-  color: white;
-}
-
 .code-snippet {
   margin: 0 200px 10px 200px;
 }
@@ -80,4 +89,33 @@ body {
   height: 100vh;
   color: white;
   font-size: 20px;
+}
+
+/* Responsive Styles */
+
+@media (max-width: 768px) {
+  .code-snippet {
+    margin: 0 20px 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin-top: 90px;
+  }
+
+  .details-container {
+    padding: 10px;
+  }
+
+  .edit-button,
+  .like-button {
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+  }
+
+  .snippet-description {
+    padding: 10px;
+  }
 }
