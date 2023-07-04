@@ -1,14 +1,19 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import { FaBars, FaUser } from "react-icons/fa";
 import styles from "./BurgerMenu.module.css";
 import Image from "next/image";
+import Link from "next/link";
+import LoginBtn from "../header/loginBtn/login-btn";
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
 
 const BurgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { data: session } = useSession();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -32,25 +37,32 @@ const BurgerMenu = () => {
         }`}
       >
         <li className={styles.FaSpaceShuttle}>
-          <a href="/explore">
+          <Link href="/explore">
             <IoRocket size={20} />
             Explore
-          </a>
+          </Link>
         </li>
-        <li>
-          <a href="/snippets">
-            <BiCube size={20} />
-            My Snippets
-          </a>
+        <li className={styles.FaSpaceShuttle}>
+          <Link href="/explore">
+            <FontAwesomeIcon icon={faLightbulb} className="icon" />
+            About
+          </Link>
         </li>
-        <li>
-          <a>
-            <FaUser size={18} />
-            User Name
-          </a>
-        </li>
-        <li className={styles.CreateSnippet}>
-          <a href="/snippets/create">Create snippet</a>
+        {session?.user ? (
+          <li>
+            <Link href="/snippets">
+              <BiCube size={20} />
+              My Snippets
+            </Link>
+          </li>
+        ) : null}
+        {session?.user ? (
+          <li className={styles.CreateSnippet}>
+            <Link href="/snippets/create">Create snippet</Link>
+          </li>
+        ) : null}
+        <li className="navbar-item">
+          <LoginBtn />
         </li>
       </ul>
     </div>
