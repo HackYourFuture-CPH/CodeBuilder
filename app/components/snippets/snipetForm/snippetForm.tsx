@@ -3,7 +3,7 @@ import { SnippetFormProps, TextInputProps, Option } from "./interfaces";
 import CodeEditor from "./CodeEditor";
 import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
-import SelectTags from "./SelectTags";
+import SelectTags from "../../shared/SelectTags/SelectTags";
 import styles from "./styles.module.css";
 
 const SnippetForm = (props: SnippetFormProps) => {
