@@ -6,27 +6,38 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-image: url("/images/Background.gif");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 .main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   height: 100vh;
-  position: relative; 
+}
+
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.home-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .typewriter h1 {
   overflow: hidden;
-  border-right: .15em solid #427fb7;
+  border-right: 0.15em solid #427fb7;
   white-space: nowrap;
   margin: 0 auto;
-  letter-spacing: .15em;
-  animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
   margin-bottom: 60px;
   z-index: 1;
 }
@@ -41,7 +52,61 @@ body {
 }
 
 @keyframes blink-caret {
-  from, to {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #427fb7;
+  }
+}
+
+.start-btn {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #427fb7;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 1;
+  align-items: center;
+}
+
+.start-btn:hover {
+  background-color: #042d54;
+  transition: 0.4s;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.typewriter h1 {
+  overflow: hidden;
+  border-right: 0.15em solid #427fb7;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+  margin-bottom: 60px;
+  z-index: 1;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
     border-color: transparent;
   }
   50% {
@@ -71,14 +136,14 @@ body {
 }
 
 .start-btn:hover {
-  background-color: #042D54;
+  background-color: #042d54;
   transition: 0.4s;
 }
 
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  font-family: 'Anton';
+  font-family: "Anton";
 }
 
 /* Responsive adjustments */
@@ -88,12 +153,12 @@ h1 {
     font-size: 1.5rem;
     margin-bottom: 40px;
   }
-  
+
   .start-btn {
     font-size: 1rem;
     padding: 8px 16px;
   }
-  
+
   h1 {
     font-size: 1.5rem;
   }
@@ -104,12 +169,12 @@ h1 {
     font-size: 1.2rem;
     margin-bottom: 30px;
   }
-  
+
   .start-btn {
     font-size: 0.9rem;
     padding: 6px 12px;
   }
-  
+
   h1 {
     font-size: 1.2rem;
   }
@@ -120,12 +185,12 @@ h1 {
     font-size: 1rem;
     margin-bottom: 20px;
   }
-  
+
   .start-btn {
     font-size: 0.8rem;
     padding: 4px 8px;
   }
-  
+
   h1 {
     font-size: 1rem;
   }

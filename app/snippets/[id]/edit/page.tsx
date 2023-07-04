@@ -20,7 +20,7 @@ const EditSnippet: React.FC<Props> = ({ params: { id } }) => {
 
     mutate(`/api/snippets/${id}`, updatedSnippet, {
       optimisticData: (snippet: any) => ({ ...snippet, title: newTitle }),
-      rollbackOnError: true,
+      rollbackOnError: true,  
     });
 
     router.push(`/snippets/${id}`);
