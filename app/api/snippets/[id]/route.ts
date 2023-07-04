@@ -1,10 +1,10 @@
 /** @format */
 
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getMongoDb } from "@/app/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 // get one snippet by id
 export async function GET(
@@ -37,35 +37,26 @@ export async function PUT(
     const snippetId = params.id;
     const body = await req.json();
     const db = getMongoDb();
-
-    if (body.addToFavorite) {
-      const userId = session?.user?.email;
-      const oneSnippetFromDatabase = await db
-        .collection("snippets")
-        .findOne({ _id: new ObjectId(snippetId) });
-      if (oneSnippetFromDatabase?.favoriteByIds.includes(userId)) {
-        await db
-          .collection("snippets")
-          .updateOne(
-            { _id: new ObjectId(snippetId) },
-            { $pull: { favoriteByIds: { $in: [userId] } } }
-          );
-        return new NextResponse(JSON.stringify({ message: "user removed" }));
-      } else {
-        await db
-          .collection("snippets")
-          .updateOne(
-            { _id: new ObjectId(snippetId) },
-            { $addToSet: { favoriteByIds: userId } }
-          );
-
-        return new NextResponse(JSON.stringify({ message: "user added" }));
-      }
-    } else {
+    const oneSnippetFromDatabase = await db
+      .collection("snippets")
+      .findOne({ _id: new ObjectId(snippetId) });
+    if (oneSnippetFromDatabase?.authorId === session?.user?.id) {
       const updateOneSnippetFromDatabase = await db
         .collection("snippets")
-        .updateOne({ _id: new ObjectId(snippetId) }, { $set: body });
+        .updateOne(
+          { _id: new ObjectId(snippetId) },
+          {
+            $set: {
+              title: body.title,
+              description: body.description,
+              tags: [body.tags],
+              snippetCode: body.snippetCode,
+            },
+          }
+        );
       return new NextResponse(JSON.stringify(updateOneSnippetFromDatabase));
+    } else {
+      throw new Error("Not authorized");
     }
   } catch (error) {
     return NextResponse.json({

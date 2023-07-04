@@ -155,22 +155,10 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
         </div>
       ) : null}
 
-      <ul>
+      <ul className="gallery-container">
         {filteredSnippets?.map((snippet) => {
           return (
-            <li
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                padding: "2em",
-                borderRadius: ".3em",
-                boxShadow: "10px 10px 30px rgba(0,0,0,0.1)",
-                listStyle: "none",
-                position: "relative",
-              }}
-              key={snippet._id}
-            >
+            <li className="gallery-item" key={snippet._id}>
               <div
                 style={{
                   height: "573px",

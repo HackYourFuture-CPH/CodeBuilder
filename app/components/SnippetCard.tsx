@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /** @format */
 
 "use client";
@@ -8,6 +9,7 @@ library.add(faHeart);
 import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 import "./snippetCard.css";
 import { snippetModel } from "../snippetModel-DB";
 
@@ -31,15 +33,14 @@ const SnippetCard = ({
   mutate,
 }: SnippetCardModel) => {
   const { data: session } = useSession();
-  const userId: any = session?.user?.email;
+  const userId = session?.user?.id;
 
   const handleFavoriteButton = async () => {
-    await fetch(`/api/snippets/${snippet._id}`, {
+    await fetch(`/api/snippets/${snippet._id}/favorite`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ addToFavorite: userId }),
     })
       .then((response) => {
         if (response.ok) {
@@ -68,15 +69,9 @@ const SnippetCard = ({
         {session && (
           <button
             className="favorite-button"
-            style={{
-              border: "none",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
             onClick={() => handleFavoriteButton()}
           >
-            {snippet.favoriteByIds.includes(userId) ? (
+            {userId && snippet.favoriteByIds.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}
                 style={{ color: "#ff0000" }}
@@ -106,13 +101,7 @@ const SnippetCard = ({
         </div>
 
         <div className="card-footer">
-          <div
-            className="avatar-container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
+          <div className="avatar-container">
             <div className="img-container">
               <img
                 src={
@@ -136,29 +125,11 @@ const SnippetCard = ({
             </p>
           </div>
           {session ? (
-            <Link
-              className="link-button"
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-              }}
-              href={`/snippets/${snippet._id}`}
-            >
+            <Link className="link-button" href={`/snippets/${snippet._id}`}>
               Learn more
             </Link>
           ) : (
-            <Link
-              className="link-button"
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-              }}
-              href={`/login`}
-            >
+            <Link className="link-button" href={`/login`}>
               Login to learn more
             </Link>
           )}
