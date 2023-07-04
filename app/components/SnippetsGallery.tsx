@@ -20,16 +20,13 @@ interface Props {
 }
 
 type SelectableTag = Tag & { selected: boolean };
-type favoriteSnippet = snippetModel;
 
 const SnippetGallery = (props: Props) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
-  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
-    []
-  );
+  const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
   const { data: session } = useSession();
-  const userId: any = session?.user?.email;
+  const userId: any = session?.user?.id;
 
   const {
     data: snippetsData,
@@ -54,12 +51,12 @@ const SnippetGallery = (props: Props) => {
     }
   }, [tagsData]);
 
-  const filterSnippets = () => {
+  const filterSnippets = (showMySnippets = false) => {
     const filteredTags = tags
       .filter((tag) => tag.selected)
       .map((tag) => tag.shortName.toUpperCase());
 
-    const filtered = snippetsData?.filter((snippet) => {
+    let filtered = snippetsData?.filter((snippet) => {
       const hasSelectedTags =
         filteredTags.length === 0 ||
         filteredTags.every((tag) => snippet.tags?.includes(tag));
@@ -71,12 +68,21 @@ const SnippetGallery = (props: Props) => {
       return hasSelectedTags && hasSearchText;
     });
 
+    if (showMySnippets) {
+      filtered = filtered?.filter((snippet) => snippet.authorId === userId);
+      console.log(filtered);
+    }
+
     setFilteredSnippets(filtered ?? []);
   };
 
   useEffect(() => {
     filterSnippets();
-  }, [tags, search, snippetsData]);
+  }, [tags]);
+
+  useEffect(() => {
+    filterSnippets(props.showMySnippets);
+  }, [snippetsData]);
 
   const handleSelectChange = (id: string) => {
     const newTags = tags.map((tag) => {
@@ -120,6 +126,10 @@ const SnippetGallery = (props: Props) => {
     setSearch(searchInput);
   };
 
+  const handleSearchButtonClick = () => {
+    filterSnippets();
+  };
+
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "short" });
@@ -128,11 +138,22 @@ const SnippetGallery = (props: Props) => {
   };
 
   const LikedSnippets = () => {
-    snippetsData?.filter((snippet) => snippet.favoriteByIds?.includes(userId));
+    if (snippetsData) {
+      setFilteredSnippets(
+        snippetsData.filter((snippet) =>
+          snippet.favoriteByIds?.includes(userId)
+        )
+      );
+    }
   };
 
   const CreatedByYou = () => {
-    snippetsData?.filter((snippet) => snippet.authorId === userId);
+    console.log(userId);
+    if (snippetsData) {
+      setFilteredSnippets(
+        snippetsData.filter((snippet) => snippet.authorId === userId)
+      );
+    }
   };
 
   if (snippetError || tagError) {
@@ -166,7 +187,7 @@ const SnippetGallery = (props: Props) => {
         </div>
 
         <div id="search">
-          <label htmlFor="search">Search</label>
+          <button onClick={() => handleSearchButtonClick()}>Search</button>
           <input
             type="text"
             id="search"

@@ -12,6 +12,8 @@ export async function GET(req: Request): Promise<NextResponse> {
 import { getMongoDb } from "../../mongodb";
 import { snippetModel } from "../../snippetModel-DB";
 import { NextRequest, NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../../../pages/api/auth/[...nextauth]";
 
 export async function GET(req: Request): Promise<NextResponse> {
   try {
@@ -34,8 +36,10 @@ export async function GET(req: Request): Promise<NextResponse> {
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
+    const session = await getServerSession(authOptions);
     const db = getMongoDb();
     const body = await req.json();
+    body.authorId = session?.user.id;
     const postedSnippetId = await db.collection("snippets").insertOne(body);
     return NextResponse.json(postedSnippetId);
   } catch (error) {

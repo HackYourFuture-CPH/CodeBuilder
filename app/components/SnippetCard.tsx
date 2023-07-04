@@ -71,7 +71,7 @@ const SnippetCard = ({
             className="favorite-button"
             onClick={() => handleFavoriteButton()}
           >
-            {userId && snippet.favoriteByIds.includes(userId) ? (
+            {userId && snippet.favoriteByIds?.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}
                 style={{ color: "#ff0000" }}
