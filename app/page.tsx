@@ -5,11 +5,11 @@ import "./page.css";
 const Home: React.FC = () => {
   return (
     <div className="main">
-      <div>
+      <div className="home-container">
         <div className="typewriter">
           <h1>Sharing Code, Shaping Futures</h1>
         </div>
-        <a href="/explore">
+        <a href="/snippets">
           <button className="start-btn">Start now</button>
         </a>
       </div>

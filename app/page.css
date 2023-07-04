@@ -54,7 +54,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  align-content: center;
 }
 
 .start-btn {
@@ -67,6 +67,7 @@ body {
   cursor: pointer;
   text-decoration: none;
   z-index: 1;
+  align-items: center;
 }
 
 .start-btn:hover {
@@ -78,4 +79,54 @@ h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
   font-family: 'Anton';
+}
+
+/* Responsive adjustments */
+
+@media (max-width: 1024px) {
+  .typewriter h1 {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+  }
+  
+  .start-btn {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .typewriter h1 {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .start-btn {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .typewriter h1 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .start-btn {
+    font-size: 0.8rem;
+    padding: 4px 8px;
+  }
+  
+  h1 {
+    font-size: 1rem;
+  }
 }
