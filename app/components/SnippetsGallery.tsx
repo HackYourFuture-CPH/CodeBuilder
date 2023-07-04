@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import SnippetCard from "./SnippetCard";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 export interface Tag {
   displayName: string;
   shortName: string;
@@ -21,6 +22,8 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
+  const { data: session } = useSession();
+  const userId = session?.user?.email;
 
   const {
     data: tagsData,
@@ -145,10 +148,12 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
         </div>
       </nav>
 
-      <div className="Links">
-        <Link href="snippets/favorite">Liked Snippets</Link>
-        <Link href="snippets/mine">Created by you</Link>
-      </div>
+      {userId ? (
+        <div className="Links">
+          <Link href="snippets/favorite">Liked Snippets</Link>
+          <Link href="snippets/mine">Created by you</Link>
+        </div>
+      ) : null}
 
       <ul>
         {filteredSnippets?.map((snippet) => {
@@ -171,7 +176,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
                   height: "573px",
                 }}
               >
-                {/* <SnippetCard
+                <SnippetCard
                   snippet={snippet}
                   key={snippet._id}
                   title={snippet.title}
@@ -179,8 +184,10 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
                   tags={snippet.tags}
                   snippetCode={snippet.snippetCode}
                   formatDate={formatDate}
-                  mutate={mutate}
-                /> */}
+                  // mutate={mutate}
+                />
+
+                {snippet.title}
               </div>
             </li>
           );
