@@ -7,7 +7,7 @@ export interface SnippetFormProps {
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
   setCode: (code: string) => void;
-  selectTags: string[];
+  selectTags: string[] | any;
   setSelectTags: (selectTags: string[]) => void;
 }
 
@@ -21,4 +21,9 @@ export interface TextInputProps {
 export interface Option {
   label: string;
   value: string;
+}
+
+export interface TagInterface {
+  label: string;
+  toUpperCase: Function;
 }

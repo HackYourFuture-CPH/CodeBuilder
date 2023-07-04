@@ -39,7 +39,7 @@ const Header = () => {
           </li>
           {session?.user ? ( // to test how it looks when the user logs in we can write {true? instead of this line.
             <li className="navbar-item">
-              <Link href="/components/snippets/mySnippets">
+              <Link href="/snippets/my">
                 <BiCube className="icon" />
                 My Snippets
               </Link>
@@ -47,7 +47,7 @@ const Header = () => {
           ) : null}
           {session?.user ? ( //also replace it here
             <li className="navbar-item">
-              <Link href="/components/snippets/create" className="create-btn">
+              <Link href="/snippets/create" className="create-btn">
                 Create snippet
               </Link>
             </li>

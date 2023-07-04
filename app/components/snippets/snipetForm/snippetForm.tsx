@@ -1,6 +1,11 @@
 import React from "react";
-import { SnippetFormProps, TextInputProps, Option } from "./interfaces";
-import CodeEditor from "./CodeEditor";
+import {
+  SnippetFormProps,
+  TextInputProps,
+  Option,
+  TagInterface,
+} from "./interfaces";
+import CodeEditor from "../../shared/codeEditor/code-editor";
 import useSWR from "swr";
 import { Tag } from "@/app/api/tags/route";
 import SelectTags from "../../shared/SelectTags/SelectTags";
@@ -16,7 +21,9 @@ const SnippetForm = (props: SnippetFormProps) => {
       value: tag.shortName,
       label: tag.displayName,
     })) || [];
-
+  const lang = props.selectTags?.map((tag: TagInterface) =>
+    tag.label.toUpperCase()
+  );
   return (
     <>
       <TextInput
@@ -46,9 +53,10 @@ const SnippetForm = (props: SnippetFormProps) => {
         }
       />
       <CodeEditor
-        code={props.code}
-        onChange={(newCode: string) => props.setCode(newCode)}
-        language="javascript"
+        initialValue={props.code}
+        readOnly={false}
+        tags={lang}
+        setCode={props.setCode}
       />
     </>
   );

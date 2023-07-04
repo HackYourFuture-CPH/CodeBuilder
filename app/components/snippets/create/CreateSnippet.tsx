@@ -4,21 +4,23 @@ import { useState } from "react";
 import { SnippetData } from "./interfaces";
 import styles from "./styles.module.css";
 import SnippetForm from "../snipetForm/snippetForm";
+import { useRouter } from "next/navigation";
 
 const CreateSnippet = () => {
   const [title, setTitle] = useState<string>("");
   const [selectTags, setSelectTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
   const [code, setCode] = useState<string>("");
+  const router = useRouter();
 
   const handlePublish = (): void => {
     const snippetData: SnippetData = {
       title: title,
       description: description,
-      code: code,
-      selectTags: selectTags,
-      created_at: new Date(),
-      updated_at: new Date(),
+      snippetCode: code,
+      tags: selectTags,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     fetch("/api/snippets", {
@@ -30,10 +32,13 @@ const CreateSnippet = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("Snippet published!");
+          return response.json();
         } else {
           throw new Error("Error publishing snippet");
         }
+      })
+      .then((data) => {
+        router.push(`/snippets/${data.insertedId}`);
       })
       .catch((error) => {
         console.error(error);
