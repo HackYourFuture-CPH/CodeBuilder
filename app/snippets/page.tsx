@@ -1,7 +1,7 @@
 "use client";
 import SnippetGallery from "../components/SnippetsGallery";
 import { getSnippets } from "../services/SnippetService";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 const Snippets: React.FC = () => {
   const { data: snippets, error } = useSWR("/api/snippets", getSnippets);
@@ -14,7 +14,7 @@ const Snippets: React.FC = () => {
     return <div>Loading snippets...</div>;
   }
 
-  return <SnippetGallery snippets={snippets} />;
+  return <SnippetGallery snippets={snippets} mutate={mutate} />;
 };
 
 export default Snippets;

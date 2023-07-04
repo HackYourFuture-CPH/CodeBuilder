@@ -3,7 +3,7 @@ import SnippetGallery from "@/app/components/SnippetsGallery";
 import { getSnippets } from "@/app/services/SnippetService";
 import { snippetModel } from "@/app/snippetModel-DB";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 
 const Favorite: React.FC = () => {
   const { data: snippets } = useSWR("/api/snippets", getSnippets);
@@ -18,7 +18,7 @@ const Favorite: React.FC = () => {
     snippet.favoriteByIds.includes(userId)
   );
 
-  return <SnippetGallery snippets={filteredSnippets} />;
+  return <SnippetGallery snippets={filteredSnippets} mutate={mutate} />;
 };
 
 export default Favorite;

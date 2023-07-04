@@ -14,11 +14,12 @@ export interface Tag {
 }
 interface SnippetGalleryProps {
   snippets: snippetModel[];
+  mutate: any;
 }
 
 type SelectableTag = Tag & { selected: boolean };
 
-const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
+const SnippetGallery = ({ snippets, mutate }: SnippetGalleryProps) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
@@ -169,7 +170,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
                 tags={snippet.tags}
                 snippetCode={snippet.snippetCode}
                 formatDate={formatDate}
-                // mutate={mutate}
+                mutate={mutate}
               />
             </li>
           );
