@@ -1,8 +1,13 @@
 /** @format */
 import React, { ChangeEvent, useState } from "react";
-import Select, { components, IndicatorSeparatorProps } from "react-select";
+import Select, {
+  components,
+  MultiValueRemoveProps,
+  IndicatorSeparatorProps,
+} from "react-select";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import styles from "./styles.module.css";
 
 type Option = {
@@ -23,10 +28,10 @@ const customStyles = {
     ...provided,
     border: state.isFocused ? "2px solid #c3d9ed" : "none",
     borderRadius: "8px",
-    paddingLeft: "12px",
-    paddingRight: "12px",
-    paddingTop: "7px",
-    paddingBottom: "7px",
+    paddingLeft: "11px",
+    paddingRight: "11px",
+    paddingTop: "6px",
+    paddingBottom: "6px",
     "&:hover": {
       border: "2px solid #c3d9ed",
     },
@@ -48,13 +53,44 @@ const customStyles = {
     ...provided,
     display: "none",
   }),
+  multiValueLabel: (base: any) => ({
+    ...base,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: "8px 12px",
+    gap: "8px",
+    width: "73px",
+    height: "34px",
+    background: " #104D85",
+    borderRadius: " 24px",
+    fontFamily: "Arial",
+    fontStyle: "normal",
+    fontWeight: "400",
+    fontSize: "16px",
+    lineHeight: "18px",
+    color: "#FFFFFF",
+    order: "0",
+    flexGrow: "0",
+  }),
+  multiValue: (base: any) => ({
+    ...base,
+    borderRadius: " 24px",
+    background: " #104D85",
+    padding: "4px 8px",
+  }),
 };
 
 const DropdownIndicator: React.FC<any> = (props) => {
   return (
-    <components.DropdownIndicator {...props}>
-      <FontAwesomeIcon icon={faChevronDown} style={{ color: "#000000" }} />
-    </components.DropdownIndicator>
+    <>
+      <components.MultiValueRemove {...props}>
+        <FontAwesomeIcon icon={faXmark} style={{ color: "#ffffff" }} />
+      </components.MultiValueRemove>
+      <components.DropdownIndicator {...props}>
+        <FontAwesomeIcon icon={faChevronDown} style={{ color: "#000000" }} />
+      </components.DropdownIndicator>
+    </>
   );
 };
 
