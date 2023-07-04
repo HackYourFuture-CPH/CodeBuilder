@@ -5,7 +5,7 @@ import { snippetModel } from "../snippetModel-DB";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 import SnippetCard from "./SnippetCard";
-import { useRouter } from "next/router";
+import Link from "next/link";
 export interface Tag {
   displayName: string;
   shortName: string;
@@ -21,7 +21,6 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
-  const router = useRouter();
 
   const {
     data: tagsData,
@@ -30,14 +29,6 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
   } = useSWR<SelectableTag[]>("/api/tags", (url) =>
     fetch(url).then((response) => response.json())
   );
-
-  const LikedByYouSnippets = () => {
-    router.push("/snippets/favorite");
-  };
-
-  const CreatedByYouSnippets = () => {
-    router.push("/snippets/mine");
-  };
 
   useEffect(() => {
     if (tagsData) {
@@ -128,14 +119,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
   }
 
   return (
-    <div
-      className="snippet-gallery-container"
-      style={{
-        height: "100vh",
-        marginTop: "300px",
-        marginBottom: "300px",
-      }}
-    >
+    <div className="gallery-container">
       <nav>
         <div>
           <p>Tags:</p>
@@ -161,19 +145,12 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
         </div>
       </nav>
 
-      <div>
-        <button onClick={() => LikedByYouSnippets()}>Liked Snippets</button>
-        <button onClick={() => CreatedByYouSnippets()}>Created by you</button>
+      <div className="Links">
+        <Link href="snippets/favorite">Liked Snippets</Link>
+        <Link href="snippets/mine">Created by you</Link>
       </div>
 
-      <ul
-        style={{
-          padding: "3em",
-          display: "grid",
-          gridGap: "3em",
-          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-        }}
-      >
+      <ul>
         {filteredSnippets?.map((snippet) => {
           return (
             <li
@@ -194,7 +171,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
                   height: "573px",
                 }}
               >
-                <SnippetCard
+                {/* <SnippetCard
                   snippet={snippet}
                   key={snippet._id}
                   title={snippet.title}
@@ -202,8 +179,8 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
                   tags={snippet.tags}
                   snippetCode={snippet.snippetCode}
                   formatDate={formatDate}
-                  // mutate={mutate}
-                />
+                  mutate={mutate}
+                /> */}
               </div>
             </li>
           );
