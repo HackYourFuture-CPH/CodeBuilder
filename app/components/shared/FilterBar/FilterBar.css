@@ -7,13 +7,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
 
-.FilterBar_SelectTags_Container {
-  width: 70%;
-  border: 5px solid red;
-  padding: 0px 20px;
-}
+
 
 .FilterBar_Button_Container{
   width: 450px;
