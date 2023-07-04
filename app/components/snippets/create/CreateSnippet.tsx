@@ -39,8 +39,6 @@ const CreateSnippet = () => {
       })
       .then((data) => {
         router.push(`/snippets/${data.insertedId}`);
-
-        // window.location.href = `/snippets/${data.insertedId}`;
       })
       .catch((error) => {
         console.error(error);
