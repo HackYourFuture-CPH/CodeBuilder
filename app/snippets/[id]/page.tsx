@@ -6,8 +6,8 @@ import { getSnippets } from '../../services/SnippetService'
 import { useSession } from 'next-auth/react'
 import { snippetModel } from '../../snippetModel-DB'
 import CodeEditor from '../../components/shared/codeEditor/code-editor'
-import { addToFavorite, normalizeDate } from './handlers'
-import './page.module.css'
+import { addToFavorite } from './handlers'
+import './page.css'
 
 export default function SnippetDetails({ params }: { params: { id: string } }) {
   const id = params.id
@@ -48,7 +48,6 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
               </li>
             </div>
           </div>
-
           <div className="snippet-description">
             <p>{snippet.description}</p>
           </div>
@@ -61,7 +60,7 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
           </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   )

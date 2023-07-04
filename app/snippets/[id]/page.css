@@ -1,0 +1,83 @@
+body {
+  background-color: #104d85;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 80px;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #042d54;
+}
+
+.snippets-title {
+  flex-grow: 1; 
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.buttons li {
+  list-style: none;
+}
+
+.edit-button,
+.like-button {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 35px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #104d85;
+  background-color: white;
+  text-decoration: none; /*why is this not workiiiiiiing*/
+}
+
+.edit-button:hover,
+.like-button:hover {
+  transform: scale(1.09);
+  background-color: #104d85;
+  color: white;
+}
+
+.like-button {
+  font-size: 22px;
+  width: 40px;
+  background-color: #f18686;
+}
+
+.snippet-description {
+  padding: 20px;
+  color: white;
+}
+
+.code-snippet {
+  margin: 0 200px 10px 200px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
+  font-size: 20px;
+}
