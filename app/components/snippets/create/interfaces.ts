@@ -5,5 +5,4 @@ export interface SnippetData {
   tags: string[];
   createdAt: Date;
   updatedAt: Date;
-  favoriteByIds: string[];
 }

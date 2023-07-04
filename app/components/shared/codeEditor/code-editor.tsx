@@ -36,19 +36,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   tags,
   setCode,
 }) => {
-  const editorRef = useRef(null) as React.MutableRefObject<
-    null | HTMLInputElement | any
-  >;
-
-  const handleEditorDidMount = (editor: any, monaco: any): void => {
-    editorRef.current = editor;
-  };
-
-  function getEditorValue() {
-    const value = editorRef.current?.setValue();
-    setCode?.(value);
-  }
-
   const language = getLanguageFromTags(tags);
 
   const options = {
@@ -73,8 +60,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       language={language}
       theme="vs-dark"
       options={options}
-      onMount={handleEditorDidMount}
-      onChange={getEditorValue}
+      onChange={(value) => setCode?.(value)}
     />
   );
 };

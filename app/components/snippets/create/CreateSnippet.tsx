@@ -4,13 +4,14 @@ import { useState } from "react";
 import { SnippetData } from "./interfaces";
 import styles from "./styles.module.css";
 import SnippetForm from "../snipetForm/snippetForm";
+import { useRouter } from "next/navigation";
 
 const CreateSnippet = () => {
   const [title, setTitle] = useState<string>("");
   const [selectTags, setSelectTags] = useState<string[]>([]);
   const [description, setDescription] = useState<string>("");
   const [code, setCode] = useState<string>("");
-  const favoriteByIds: string[] = [];
+  const router = useRouter();
 
   const handlePublish = (): void => {
     const snippetData: SnippetData = {
@@ -20,7 +21,6 @@ const CreateSnippet = () => {
       tags: selectTags,
       createdAt: new Date(),
       updatedAt: new Date(),
-      favoriteByIds: favoriteByIds,
     };
 
     fetch("/api/snippets", {
@@ -38,7 +38,9 @@ const CreateSnippet = () => {
         }
       })
       .then((data) => {
-        window.location.href = `/snippets/${data.insertedId}`;
+        router.push(`/snippets/${data.insertedId}`);
+
+        // window.location.href = `/snippets/${data.insertedId}`;
       })
       .catch((error) => {
         console.error(error);

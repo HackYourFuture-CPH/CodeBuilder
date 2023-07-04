@@ -25,7 +25,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
-      throw new Error("Not authenticated");
+      return NextResponse.json(
+        {
+          message: "Not logged in",
+        },
+        { status: 401 }
+      );
     } else {
       const userId = session?.user?.id;
       const userName = session?.user?.name;
@@ -42,7 +47,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         authorId: userId,
         author: userName,
         authorImage: userImage,
-        favoriteByIds: body.favoriteByIds,
+        favoriteByIds: [],
       });
       return NextResponse.json(postedSnippetId);
     }
