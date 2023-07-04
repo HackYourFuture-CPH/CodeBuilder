@@ -126,6 +126,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
       <nav>
         <div>
           <p>Tags:</p>
+
           <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
             <option key={0} value="">
               {"All"}
@@ -138,6 +139,7 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
 
         <div id="search">
           <label htmlFor="search">Search</label>
+
           <input
             type="text"
             id="search"
@@ -159,24 +161,16 @@ const SnippetGallery = ({ snippets }: SnippetGalleryProps) => {
         {filteredSnippets?.map((snippet) => {
           return (
             <li className="snippet-item" key={snippet._id}>
-              <div
-                style={{
-                  height: "573px",
-                }}
-              >
-                <SnippetCard
-                  snippet={snippet}
-                  key={snippet._id}
-                  title={snippet.title}
-                  description={snippet.description}
-                  tags={snippet.tags}
-                  snippetCode={snippet.snippetCode}
-                  formatDate={formatDate}
-                  // mutate={mutate}
-                />
-
-                {snippet.title}
-              </div>
+              <SnippetCard
+                snippet={snippet}
+                key={snippet._id}
+                title={snippet.title}
+                description={snippet.description}
+                tags={snippet.tags}
+                snippetCode={snippet.snippetCode}
+                formatDate={formatDate}
+                // mutate={mutate}
+              />
             </li>
           );
         })}
