@@ -4,6 +4,7 @@ import "./header.css";
 import { useSession } from "next-auth/react";
 import LoginBtn from "./loginBtn/login-btn";
 import Image from "next/image";
+import Link from "next/link";
 import { IoRocket } from "react-icons/io5";
 import { BiCube } from "react-icons/bi";
 import BurgerMenu from "../burgerMenu/BurgerMenu";
@@ -25,30 +26,30 @@ const Header = () => {
         </div>
         <ul className="navbar-menu">
           <li className="navbar-item">
-            <a href="/snippets" className="explore-btn">
+            <Link href="/snippets" className="explore-btn">
               <IoRocket className="icon" />
               Explore
-            </a>
+            </Link>
           </li>
           <li className="navbar-item">
-            <a href="/about">
+            <Link href="/about">
               <FontAwesomeIcon icon={faLightbulb} className="icon" />
               About
-            </a>
+            </Link>
           </li>
           {session?.user ? ( // to test how it looks when the user logs in we can write {true? instead of this line.
             <li className="navbar-item">
-              <a href="/components/snippets/mySnippets">
+              <Link href="/components/snippets/mySnippets">
                 <BiCube className="icon" />
                 My Snippets
-              </a>
+              </Link>
             </li>
           ) : null}
           {session?.user ? ( //also replace it here
             <li className="navbar-item">
-              <a href="/components/snippets/create" className="create-btn">
+              <Link href="/components/snippets/create" className="create-btn">
                 Create snippet
-              </a>
+              </Link>
             </li>
           ) : null}
           <li className="navbar-item">
