@@ -52,10 +52,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json(postedSnippetId);
     }
   } catch (error) {
-    return NextResponse.json({
-      message: "something went wrong",
-      error: error,
-    });
+    return NextResponse.json(
+      {
+        message: "Something went wrong",
+        error: error,
+      },
+      { status: 500 }
+    );
   }
 }
 
