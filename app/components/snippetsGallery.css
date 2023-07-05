@@ -4,8 +4,8 @@
   grid-gap: 1rem;
   justify-content: center;
   width: 80%;
-  margin: 7rem auto 0;
-  z-index: 0;
+  margin: 20rem auto 0;
+  z-index: -1;
 }
 
 .gallery-item {
@@ -17,33 +17,120 @@
 }
 
 .filter-nav {
+  position: fixed;
+  top: 95px;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e3ecf3;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  z-index: 1;
 }
 
 .tags-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .tags-filter p {
+  color: #042d54;
+  margin-right: 15px;
 }
 
-.search {
-}
-
-.apply-filter-btn {
-}
-
-.apply-filter-btn :hover {
-}
-
-.search-input {
-}
-
-.filter-options {
+.select-tags {
+  height: 35px;
+  margin-right: 15px;
+  border-radius: 8px;
+  padding: 0 5px;
 }
 
 .showntags-list {
+  display: flex;
+  gap: 10px;
 }
 
 .showntag-item {
+  color: #ffffff;
+  background-color: #104d85;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+
+.search {
+  display: flex;
+}
+
+.apply-filter-btn {
+  color: #ffffff;
+  background-color: #104d85;
+  margin-right: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+}
+
+.apply-filter-btn:hover {
+  cursor: pointer;
+  background-color: #427fb7;
+}
+
+.search-input-wrapper {
+  position: relative;
+}
+
+.search-input {
+  border: none;
+  border-radius: 16px;
+  padding: 8px;
+  text-align: center;
+}
+
+.clear-search-btn {
+  background: none;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.clear-search-btn:hover {
+  transform: scale(1.5);
+}
+
+.filter-options {
+  position: fixed;
+  top: 160px;
+  right: 0px;
+  left: 0px;
+  background-color: #104d85;
+  padding-left: 100px;
+  z-index: 1;
+}
+
+.filter-options button {
+  font-size: 16px;
+  color: #ffffff;
+  border: none;
+  padding: 15px;
+  background-color: #104d85;
+}
+
+.filter-options button:focus {
+  border-bottom: 5px solid white;
+}
+
+.delete-tag-btn {
+  margin-left: 10px;
+}
+
+.snippet-gallery-container {
+  margin-top: 200px;
 }
 
 /* Media Query for devices with maximum width of 1024px */
