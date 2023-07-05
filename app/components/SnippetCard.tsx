@@ -65,7 +65,7 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
             className="favorite-button"
             onClick={() => handleFavoriteButton()}
           >
-            {userId && snippet.favoriteByIds.includes(userId) ? (
+            {userId && snippet.favoriteByIds?.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}
                 style={{ color: "#ff0000" }}
@@ -90,7 +90,7 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
         </div>
         <div className="tags-container">
           <div className="button-container">
-            {snippet.tags.map((item) => (
+            {snippet.tags?.map((item) => (
               <p className="tags" key={item}>
                 {item}
               </p>
