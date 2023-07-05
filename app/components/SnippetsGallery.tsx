@@ -116,7 +116,10 @@ const SnippetGallery = (props: Props) => {
     .map((tag) => (
       <li className="showntag-item" key={tag._id}>
         {tag.displayName}
-        <span onClick={() => handleRemoveTag(tag._id)}>
+        <span
+          className="delete-tag-btn"
+          onClick={() => handleRemoveTag(tag._id)}
+        >
           <FontAwesomeIcon icon={faTimesCircle} />
         </span>
       </li>
@@ -127,6 +130,11 @@ const SnippetGallery = (props: Props) => {
   };
 
   const handleSearchButtonClick = () => {
+    filterSnippets();
+  };
+
+  const handleClearSearch = () => {
+    setSearch("");
     filterSnippets();
   };
 
@@ -170,7 +178,11 @@ const SnippetGallery = (props: Props) => {
         <div className="tags-filter">
           <p>Tags:</p>
 
-          <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
+          <select
+            className="select-tags"
+            value=""
+            onChange={(e) => handleSelectChange(e.target.value)}
+          >
             <option key={0} value="">
               {"All"}
             </option>
@@ -188,14 +200,25 @@ const SnippetGallery = (props: Props) => {
             Apply filter
           </button>
 
-          <input
-            className="search-input"
-            type="text"
-            id="search"
-            placeholder="Search snippets"
-            autoComplete="off"
-            onChange={(e) => handleSearch(e.target.value)}
-          />
+          <div className="search-input-wrapper">
+            <input
+              className="search-input"
+              type="text"
+              id="search"
+              placeholder="Search snippets"
+              autoComplete="off"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+            {search && (
+              <button
+                className="clear-search-btn"
+                onClick={() => handleClearSearch()}
+              >
+                <FontAwesomeIcon icon={faTimesCircle} />
+              </button>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -210,18 +233,16 @@ const SnippetGallery = (props: Props) => {
         {filteredSnippets?.map((snippet) => {
           return (
             <li className="gallery-item" key={snippet._id}>
-              <div>
-                <SnippetCard
-                  snippet={snippet}
-                  key={snippet._id}
-                  title={snippet.title}
-                  description={snippet.description}
-                  tags={snippet.tags}
-                  snippetCode={snippet.snippetCode}
-                  formatDate={formatDate}
-                  mutate={mutate}
-                />
-              </div>
+              <SnippetCard
+                snippet={snippet}
+                key={snippet._id}
+                title={snippet.title}
+                description={snippet.description}
+                tags={snippet.tags}
+                snippetCode={snippet.snippetCode}
+                formatDate={formatDate}
+                mutate={mutate}
+              />
             </li>
           );
         })}
