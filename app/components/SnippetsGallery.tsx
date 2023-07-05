@@ -188,11 +188,7 @@ const SnippetGallery = (props: Props) => {
         {filteredSnippets?.map((snippet) => {
           return (
             <li className="gallery-item" key={snippet._id}>
-              <div
-                style={{
-                  height: "573px",
-                }}
-              >
+              <div>
                 <SnippetCard
                   snippet={snippet}
                   key={snippet._id}
