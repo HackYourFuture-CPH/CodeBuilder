@@ -49,7 +49,7 @@ div.code-editor:hover {
   font-family:  Helvetica;
   font-style: normal;
   font-weight: 500;
-  font-size: 30px;
+  font-size: 2rem;
   margin: 0;
   padding: 0;
   color: var(--dark-600, #151515);
@@ -90,7 +90,7 @@ div.code-editor:hover {
 
 .button-container {
   display: flex;
-  padding: 8px 12px;
+  padding: 0px 12px;
   align-items: center;
   gap: 8px;
   border-radius: 50px;
@@ -138,7 +138,7 @@ div.code-editor:hover {
   font-family: "Arial";
   font-size: 20px;
   color: var(--blue-500, #104d85);
-  text-decoration: none;
+
 }
 
 @media (max-width: 320px) {
@@ -169,6 +169,6 @@ div.code-editor:hover {
   }
 
   div.code-editor:hover {
-    transform: scale(1);
+    transform: none;
   }
 }
