@@ -121,7 +121,7 @@
   background-color: #104d85;
 }
 
-.filter-options button:focus {
+.filter-options button.highlighted {
   border-bottom: 5px solid white;
 }
 
