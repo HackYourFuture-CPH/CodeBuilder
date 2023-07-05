@@ -68,7 +68,8 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
         {session && (
           <button
             className="favorite-button"
-            onClick={() => handleFavoriteButton()}>
+            onClick={() => handleFavoriteButton()}
+          >
             {userId && snippet.favoriteByIds.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}

@@ -15,8 +15,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 1;
   }
-
 
   .menuButton {
     background: none;
@@ -61,7 +61,7 @@
     height: 3px;
     transition: transform 0.3s ease;
   }
-  
+
   .menu {
     list-style-type: none;
     padding: 0;
