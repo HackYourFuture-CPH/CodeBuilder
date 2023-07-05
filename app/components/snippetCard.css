@@ -84,23 +84,27 @@ div.code-editor:hover {
   padding: 0px;
   gap: 16px;
 }
-
-.button-container {
+.tags-container {
   display: flex;
-  padding: 0px 12px;
-  align-items: center;
+  padding: 0px 24px;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 8px;
-  border-radius: 50px;
-  background: var(--blue-500, #104d85);
-  width: max-content;
-  height: 30px;
+  align-self: stretch;
 }
 
 .tags {
   font-family: 'Arial';
   font-style: normal;
-  font-size: 15px;
-  color: #ffffff;
+  font-size: 16px;
+  background: var(--blue-500, #104d85);
+  gap: 8px;
+  border-radius: 24px;
+  width: max-content;
+  align-items: center;
+  height: 26px;
+  font-weight: 400;
+  padding: 8px 12px;
 }
 
 .card-footer {

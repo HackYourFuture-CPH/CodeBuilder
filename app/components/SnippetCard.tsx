@@ -93,7 +93,6 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
           <p className="description">{snippet.description}</p>
         </div>
         <div className="tags-container">
-          <div className="button-container">
             {snippet.tags.map((item) => (
               <p
                 className="tags"
@@ -101,7 +100,6 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
                 {item}
               </p>
             ))}
-          </div>
         </div>
 
         <div className="card-footer">
