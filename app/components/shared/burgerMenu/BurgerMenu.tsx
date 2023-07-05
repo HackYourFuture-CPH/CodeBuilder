@@ -21,7 +21,9 @@ const BurgerMenu = () => {
   return (
     <div className={`${styles.container} logo-container`}>
       <div>
-        <Image src="/images/Logo.png" alt="Logo" width={245} height={58} />
+        <Link href="/">
+          <Image src="/images/Logo.png" alt="Logo" width={245} height={58} />
+        </Link>
       </div>
       <button className={styles.menuButton} onClick={toggleMenu}>
         <div style={{ transform: "rotate(90deg)" }}>
@@ -37,7 +39,7 @@ const BurgerMenu = () => {
         }`}
       >
         <li className={styles.FaSpaceShuttle}>
-          <Link href="/explore">
+          <Link href="/snippets">
             <IoRocket size={20} />
             Explore
           </Link>

@@ -21,9 +21,11 @@ const Header = () => {
   return (
     <React.Fragment>
       <nav className="navbar">
-        <div className="corner-logo">
-          <Image src="/images/Logo.png" alt="Logo" width={494} height={119} />
-        </div>
+        <Link href="/">
+          <div className="corner-logo">
+            <Image src="/images/Logo.png" alt="Logo" width={494} height={119} />
+          </div>
+        </Link>
         <ul className="navbar-menu">
           <li className="navbar-item">
             <Link href="/snippets" className="explore-btn">
