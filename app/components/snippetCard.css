@@ -1,5 +1,6 @@
+/** @format */
 
-.container{
+.container {
   top: 0;
 }
 .code-group {
@@ -7,7 +8,6 @@
   overflow: hidden;
   margin-top: 0;
   top: 0;
-
 }
 
 .favorite-button {
@@ -46,7 +46,7 @@ div.code-editor:hover {
 }
 
 .title {
-  font-family:  Helvetica;
+  font-family: RobotoFlex;
   font-style: normal;
   font-weight: 500;
   font-size: 2rem;
@@ -58,10 +58,8 @@ div.code-editor:hover {
   white-space: nowrap;
 }
 
-.description-container{
+.description-container {
   margin-bottom: 1rem;
-  
- 
 }
 .description {
   font-style: normal;
@@ -72,13 +70,12 @@ div.code-editor:hover {
   color: var(--dark-600, #151515);
   margin: 0 auto;
   padding: 1rem;
- overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-    max-height: 37px;
-
+  max-height: 37px;
 }
 
 .tags-container {
@@ -95,12 +92,12 @@ div.code-editor:hover {
   gap: 8px;
   border-radius: 50px;
   background: var(--blue-500, #104d85);
-   width: max-content;
+  width: max-content;
   height: 30px;
 }
 
 .tags {
-  font-family: "Arial";
+  font-family: 'Arial';
   font-style: normal;
   font-size: 15px;
   color: #ffffff;
@@ -127,7 +124,7 @@ div.code-editor:hover {
 
 .avatar-text {
   color: var(--dark-400, #757575);
-  font-family: "Arial";
+  font-family: 'Arial';
   font-weight: 400;
   font-size: 16px;
 }
@@ -135,12 +132,11 @@ div.code-editor:hover {
 .link-button {
   padding: 22px;
   align-items: center;
-  font-family: "Arial";
+  font-family: 'Arial';
   font-size: 20px;
   color: var(--blue-500, #104d85);
-text-decoration: none;
+  text-decoration: none;
 }
-
 
 @media (max-width: 320px) {
   .title-container {
