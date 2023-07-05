@@ -98,11 +98,8 @@ div.code-editor:hover {
   font-style: normal;
   font-size: 16px;
   background: var(--blue-500, #104d85);
-  gap: 8px;
   border-radius: 24px;
   width: max-content;
-  align-items: center;
-  height: 26px;
   font-weight: 400;
   padding: 8px 12px;
 }
