@@ -114,12 +114,12 @@ const SnippetGallery = (props: Props) => {
   const ShownTags = tags
     ?.filter((tag) => tag.selected)
     .map((tag) => (
-      <div key={tag._id}>
+      <li className="showntag-item" key={tag._id}>
         {tag.displayName}
         <span onClick={() => handleRemoveTag(tag._id)}>
           <FontAwesomeIcon icon={faTimesCircle} />
         </span>
-      </div>
+      </li>
     ));
 
   const handleSearch = async (searchInput: string) => {
@@ -165,17 +165,11 @@ const SnippetGallery = (props: Props) => {
   }
 
   return (
-    <div
-      className="snippet-gallery-container"
-      style={{
-        height: "100vh",
-        marginTop: "300px",
-        marginBottom: "300px",
-      }}
-    >
-      <nav>
-        <div>
+    <div className="snippet-gallery-container">
+      <nav className="filter-nav">
+        <div className="tags-filter">
           <p>Tags:</p>
+
           <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
             <option key={0} value="">
               {"All"}
@@ -183,12 +177,19 @@ const SnippetGallery = (props: Props) => {
             {Options}
           </select>
 
-          {ShownTags}
+          <ul className="showntags-list">{ShownTags}</ul>
         </div>
 
-        <div id="search">
-          <button onClick={() => handleSearchButtonClick()}>Search</button>
+        <div className="search">
+          <button
+            className="apply-filter-btn"
+            onClick={() => handleSearchButtonClick()}
+          >
+            Apply filter
+          </button>
+
           <input
+            className="search-input"
             type="text"
             id="search"
             placeholder="Search snippets"
@@ -199,7 +200,7 @@ const SnippetGallery = (props: Props) => {
       </nav>
 
       {props.showMySnippets ? (
-        <div>
+        <div className="filter-options">
           <button onClick={() => LikedSnippets()}>Liked Snippets</button>
           <button onClick={() => CreatedByYou()}>Created by you</button>
         </div>

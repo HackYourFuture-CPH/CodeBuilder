@@ -16,6 +16,36 @@
   overflow: hidden;
 }
 
+.filter-nav {
+}
+
+.tags-filter {
+}
+
+.tags-filter p {
+}
+
+.search {
+}
+
+.apply-filter-btn {
+}
+
+.apply-filter-btn :hover {
+}
+
+.search-input {
+}
+
+.filter-options {
+}
+
+.showntags-list {
+}
+
+.showntag-item {
+}
+
 /* Media Query for devices with maximum width of 1024px */
 @media (max-width: 1024px) {
   .gallery-item {
