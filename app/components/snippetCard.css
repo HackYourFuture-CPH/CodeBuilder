@@ -96,7 +96,7 @@ div.code-editor:hover {
   border-radius: 50px;
   background: var(--blue-500, #104d85);
    width: max-content;
-  height: 18px;
+  height: 30px;
 }
 
 .tags {
@@ -138,8 +138,9 @@ div.code-editor:hover {
   font-family: "Arial";
   font-size: 20px;
   color: var(--blue-500, #104d85);
-
+text-decoration: none;
 }
+
 
 @media (max-width: 320px) {
   .title-container {
