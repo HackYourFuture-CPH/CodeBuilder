@@ -39,20 +39,20 @@ const BurgerMenu = () => {
         }`}
       >
         <li className={styles.FaSpaceShuttle}>
-          <Link href="/snippets">
+          <Link href="/snippets" onClick={toggleMenu}>
             <IoRocket size={20} />
             Explore
           </Link>
         </li>
         <li className={styles.FaSpaceShuttle}>
-          <Link href="/explore">
+          <Link href="/about" onClick={toggleMenu}>
             <FontAwesomeIcon icon={faLightbulb} className="icon" />
             About
           </Link>
         </li>
         {session?.user ? (
           <li>
-            <Link href="/snippets">
+            <Link href="/snippets/my" onClick={toggleMenu}>
               <BiCube size={20} />
               My Snippets
             </Link>
@@ -60,7 +60,9 @@ const BurgerMenu = () => {
         ) : null}
         {session?.user ? (
           <li className={styles.CreateSnippet}>
-            <Link href="/snippets/create">Create snippet</Link>
+            <Link href="/snippets/create" onClick={toggleMenu}>
+              Create snippet
+            </Link>
           </li>
         ) : null}
         <li className="navbar-item">
