@@ -114,6 +114,12 @@ div.code-editor:hover {
   color: var(--blue-500, #104d85);
 }
 
+@media (max-width: 479px) {
+  div.code-editor:hover {
+    transform: none;
+  }
+}
+
 @media (max-width: 320px) {
   .title-container {
     display: flex;
@@ -142,6 +148,6 @@ div.code-editor:hover {
   }
 
   div.code-editor:hover {
-    transform: scale(1);
+    transform: none;
   }
 }
