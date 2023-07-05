@@ -103,7 +103,7 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
             <div className="img-container">
               <img
                 src={snippet.authorImage}
-                alt="user profile pic"
+                alt=" pic"
                 width={40}
                 height={40}
                 style={{ borderRadius: "50%", objectFit: "cover" }}
