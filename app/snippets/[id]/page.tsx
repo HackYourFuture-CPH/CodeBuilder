@@ -6,7 +6,9 @@ import { getSnippets } from "../../services/SnippetService";
 import { useSession } from "next-auth/react";
 import { snippetModel } from "../../snippetModel-DB";
 import CodeEditor from "../../components/shared/codeEditor/code-editor";
-import { addToFavorite, normalizeDate } from "./handlers";
+import { addToFavorite } from "./handlers";
+import "./page.css";
+import TagsPage from "@/app/tags/page";
 
 export default function SnippetDetails({ params }: { params: { id: string } }) {
   const id = params.id;
@@ -20,24 +22,25 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
   return (
     <>
       {snippet ? (
-        <div>
-          <div>
-            <div>
+        <div className="container">
+          <div className="details-container">
+            <div className="snippets-title">
               <h1>{snippet.title}</h1>
-              <ul>
-                {snippet?.tags?.map((tag: string) => (
-                  <li key={tag}>{tag}</li>
-                ))}
-              </ul>
+              <p className="tags">{snippet.tags}</p>
               <p>{snippet.description}</p>
             </div>
-            <div>
-              <div>
+            <div className="buttons">
+              <li>
                 {" "}
                 <Link href={`/snippet/${id}/edit`}>
-                  <button type="button">Edit</button>
+                  <button type="button" className="edit-button">
+                    Edit
+                  </button>
                 </Link>
+              </li>
+              <li>
                 <button
+                  className="like-button"
                   type="button"
                   onClick={() =>
                     addToFavorite(id, snippet, userId ? userId : "")
@@ -45,20 +48,22 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
                 >
                   ❤️
                 </button>
-              </div>
-              <p>
-                {snippet.authorId} {normalizeDate(new Date(snippet.updatedAt))}
-              </p>
+              </li>
+            </div>
+            <div>
+            <p>{snippet.authorId}</p>
             </div>
           </div>
-          <CodeEditor
-            initialValue={snippet.snippetCode}
-            readOnly={true}
-            tags={snippet.tags}
-          />
+          <div className="code-snippet">
+            <CodeEditor
+              initialValue={snippet.snippetCode}
+              readOnly={true}
+              tags={snippet.tags}
+            />
+          </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="loading">Loading...</div>
       )}
     </>
   );
