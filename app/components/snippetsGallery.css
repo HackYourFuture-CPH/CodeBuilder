@@ -5,6 +5,7 @@
   justify-content: center;
   width: 80%;
   margin: 7rem auto 0;
+  z-index: 0;
 }
 
 .gallery-item {

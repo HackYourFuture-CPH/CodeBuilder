@@ -8,5 +8,6 @@ export interface snippetModel {
   createdAt: Date;
   updatedAt: Date;
   authorId: string;
+  author: string;
+  authorImage: string;
 }
-

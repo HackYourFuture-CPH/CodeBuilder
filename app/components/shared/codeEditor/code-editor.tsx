@@ -1,9 +1,11 @@
 import MonacoEditor from "@monaco-editor/react";
+import { useRef } from "react";
 
 interface CodeEditorProps {
   initialValue: string;
   readOnly?: boolean;
   tags: string[];
+  setCode?: Function;
 }
 
 // Define the type of LanguageMap object
@@ -33,6 +35,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   initialValue,
   readOnly,
   tags,
+  setCode,
 }) => {
   const language = getLanguageFromTags(tags);
 
@@ -58,6 +61,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
       language={language}
       theme="vs-dark"
       options={options}
+      onChange={(value) => setCode?.(value)}
     />
   );
 };
