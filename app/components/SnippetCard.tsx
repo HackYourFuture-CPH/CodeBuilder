@@ -13,7 +13,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 library.add(faHeart);
 import Link from 'next/link';
 import CodeEditor from './shared/codeEditor/code-editor';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import './snippetCard.css';
 import { snippetModel } from '../snippetModel-DB';
@@ -130,11 +130,14 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
               Learn more
             </Link>
           ) : (
-            <Link
+            <button
               className="link-button"
-              href={`/login`}>
+              onClick={(e) => {
+                e.preventDefault();
+                !session && signIn();
+              }}>
               Login to learn more
-            </Link>
+            </button>
           )}
         </div>
       </div>
