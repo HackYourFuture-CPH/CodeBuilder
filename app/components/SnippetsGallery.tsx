@@ -71,7 +71,6 @@ const SnippetGallery = (props: Props) => {
 
     if (showMySnippets) {
       filtered = filtered?.filter((snippet) => snippet.authorId === userId);
-      console.log(filtered);
     }
 
     setFilteredSnippets(filtered ?? []);
@@ -158,7 +157,6 @@ const SnippetGallery = (props: Props) => {
   };
 
   const CreatedByYou = () => {
-    console.log(userId);
     if (snippetsData) {
       setFilteredSnippets(
         snippetsData.filter((snippet) => snippet.authorId === userId)
