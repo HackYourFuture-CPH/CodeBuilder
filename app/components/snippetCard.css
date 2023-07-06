@@ -20,8 +20,8 @@
   border-radius: 4px;
   border: none;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
 }
 
 div.code-editor {
@@ -102,6 +102,7 @@ div.code-editor:hover {
   width: max-content;
   font-weight: 400;
   padding: 8px 12px;
+ color: #ffffff;
 }
 
 .card-footer {
