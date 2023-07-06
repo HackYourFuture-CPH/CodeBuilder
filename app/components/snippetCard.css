@@ -1,6 +1,13 @@
+/** @format */
+
+.container {
+  top: 0;
+}
 .code-group {
   background-color: #211e1e;
   overflow: hidden;
+  margin-top: 0;
+  top: 0;
 }
 
 .favorite-button {
@@ -13,8 +20,8 @@
   border-radius: 4px;
   border: none;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
 }
 
 div.code-editor {
@@ -35,6 +42,7 @@ div.code-editor:hover {
   margin: 0;
   background: #ffffff;
   flex-wrap: nowrap;
+  top: 0;
 }
 
 .title {
@@ -45,17 +53,29 @@ div.code-editor:hover {
   margin: 0;
   padding: 0;
   color: var(--dark-600, #151515);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
+.description-container {
+  margin-bottom: 1rem;
+}
 .description {
   font-style: normal;
-  font-weight: 400;
-  line-height: 23px;
+  font-weight: 300;
+  line-height: 28px;
   font-size: 20px;
   font-family: Arial;
   color: var(--dark-600, #151515);
-  margin: 0;
+  margin: 0 auto;
   padding: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-height: 37px;
 }
 
 .tags-container {
@@ -64,26 +84,31 @@ div.code-editor:hover {
   padding: 0px;
   gap: 16px;
 }
-
-.button-container {
+.tags-container {
   display: flex;
-  padding: 0px 12px;
-  align-items: center;
+  padding: 0px 24px;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 8px;
-  border-radius: 50px;
-  background: var(--blue-500, #104d85);
+  align-self: stretch;
 }
 
 .tags {
-  font-family: "Arial";
+  font-family: 'Arial';
   font-style: normal;
-  font-size: 15px;
-  color: #ffffff;
+  font-size: 16px;
+  background: var(--blue-500, #104d85);
+  border-radius: 24px;
+  width: max-content;
+  font-weight: 400;
+  padding: 8px 12px;
+ color: #ffffff;
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .avatar-container {
@@ -101,7 +126,7 @@ div.code-editor:hover {
 
 .avatar-text {
   color: var(--dark-400, #757575);
-  font-family: "Arial";
+  font-family: 'Arial';
   font-weight: 400;
   font-size: 16px;
 }
@@ -115,15 +140,10 @@ div.code-editor:hover {
   outline: inherit;
   padding: 22px;
   align-items: center;
-  font-family: "Arial";
+  font-family: 'Arial';
   font-size: 20px;
   color: var(--blue-500, #104d85);
-}
-
-@media (max-width: 479px) {
-  div.code-editor:hover {
-    transform: none;
-  }
+  text-decoration: none;
 }
 
 @media (max-width: 320px) {
