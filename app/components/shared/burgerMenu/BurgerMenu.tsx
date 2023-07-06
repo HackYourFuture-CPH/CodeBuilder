@@ -33,42 +33,50 @@ const BurgerMenu = () => {
           className={`${styles.menuIcon} ${isOpen ? styles.open : ""}`}
         ></span>
       </button>
-      <ul
+      <div
         className={`${styles.menu} ${isOpen ? styles.open : ""} ${
           isOpen ? "" : styles.reverse
         }`}
       >
-        <li className={styles.FaSpaceShuttle}>
-          <Link href="/snippets" onClick={toggleMenu}>
-            <IoRocket size={20} />
-            Explore
-          </Link>
-        </li>
-        <li className={styles.FaSpaceShuttle}>
-          <Link href="/about" onClick={toggleMenu}>
-            <FontAwesomeIcon icon={faLightbulb} className="icon" />
-            About
-          </Link>
-        </li>
-        {session?.user ? (
-          <li>
-            <Link href="/snippets/my" onClick={toggleMenu}>
-              <BiCube size={20} />
-              My Snippets
+        <ul className={styles.menuList}>
+          <li className={styles.FaSpaceShuttle}>
+            <Link href="/snippets" onClick={toggleMenu}>
+              <IoRocket size={20} />
+              Explore
             </Link>
           </li>
-        ) : null}
-        {session?.user ? (
-          <li className={styles.CreateSnippet}>
-            <Link href="/snippets/create" onClick={toggleMenu}>
-              Create snippet
+          <li className={styles.FaSpaceShuttle}>
+            <Link href="/about" onClick={toggleMenu}>
+              <FontAwesomeIcon icon={faLightbulb} className="icon" />
+              About
             </Link>
           </li>
-        ) : null}
-        <li className="navbar-item">
-          <LoginBtn />
-        </li>
-      </ul>
+          {session?.user ? (
+            <li className={styles.FaSpaceShuttle}>
+              <Link href="/snippets/my" onClick={toggleMenu}>
+                <BiCube size={20} />
+                My Snippets
+              </Link>
+            </li>
+          ) : null}
+        </ul>
+        <ul className={styles.listBtns}>
+          {session?.user ? (
+            <li className={styles.itemBtns}>
+              <Link
+                href="/snippets/create"
+                className={styles.CreateSnippet}
+                onClick={toggleMenu}
+              >
+                Create snippet
+              </Link>
+            </li>
+          ) : null}
+          <li className={styles.itemBtns}>
+            <LoginBtn />
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };
