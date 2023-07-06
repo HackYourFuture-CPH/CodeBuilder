@@ -147,7 +147,7 @@ const SnippetGallery = (props: Props) => {
     <div
       className="snippet-gallery-container"
       style={{
-        height: "100vh",
+        height: "100%",
         marginTop: "300px",
         marginBottom: "300px",
       }}
