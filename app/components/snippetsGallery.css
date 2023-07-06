@@ -134,6 +134,11 @@
   margin-left: 10px;
 }
 
+.snippet-gallery-container {
+  margin-top: 200px;
+  margin-bottom: 100px;
+}
+
 /* Media Query for devices with maximum width of 1024px */
 @media (max-width: 1024px) {
   .gallery-item {
