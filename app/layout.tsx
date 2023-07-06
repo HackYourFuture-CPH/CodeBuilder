@@ -10,6 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "CodeBuilder: Empowering Developers with Code Snippets and Knowledge Sharing",
   description: "A project at the end of the Hack Your Future curriculum",
+  icon: "/images/favicon.ico",
 };
 
 export default function RootLayout({
