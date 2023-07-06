@@ -45,6 +45,13 @@ const CreateSnippet = () => {
       });
   };
 
+  const handlerReset = (): void => {
+    setTitle("");
+    setSelectTags([]);
+    setDescription("");
+    setCode("");
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Create Snippet</h2>
@@ -60,7 +67,9 @@ const CreateSnippet = () => {
           setSelectTags={setSelectTags}
         />
         <div className={styles.wrapperBtns}>
-          <button className={styles.cancelBtn}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={handlerReset}>
+            Cancel
+          </button>
           <button className={styles.submitBtn} onClick={handlePublish}>
             Publish
           </button>
