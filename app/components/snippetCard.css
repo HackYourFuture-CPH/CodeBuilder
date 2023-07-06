@@ -107,6 +107,12 @@ div.code-editor:hover {
 }
 
 .link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   padding: 22px;
   align-items: center;
   font-family: "Arial";
