@@ -8,12 +8,11 @@ import { snippetModel } from "../../snippetModel-DB";
 import CodeEditor from "../../components/shared/codeEditor/code-editor";
 import { addToFavorite } from "./handlers";
 import "./page.css";
-import TagsPage from "@/app/tags/page";
 
 export default function SnippetDetails({ params }: { params: { id: string } }) {
   const id = params.id;
   const { data: snippet } = useSWR<snippetModel>(
-    `/api/snippets/${id}`,
+    id ? `/api/snippets/${id}` : null,
     getSnippets
   );
   const { data: session } = useSession();
@@ -22,7 +21,7 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
   return (
     <>
       {snippet ? (
-        <div className="container">
+        <div className="single-snippet-container">
           <div className="details-container">
             <div className="snippets-title">
               <h1>{snippet.title}</h1>
@@ -51,7 +50,7 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
               </li>
             </div>
             <div>
-            <p>{snippet.authorId}</p>
+              <p>{snippet.author}</p>
             </div>
           </div>
           <div className="code-snippet">

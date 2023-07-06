@@ -1,6 +1,6 @@
 /** @format */
 
-.container {
+.snippet-card-container {
   top: 0;
 }
 .code-group {
@@ -94,7 +94,7 @@ div.code-editor:hover {
 }
 
 .tags {
-  font-family: 'Arial';
+  font-family: "Arial";
   font-style: normal;
   font-size: 16px;
   background: var(--blue-500, #104d85);
@@ -102,7 +102,7 @@ div.code-editor:hover {
   width: max-content;
   font-weight: 400;
   padding: 8px 12px;
- color: #ffffff;
+  color: #ffffff;
 }
 
 .card-footer {
@@ -126,7 +126,7 @@ div.code-editor:hover {
 
 .avatar-text {
   color: var(--dark-400, #757575);
-  font-family: 'Arial';
+  font-family: "Arial";
   font-weight: 400;
   font-size: 16px;
 }
@@ -140,7 +140,7 @@ div.code-editor:hover {
   outline: inherit;
   padding: 22px;
   align-items: center;
-  font-family: 'Arial';
+  font-family: "Arial";
   font-size: 20px;
   color: var(--blue-500, #104d85);
   text-decoration: none;
