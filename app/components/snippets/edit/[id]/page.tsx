@@ -8,8 +8,8 @@ import useSWR, { mutate } from "swr";
 import { updateSnippet, getSnippets } from "@/app/services/SnippetService";
 import { useRouter } from "next/navigation";
 import { snippetModel } from "../../../../snippetModel-DB";
+import styles from "./styles.module.css";
 
-// import styles from "./styles.module.css";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -56,8 +56,9 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
     // router.push(`/snippets/${params.id}`);
   };
   return (
-    <div>
-      <h2>Edit Snippet</h2>
+<div className={styles.container}>
+<h2>Edit Snippet</h2>
+      <div className={styles.form}> 
       <SnippetForm
         description={description}
         code={code}
@@ -68,12 +69,15 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
         selectTags={selectTags}
         setSelectTags={setSelectTags}
       />
-      <button onClick={handleClick}>Update</button>
-      <button>Cancel</button>
+      <div className={styles.wrapperBtns}>
+          <button className={styles.cancelBtn}>Cancel</button>
+          <button className={styles.submitBtn} onClick={handleClick}>Update
+          </button>
+          </div>
+      </div>
     </div>
   );
 };
-
 export default EditSnippet;
 
 /*
