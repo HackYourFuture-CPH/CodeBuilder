@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { snippetModel } from "../../../../snippetModel-DB";
 import styles from "./styles.module.css";
 
-
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
@@ -56,24 +55,25 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
     // router.push(`/snippets/${params.id}`);
   };
   return (
-<div className={styles.container}>
-<h2>Edit Snippet</h2>
-      <div className={styles.form}> 
-      <SnippetForm
-        description={description}
-        code={code}
-        title={title}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setCode={setCode}
-        selectTags={selectTags}
-        setSelectTags={setSelectTags}
-      />
-      <div className={styles.wrapperBtns}>
+    <div className={styles.container}>
+      <h2>Edit Snippet</h2>
+      <div className={styles.form}>
+        <SnippetForm
+          description={description}
+          code={code}
+          title={title}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setCode={setCode}
+          selectTags={selectTags}
+          setSelectTags={setSelectTags}
+        />
+        <div className={styles.wrapperBtns}>
           <button className={styles.cancelBtn}>Cancel</button>
-          <button className={styles.submitBtn} onClick={handleClick}>Update
+          <button className={styles.submitBtn} onClick={handleClick}>
+            Update
           </button>
-          </div>
+        </div>
       </div>
     </div>
   );
