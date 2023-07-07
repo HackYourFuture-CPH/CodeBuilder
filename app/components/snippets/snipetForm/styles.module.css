@@ -42,9 +42,8 @@
 .textarea {
   width: 310px;
   padding: 16px;
-  border: none;
+  border: 2px solid transparent;
   border-radius: 8px;
-  transition: 0.5s;
   transition: 0.5s;
   outline: none;
   resize: none;
@@ -71,7 +70,7 @@
 }
 
 .textarea:focus {
-  border: 2px solid #c3d9ed;
+  border: 0.5px solid #c3d9ed;
 }
 
 .span {

@@ -1,13 +1,20 @@
+
+
 export const customFormStyles = {
-    control: (provided: any, state: any) => ({
+    control: (provided: any, state: any, base: any) => ({
         ...provided,
-        border: state.isFocused ? "2px solid #c3d9ed" : "none",
+        ...base,
+        fontFamily: "Roboto",
+        border: "2px solid transparent",
+        boxShadow: 'none',
         borderRadius: "8px",
         paddingLeft: "11px",
         paddingRight: "11px",
         paddingTop: "6px",
         paddingBottom: "6px",
         "&:hover": {
+            border: "2px solid #c3d9ed",
+        }, "&:focus": {
             border: "2px solid #c3d9ed",
         },
     }),
