@@ -114,6 +114,20 @@ const SnippetGallery = () => {
     setSearch(searchInput);
   };
 
+  const handleSearchButtonClick = () => {
+    filterSnippets();
+  };
+
+  const handleClearSearch = () => {
+    setSearch("");
+  };
+
+  useEffect(() => {
+    if (search === "") {
+      filterSnippets();
+    }
+  }, [search]);
+
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "short" });
