@@ -1,10 +1,8 @@
 
 
 export const customFormStyles = {
-    control: (provided: any, state: any, base: any) => ({
+    control: (provided: any, state: any) => ({
         ...provided,
-        ...base,
-        fontFamily: "Roboto",
         border: "2px solid transparent",
         boxShadow: 'none',
         borderRadius: "8px",

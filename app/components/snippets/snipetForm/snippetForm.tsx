@@ -41,23 +41,32 @@ const SnippetForm = (props: SnippetFormProps) => {
         onChange={(tags: string[]): void => props.setSelectTags(tags)}
         isMulti
       />
+      <div className={styles.inputWrapper}>
+        <label htmlFor="description" className={styles.span}>
+          Description
+        </label>
+        <textarea
+          id="description"
+          rows={5}
+          cols={50}
+          placeholder="Title"
+          value={props.description}
+          onChange={(e) => props.setDescription(e.target.value)}
+          className={styles.textarea}
+        />
+      </div>
 
-      {/* instead of this component, there should be a textarea with className=
-      {styles.textarea}  👇 */}
-      <TextInput
-        label="Description"
-        placeholder="Description"
-        value={props.description}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          props.setDescription(e.target.value)
-        }
-      />
-      <CodeEditor
-        initialValue={props.code}
-        readOnly={false}
-        tags={lang}
-        setCode={props.setCode}
-      />
+      <div className={styles.inputWrapper}>
+        <label htmlFor="description" className={styles.span}>
+          Code
+        </label>
+        <CodeEditor
+          initialValue={props.code}
+          readOnly={false}
+          tags={lang}
+          setCode={props.setCode}
+        />
+      </div>
     </>
   );
 };
