@@ -1,3 +1,9 @@
+/**
+ * eslint-disable @next/next/no-img-element
+ *
+ * @format
+ */
+
 /** @format */
 
 "use client";
@@ -7,7 +13,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faHeart);
 import Link from "next/link";
 import CodeEditor from "./shared/codeEditor/code-editor";
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 import "./snippetCard.css";
 import { snippetModel } from "../snippetModel-DB";
 
@@ -19,17 +26,11 @@ export interface SnippetCardModel {
   snippetCode: string;
   formatDate: Function;
   mutate: Function;
+  author?: string;
+  authorImage?: string;
 }
 
-const SnippetCard = ({
-  snippet,
-  title,
-  description,
-  tags,
-  snippetCode,
-  formatDate,
-  mutate,
-}: SnippetCardModel) => {
+const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
@@ -53,26 +54,20 @@ const SnippetCard = ({
     mutate();
   };
   return (
-    <div className="container">
+    <div className="snippet-card-container">
       <div className="code-group">
         <Link href={`/snippets/${snippet._id}`}>
           <div className="code-editor">
             <CodeEditor
-              initialValue={snippetCode}
+              initialValue={snippet.snippetCode}
               readOnly={true}
-              tags={tags}
+              tags={snippet.tags}
             />
           </div>
         </Link>
         {session && (
           <button
             className="favorite-button"
-            style={{
-              border: "none",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
-            }}
             onClick={() => handleFavoriteButton()}
           >
             {userId && snippet.favoriteByIds.includes(userId) ? (
@@ -93,33 +88,25 @@ const SnippetCard = ({
       </div>
       <div className="content-group">
         <div className="title-container">
-          <h1 className="title">{title}</h1>
+          <h1 className="title">{snippet.title}</h1>
         </div>
         <div className="description-container">
-          <p className="description">{description}</p>
+          <p className="description">{snippet.description}</p>
         </div>
         <div className="tags-container">
-          <div className="button-container">
-            <p className="tags">{tags}</p>
-          </div>
+          {snippet.tags.map((item) => (
+            <p className="tags" key={item}>
+              {item}
+            </p>
+          ))}
         </div>
 
         <div className="card-footer">
-          <div
-            className="avatar-container"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-            }}
-          >
+          <div className="avatar-container">
             <div className="img-container">
               <img
-                src={
-                  session?.user?.image
-                    ? session.user.image
-                    : "fallback-image-url"
-                }
-                alt="user profile pic"
+                src={snippet.authorImage}
+                alt=" "
                 width={40}
                 height={40}
                 style={{ borderRadius: "50%", objectFit: "cover" }}
@@ -131,35 +118,23 @@ const SnippetCard = ({
                 margin: "0",
               }}
             >
-              by {snippet.authorId} {formatDate(new Date(snippet.createdAt))}
+              by {snippet.author} {formatDate(new Date(snippet.createdAt))}
             </p>
           </div>
           {session ? (
-            <Link
-              className="link-button"
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
-              }}
-              href={`/snippets/${snippet._id}`}
-            >
+            <Link className="link-button" href={`/snippets/${snippet._id}`}>
               Learn more
             </Link>
           ) : (
-            <Link
+            <button
               className="link-button"
-              style={{
-                textDecoration: "none",
-                position: "absolute",
-                bottom: "10px",
-                right: "10px",
+              onClick={(e) => {
+                e.preventDefault();
+                !session && signIn();
               }}
-              href={`/login`}
             >
               Login to learn more
-            </Link>
+            </button>
           )}
         </div>
       </div>

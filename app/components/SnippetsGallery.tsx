@@ -1,29 +1,32 @@
 "use client";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { getSnippets } from "../services/SnippetService";
 import { snippetModel } from "../snippetModel-DB";
+import SnippetCard from "./SnippetCard";
+import "./snippetsGallery.css";
+import { getSnippets } from "../services/SnippetService";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { useSession } from "next-auth/react";
-import SnippetCard from "./SnippetCard";
+
 export interface Tag {
   displayName: string;
   shortName: string;
   _id?: string;
 }
 
-type SelectableTag = Tag & { selected: boolean };
-type favoriteSnippet = snippetModel;
+interface Props {
+  showMySnippets?: boolean;
+}
 
-const SnippetGallery = () => {
+type SelectableTag = Tag & { selected: boolean };
+
+const SnippetGallery = (props: Props) => {
   const [tags, setTags] = useState<SelectableTag[]>([]);
-  const [filteredSnippets, setFilteredSnippets] = useState<favoriteSnippet[]>(
-    []
-  );
+  const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
   const { data: session } = useSession();
-  const userId: any = session?.user?.email;
+  const userId: any = session?.user?.id;
 
   const {
     data: snippetsData,
@@ -48,12 +51,12 @@ const SnippetGallery = () => {
     }
   }, [tagsData]);
 
-  const filterSnippets = () => {
+  const filterSnippets = (showMySnippets = false) => {
     const filteredTags = tags
       .filter((tag) => tag.selected)
       .map((tag) => tag.shortName.toUpperCase());
 
-    const filtered = snippetsData?.filter((snippet) => {
+    let filtered = snippetsData?.filter((snippet) => {
       const hasSelectedTags =
         filteredTags.length === 0 ||
         filteredTags.every((tag) => snippet.tags?.includes(tag));
@@ -65,12 +68,21 @@ const SnippetGallery = () => {
       return hasSelectedTags && hasSearchText;
     });
 
+    if (showMySnippets) {
+      filtered = filtered?.filter((snippet) => snippet.authorId === userId);
+      console.log(filtered);
+    }
+
     setFilteredSnippets(filtered ?? []);
   };
 
   useEffect(() => {
     filterSnippets();
-  }, [tags, search, snippetsData]);
+  }, [tags]);
+
+  useEffect(() => {
+    filterSnippets(props.showMySnippets);
+  }, [snippetsData]);
 
   const handleSelectChange = (id: string) => {
     const newTags = tags.map((tag) => {
@@ -102,32 +114,54 @@ const SnippetGallery = () => {
   const ShownTags = tags
     ?.filter((tag) => tag.selected)
     .map((tag) => (
-      <div key={tag._id}>
+      <li className="showntag-item" key={tag._id}>
         {tag.displayName}
-        <span onClick={() => handleRemoveTag(tag._id)}>
+        <span
+          className="delete-tag-btn"
+          onClick={() => handleRemoveTag(tag._id)}
+        >
           <FontAwesomeIcon icon={faTimesCircle} />
         </span>
-      </div>
+      </li>
     ));
 
   const handleSearch = async (searchInput: string) => {
     setSearch(searchInput);
   };
 
+  const handleSearchButtonClick = () => {
+    filterSnippets();
+  };
+
+  const handleClearSearch = () => {
+    setSearch("");
+    filterSnippets();
+  };
+
   const formatDate = (date: Date) => {
     const day = date.getDate();
     const month = date.toLocaleString("default", { month: "short" });
     const year = date.getFullYear();
-
     return `${day} ${month} ${year}`;
   };
 
   const LikedSnippets = () => {
-    snippetsData?.filter((snippet) => snippet.favoriteByIds?.includes(userId));
+    if (snippetsData) {
+      setFilteredSnippets(
+        snippetsData.filter((snippet) =>
+          snippet.favoriteByIds?.includes(userId)
+        )
+      );
+    }
   };
 
   const CreatedByYou = () => {
-    snippetsData?.filter((snippet) => snippet.authorId === userId);
+    console.log(userId);
+    if (snippetsData) {
+      setFilteredSnippets(
+        snippetsData.filter((snippet) => snippet.authorId === userId)
+      );
+    }
   };
 
   if (snippetError || tagError) {
@@ -139,83 +173,76 @@ const SnippetGallery = () => {
   }
 
   return (
-    <div
-      className="snippet-gallery-container"
-      style={{
-        height: "100vh",
-        marginTop: "300px",
-        marginBottom: "300px",
-      }}
-    >
-      <nav>
-        <div>
+    <div className="snippet-gallery-container">
+      <nav className="filter-nav">
+        <div className="tags-filter">
           <p>Tags:</p>
-          <select value="" onChange={(e) => handleSelectChange(e.target.value)}>
+
+          <select
+            className="select-tags"
+            value=""
+            onChange={(e) => handleSelectChange(e.target.value)}
+          >
             <option key={0} value="">
               {"All"}
             </option>
             {Options}
           </select>
 
-          {ShownTags}
+          <ul className="showntags-list">{ShownTags}</ul>
         </div>
 
-        <div id="search">
-          <label htmlFor="search">Search</label>
-          <input
-            type="text"
-            id="search"
-            placeholder="Search snippets"
-            autoComplete="off"
-            onChange={(e) => handleSearch(e.target.value)}
-          />
+        <div className="search">
+          <button
+            className="apply-filter-btn"
+            onClick={() => handleSearchButtonClick()}
+          >
+            Apply filter
+          </button>
+
+          <div className="search-input-wrapper">
+            <input
+              className="search-input"
+              type="text"
+              id="search"
+              placeholder="Search snippets"
+              autoComplete="off"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
+            />
+            {search && (
+              <button
+                className="clear-search-btn"
+                onClick={() => handleClearSearch()}
+              >
+                <FontAwesomeIcon icon={faTimesCircle} />
+              </button>
+            )}
+          </div>
         </div>
       </nav>
 
-      <div>
-        <button onClick={() => LikedSnippets()}>Liked Snippets</button>
-        <button onClick={() => CreatedByYou()}>Created by you</button>
-      </div>
+      {props.showMySnippets ? (
+        <div className="filter-options">
+          <button onClick={() => LikedSnippets()}>Liked Snippets</button>
+          <button onClick={() => CreatedByYou()}>Created by you</button>
+        </div>
+      ) : null}
 
-      <ul
-        style={{
-          padding: "3em",
-          display: "grid",
-          gridGap: "3em",
-          gridTemplateColumns: "repeat(auto-fit, minmax(600px, 1fr))",
-        }}
-      >
+      <ul className="gallery-container">
         {filteredSnippets?.map((snippet) => {
           return (
-            <li
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                padding: "2em",
-                borderRadius: ".3em",
-                boxShadow: "10px 10px 30px rgba(0,0,0,0.1)",
-                listStyle: "none",
-                position: "relative",
-              }}
-              key={snippet._id}
-            >
-              <div
-                style={{
-                  height: "573px",
-                }}
-              >
-                <SnippetCard
-                  snippet={snippet}
-                  key={snippet._id}
-                  title={snippet.title}
-                  description={snippet.description}
-                  tags={snippet.tags}
-                  snippetCode={snippet.snippetCode}
-                  formatDate={formatDate}
-                  mutate={mutate}
-                />
-              </div>
+            <li className="gallery-item" key={snippet._id}>
+              <SnippetCard
+                snippet={snippet}
+                key={snippet._id}
+                title={snippet.title}
+                description={snippet.description}
+                tags={snippet.tags}
+                snippetCode={snippet.snippetCode}
+                formatDate={formatDate}
+                mutate={mutate}
+              />
             </li>
           );
         })}

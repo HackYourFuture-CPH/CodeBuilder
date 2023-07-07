@@ -1,4 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
+
 .navbar {
+  font-family: "Roboto";
   display: flex;
   height: 95px;
   align-items: center;
@@ -9,7 +12,7 @@
   right: 0;
   left: 0;
   padding: 0;
-  z-index: 10; /* Addition of z-index to the navigation bar */
+  z-index: 100;
 }
 
 .corner-logo img {

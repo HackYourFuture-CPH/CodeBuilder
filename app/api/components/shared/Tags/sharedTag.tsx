@@ -1,5 +1,5 @@
-import React from 'react';
-import './Tag.css';
+import React from "react";
+import styles from "./Tag.module.css";
 
 interface TagProps {
   text: string;
@@ -11,7 +11,7 @@ export const Tag: React.FC<TagProps> = ({ text, color, onClick }) => {
   const tagStyles = color ? { backgroundColor: color } : {};
 
   return (
-    <div className="tag" style={tagStyles} onClick={onClick}>
+    <div className={styles.tag} style={tagStyles} onClick={onClick}>
       {text}
     </div>
   );
