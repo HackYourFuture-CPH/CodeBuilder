@@ -25,7 +25,15 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
           <div className="details-container">
             <div className="snippets-title">
               <h1>{snippet.title}</h1>
-              <p className="tags">{snippet.tags}</p>
+
+              <ul className="tags-list">
+                {snippet.tags?.map((tag) => (
+                  <li className="tag-item">{tag}</li>
+                ))}
+              </ul>
+
+              {/* <p className="tags">{snippet.tags}</p> */}
+
               <p>{snippet.description}</p>
             </div>
             <div className="buttons">

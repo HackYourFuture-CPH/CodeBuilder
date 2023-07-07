@@ -84,6 +84,14 @@ const SnippetGallery = (props: Props) => {
     filterSnippets(props.showMySnippets);
   }, [snippetsData]);
 
+  useEffect(() => {
+    if (highlighted === "likedSnippets") {
+      LikedSnippets();
+    } else {
+      filterSnippets(props.showMySnippets);
+    }
+  }, [snippetsData]);
+
   const handleSelectChange = (id: string) => {
     const newTags = tags.map((tag) => {
       if (tag._id === id) {

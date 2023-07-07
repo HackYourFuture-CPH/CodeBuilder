@@ -15,7 +15,7 @@
   background-color: #042d54;
 }
 
-.tags {
+/* .tags {
   margin-top: 10px;
   color: #f2f9ff;
   background-color: #104d85;
@@ -23,6 +23,22 @@
   padding: 10px 10px;
   border-radius: 20px;
   font-size: 15px;
+} */
+
+.tags-list {
+  max-width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag-item {
+  color: #fff;
+  background-color: #104d85;
+  padding: 10px 10px;
+  border-radius: 20px;
+  font-size: 15px;
+  margin-right: 10px;
 }
 
 .buttons {
