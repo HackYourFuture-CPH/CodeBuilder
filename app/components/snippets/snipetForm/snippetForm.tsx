@@ -25,7 +25,8 @@ const SnippetForm = (props: SnippetFormProps) => {
     tag.label.toUpperCase()
   );
   return (
-    <>
+    // <>
+    <div className={styles.formWrapper}>
       <TextInput
         label="Title"
         placeholder="Title"
@@ -41,7 +42,8 @@ const SnippetForm = (props: SnippetFormProps) => {
         onChange={(tags: string[]): void => props.setSelectTags(tags)}
         isMulti
       />
-      <div className={styles.inputWrapper}>
+      {/*<div className={styles.inputWrapper}>*/}
+        <div className={styles.inputWrapper}>
         <label htmlFor="description" className={styles.span}>
           Description
         </label>
@@ -54,7 +56,8 @@ const SnippetForm = (props: SnippetFormProps) => {
           onChange={(e) => props.setDescription(e.target.value)}
           className={styles.textarea}
         />
-      </div>
+        </div>
+      {/*</div>*/}
 
       <div className={styles.inputWrapper}>
         <label htmlFor="description" className={styles.span}>
@@ -66,8 +69,9 @@ const SnippetForm = (props: SnippetFormProps) => {
           tags={lang}
           setCode={props.setCode}
         />
+        </div>
       </div>
-    </>
+    // {/*</>*/}
   );
 };
 
