@@ -22,7 +22,8 @@ const getLanguageFromTags = (tags: string[]): string => {
   };
 
   // Get the languageMap of the first element of tags array
-  const language = languageMap[tags[0]];
+  const language = 
+  tags && tags.length ? languageMap[tags[0]?.toUpperCase()] : null;
 
   // Either return the mapped language or plaintext
   return language ? language : "plaintext";
