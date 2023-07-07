@@ -1,14 +1,9 @@
-body {
-  background-color: #104d85;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
+.single-snippet-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 75px;
+  background-color: #104d85;
 }
 
 .details-container {
@@ -22,8 +17,8 @@ body {
 
 .tags {
   margin-top: 10px;
-  color: #F2F9FF;
-  background-color:#104d85 ;
+  color: #f2f9ff;
+  background-color: #104d85;
   max-width: fit-content;
   padding: 10px 10px;
   border-radius: 20px;
@@ -37,7 +32,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 120px; 
+  margin-top: 120px;
   margin-right: 10px;
 }
 

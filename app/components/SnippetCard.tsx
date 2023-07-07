@@ -6,17 +6,17 @@
 
 /** @format */
 
-'use client';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core';
+"use client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
 library.add(faHeart);
-import Link from 'next/link';
-import CodeEditor from './shared/codeEditor/code-editor';
-import { useSession, signIn, signOut } from 'next-auth/react';
-import Image from 'next/image';
-import './snippetCard.css';
-import { snippetModel } from '../snippetModel-DB';
+import Link from "next/link";
+import CodeEditor from "./shared/codeEditor/code-editor";
+import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
+import "./snippetCard.css";
+import { snippetModel } from "../snippetModel-DB";
 
 export interface SnippetCardModel {
   snippet: snippetModel;
@@ -36,16 +36,16 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
 
   const handleFavoriteButton = async () => {
     await fetch(`/api/snippets/${snippet._id}/favorite`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error('Error publishing snippet');
+          throw new Error("Error publishing snippet");
         }
       })
       .catch((error) => {
@@ -54,7 +54,7 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
     mutate();
   };
   return (
-    <div className="container">
+    <div className="snippet-card-container">
       <div className="code-group">
         <Link href={`/snippets/${snippet._id}`}>
           <div className="code-editor">
@@ -73,13 +73,13 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
             {userId && snippet.favoriteByIds.includes(userId) ? (
               <FontAwesomeIcon
                 icon={faHeart}
-                style={{ color: '#ff0000' }}
+                style={{ color: "#ff0000" }}
                 size="2xl"
               />
             ) : (
               <FontAwesomeIcon
                 icon={faHeart}
-                style={{ color: '#000000' }}
+                style={{ color: "#000000" }}
                 size="2xl"
               />
             )}
@@ -94,13 +94,11 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
           <p className="description">{snippet.description}</p>
         </div>
         <div className="tags-container">
-            {snippet.tags.map((item) => (
-              <p
-                className="tags"
-                key={item}>
-                {item}
-              </p>
-            ))}
+          {snippet.tags.map((item) => (
+            <p className="tags" key={item}>
+              {item}
+            </p>
+          ))}
         </div>
 
         <div className="card-footer">
@@ -111,21 +109,20 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
                 alt=" "
                 width={40}
                 height={40}
-                style={{ borderRadius: '50%', objectFit: 'cover' }}
+                style={{ borderRadius: "50%", objectFit: "cover" }}
               />
             </div>
             <p
               className="avatar-text"
               style={{
-                margin: '0',
-              }}>
+                margin: "0",
+              }}
+            >
               by {snippet.author} {formatDate(new Date(snippet.createdAt))}
             </p>
           </div>
           {session ? (
-            <Link
-              className="link-button"
-              href={`/snippets/${snippet._id}`}>
+            <Link className="link-button" href={`/snippets/${snippet._id}`}>
               Learn more
             </Link>
           ) : (
@@ -134,7 +131,8 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
               onClick={(e) => {
                 e.preventDefault();
                 !session && signIn();
-              }}>
+              }}
+            >
               Login to learn more
             </button>
           )}
