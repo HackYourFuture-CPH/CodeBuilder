@@ -31,7 +31,7 @@ export default function SnippetDetails({ params }: { params: { id: string } }) {
             <div className="buttons">
               <li>
                 {" "}
-                <Link href={`/snippet/${id}/edit`}>
+                <Link href={`/snippets/${id}/edit`}>
                   <button type="button" className="edit-button">
                     Edit
                   </button>
