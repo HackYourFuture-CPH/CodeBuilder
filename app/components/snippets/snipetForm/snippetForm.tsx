@@ -50,7 +50,7 @@ const SnippetForm = (props: SnippetFormProps) => {
         <textarea
           id="description"
           rows={5}
-          cols={50}
+          // cols={20}
           placeholder="Title"
           value={props.description}
           onChange={(e) => props.setDescription(e.target.value)}
