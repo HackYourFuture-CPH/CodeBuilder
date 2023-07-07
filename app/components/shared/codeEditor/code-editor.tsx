@@ -23,7 +23,6 @@ const getLanguageFromTags = (tags: string[]): string => {
     SQL: "sql",
   };
 
-  // Get the languageMap of the first element of tags array
   const [firstTag] = tags;
   const language = firstTag ? languageMap[firstTag.toUpperCase()] : null;
 
