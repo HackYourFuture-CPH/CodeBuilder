@@ -26,6 +26,7 @@ const SnippetGallery = (props: Props) => {
   const [filteredSnippets, setFilteredSnippets] = useState<snippetModel[]>([]);
   const [search, setSearch] = useState<string>("");
   const { data: session } = useSession();
+  const [highlighted, setHighlighted] = useState("createdByYou");
   const userId: any = session?.user?.id;
 
   const {
@@ -70,7 +71,6 @@ const SnippetGallery = (props: Props) => {
 
     if (showMySnippets) {
       filtered = filtered?.filter((snippet) => snippet.authorId === userId);
-      console.log(filtered);
     }
 
     setFilteredSnippets(filtered ?? []);
@@ -82,6 +82,14 @@ const SnippetGallery = (props: Props) => {
 
   useEffect(() => {
     filterSnippets(props.showMySnippets);
+  }, [snippetsData]);
+
+  useEffect(() => {
+    if (highlighted === "likedSnippets") {
+      LikedSnippets();
+    } else {
+      filterSnippets(props.showMySnippets);
+    }
   }, [snippetsData]);
 
   const handleSelectChange = (id: string) => {
@@ -135,8 +143,13 @@ const SnippetGallery = (props: Props) => {
 
   const handleClearSearch = () => {
     setSearch("");
-    filterSnippets();
   };
+
+  useEffect(() => {
+    if (search === "") {
+      filterSnippets();
+    }
+  }, [search]);
 
   const formatDate = (date: Date) => {
     const day = date.getDate();
@@ -153,15 +166,16 @@ const SnippetGallery = (props: Props) => {
         )
       );
     }
+    setHighlighted("likedSnippets");
   };
 
   const CreatedByYou = () => {
-    console.log(userId);
     if (snippetsData) {
       setFilteredSnippets(
         snippetsData.filter((snippet) => snippet.authorId === userId)
       );
     }
+    setHighlighted("createdByYou");
   };
 
   if (snippetError || tagError) {
@@ -224,8 +238,18 @@ const SnippetGallery = (props: Props) => {
 
       {props.showMySnippets ? (
         <div className="filter-options">
-          <button onClick={() => LikedSnippets()}>Liked Snippets</button>
-          <button onClick={() => CreatedByYou()}>Created by you</button>
+          <button
+            className={highlighted === "likedSnippets" ? "highlighted" : ""}
+            onClick={() => LikedSnippets()}
+          >
+            Liked Snippets
+          </button>
+          <button
+            className={highlighted === "createdByYou" ? "highlighted" : ""}
+            onClick={() => CreatedByYou()}
+          >
+            Created by you
+          </button>
         </div>
       ) : null}
 
