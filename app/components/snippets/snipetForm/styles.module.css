@@ -1,6 +1,4 @@
 .formWrapper {
-  /*display: flex;*/
-  /*flex-direction: column;*/
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: auto;
@@ -8,8 +6,6 @@
   transition: transform 0.3s ease;
   width: 100%;
   height: 100%;
-  /*object-fit: cover;*/
-  /*outline:2px dashed tomato;*/
 }
 
 .inputWrapper {
@@ -18,17 +14,11 @@
   gap: 0.5rem;
 }
 
-/*.inputWrapper > * {*/
-/*  flex: 1 1 80%;*/
-/*}*/
-
-
 .input,
 .textarea {
-  /*width: 100%;*/
-  padding: 16px;
+  padding: 1rem;
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: o.5rem;
   transition: 0.5s;
   outline: none;
   resize: none;
@@ -50,26 +40,11 @@
   color: #757575;
 }
 
-/* @media screen and (min-width: 481px) and (max-width: 780px) {
-  .input,
-  .textarea {
-    width: 450px;
-  }
-}
-
-@media screen and (min-width: 781px) {
-  .input,
-  .textarea {
-    width: 772px;
-  }
-} */
 .span {
   font-size: 20px;
   font-family: Arial;
   font-weight: 400;
-  /*line-height: 23px;*/
   color: #042d54;
-  /*margin-bottom: 8px;*/
 }
 
 .inputWrapper label {

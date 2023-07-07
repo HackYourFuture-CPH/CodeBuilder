@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap");
 
 .container {
-  padding: 60px 0;
+  padding: 95px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,30 +22,20 @@
   line-height: 47px;
   text-align: center;
   color: var(--main-color);
+  margin-top: 7rem;
 }
 
 .form {
-  /*display: grid;*/
-  /*grid-template-columns: 1fr;*/
-  /*grid-gap: 1rem;*/
-  /*justify-content: center;*/
-  width: 80%;
-  /*margin: 0 5rem;*/
+  width: 70%;
   display: grid;
 }
-
-/*@media screen and (max-width: 480px) {*/
-/*  .form {*/
-/*    max-width: 80%;*/
-/*  }*/
-/*}*/
 
 .wrapperBtns {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem;
   width: 100%;
   margin-top: 1rem;
 }
@@ -56,12 +46,11 @@
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  /*line-height: 23px;*/
   padding: 1rem 2rem;
   border: none;
   border-radius: 8px;
   color: var(--additional-color-1);
-  width: 60%
+  width: 60%;
 }
 
 .cancelBtn:hover,
@@ -75,12 +64,11 @@
   font-style: normal;
   font-weight: 400;
   font-size: 20px;
-  /*line-height: 23px;*/
   padding: 1rem 2rem;
   border: none;
   border-radius: 8px;
   color: #ffffff;
-  width: 60%
+  width: 60%;
 }
 
 .submitBtn:hover,
@@ -89,21 +77,21 @@
 }
 
 @media screen and (min-width: 768px) {
-  .container {
-    padding: 120px 0;
-  }
   .title {
     font-size: 56px;
     line-height: 66px;
+    margin-top: 3.5rem;
   }
   .wrapperBtns {
     flex-direction: row;
     gap: 20px;
   }
   .cancelBtn {
-    padding: 12px 16px;
+    padding: 0.9rem 1rem;
+    max-width: 12%;
   }
   .submitBtn {
-    padding: 12px 16px;
+    padding: 0.9rem 1rem;
+    max-width: 12%;
   }
 }

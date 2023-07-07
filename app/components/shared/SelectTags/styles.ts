@@ -56,17 +56,16 @@ export const customFormStyles = {
     }),
     multiValue: (base: any) => ({
         ...base,
-        borderRadius: " 24px",
-        background: " #104D85",
+        borderRadius: "24px",
+        background: "#104D85",
         marginLeft: "4px",
     }),
     multiValueRemove: (base: any) => ({
         ...base,
         color: "#ffffff",
-        borderRadius: " 24px",
+        borderRadius: "24px",
         "&:hover": {
             color: "#ffffff",
         },
-
     }),
 };
