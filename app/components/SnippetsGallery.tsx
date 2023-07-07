@@ -135,8 +135,13 @@ const SnippetGallery = (props: Props) => {
 
   const handleClearSearch = () => {
     setSearch("");
-    filterSnippets();
   };
+
+  useEffect(() => {
+    if (search === "") {
+      filterSnippets();
+    }
+  }, [search]);
 
   const formatDate = (date: Date) => {
     const day = date.getDate();
