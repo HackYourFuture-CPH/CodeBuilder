@@ -1,9 +1,11 @@
 import MonacoEditor from "@monaco-editor/react";
+import { useRef } from "react";
 
 interface CodeEditorProps {
   initialValue: string;
   readOnly?: boolean;
   tags: string[];
+  setCode?: Function;
 }
 
 // Define the type of LanguageMap object
@@ -21,9 +23,8 @@ const getLanguageFromTags = (tags: string[]): string => {
     SQL: "sql",
   };
 
-  // Get the languageMap of the first element of tags array
-  const [firstTag] = tags ?? [];
-const language = firstTag ? languageMap[firstTag.toUpperCase()] : null;
+  const [firstTag] = tags;
+  const language = firstTag ? languageMap[firstTag.toUpperCase()] : null;
 
   // Either return the mapped language or plaintext
   return language ? language : "plaintext";
@@ -33,6 +34,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   initialValue,
   readOnly,
   tags,
+  setCode,
 }) => {
   const language = getLanguageFromTags(tags);
 
@@ -53,11 +55,12 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   return (
     <MonacoEditor
       value={initialValue}
-      width="573px"
+      max-width="15rem"
       height="333px"
       language={language}
       theme="vs-dark"
       options={options}
+      onChange={(value) => setCode?.(value)}
     />
   );
 };

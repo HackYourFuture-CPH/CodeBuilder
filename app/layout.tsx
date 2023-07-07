@@ -8,8 +8,9 @@ import Footer from "./components/shared/footer/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Class 24 Project (Hack Your Future Aarhus)",
+  title: "CodeBuilder: Empowering Developers with Code Snippets and Knowledge Sharing",
   description: "A project at the end of the Hack Your Future curriculum",
+  icons: "/images/favicon.ico",
 };
 
 export default function RootLayout({
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-         <Header/>
-          {children}
-        </Providers>
+        <main>
+          <Providers>
+            <Header />
+            {children}
+          </Providers>
+        </main>
         <Footer />
       </body>
     </html>
