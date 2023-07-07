@@ -4,7 +4,7 @@
   grid-gap: 1rem;
   justify-content: center;
   width: 80%;
-  margin: 20rem auto 0;
+  margin: 15rem auto 0;
   z-index: -1;
 }
 
@@ -18,6 +18,7 @@
 
 .filter-nav {
   position: fixed;
+  height: 50px;
   top: 95px;
   right: 0;
   left: 0;
@@ -37,15 +38,16 @@
 }
 
 .tags-filter p {
+  font-weight: 600;
   color: #042d54;
   margin-right: 15px;
 }
 
 .select-tags {
-  height: 35px;
+  border: none;
   margin-right: 15px;
-  border-radius: 8px;
-  padding: 0 5px;
+  border-radius: 4px;
+  padding: 4px 4px;
 }
 
 .showntags-list {
@@ -67,7 +69,7 @@
 .apply-filter-btn {
   color: #ffffff;
   background-color: #104d85;
-  margin-right: 8px;
+  margin-right: 10px;
   padding: 8px 14px;
   border-radius: 8px;
   border: none;
@@ -79,13 +81,15 @@
 }
 
 .search-input-wrapper {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
 .search-input {
   border: none;
   border-radius: 16px;
-  padding: 8px;
+  padding: 8px 4px;
   text-align: center;
 }
 
@@ -104,12 +108,13 @@
 }
 
 .filter-options {
+  display: flex;
+  justify-content: center;
   position: fixed;
-  top: 160px;
+  top: 145px;
   right: 0px;
   left: 0px;
   background-color: #104d85;
-  padding-left: 100px;
   z-index: 1;
 }
 
@@ -121,7 +126,7 @@
   background-color: #104d85;
 }
 
-.filter-options button:focus {
+.filter-options button.highlighted {
   border-bottom: 5px solid white;
 }
 
@@ -139,6 +144,10 @@
   .gallery-item {
     max-width: 100%;
   }
+
+  .filter-options button.highlighted {
+    border-bottom: 4px solid white;
+  }
 }
 
 /* Media Query for devices with maximum width of 768px */
@@ -147,6 +156,27 @@
     grid-template-columns: 1fr 1fr;
     width: 95%;
   }
+
+  .filter-nav {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .tags-filter p {
+    margin-right: 10px;
+  }
+
+  .select-tags {
+    margin-right: 10px;
+  }
+
+  .search-input {
+    width: 150px;
+  }
+
+  .filter-options button.highlighted {
+    border-bottom: 3px solid white;
+  }
 }
 
 /* Media Query for devices with maximum width of 480px */
@@ -154,10 +184,37 @@
   .gallery-container {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
-}
 
-.gallery-item {
-  max-width: 100%;
+  .filter-nav {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .tags-filter p {
+    font-size: 12px;
+    margin-right: 10px;
+  }
+
+  .select-tags {
+    font-size: 12px;
+    width: 100px;
+  }
+
+  .apply-filter-btn {
+    font-size: 12px;
+    margin-right: 10px;
+    padding: 8px 8px;
+  }
+
+  .search-input {
+    font-size: 12px;
+    width: 100px;
+  }
+
+  .filter-options button {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
 }
 
 /*Media Query for devices with maximum width of 320px */
