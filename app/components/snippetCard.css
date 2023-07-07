@@ -66,7 +66,7 @@ div.code-editor:hover {
   font-weight: 300;
   line-height: 28px;
   font-size: 20px;
-  font-family: Arial;
+  font-family: "RobotoFlex";
   color: var(--dark-600, #151515);
   margin: 0 auto;
   padding: 1rem;
@@ -94,7 +94,7 @@ div.code-editor:hover {
 }
 
 .tags {
-  font-family: "Arial";
+  font-family: "RobotoFlex";
   font-style: normal;
   font-size: 16px;
   background: var(--blue-500, #104d85);
@@ -126,7 +126,7 @@ div.code-editor:hover {
 
 .avatar-text {
   color: var(--dark-400, #757575);
-  font-family: "Arial";
+  font-family: "RobotoFlex";
   font-weight: 400;
   font-size: 16px;
 }
@@ -140,7 +140,7 @@ div.code-editor:hover {
   outline: inherit;
   padding: 22px;
   align-items: center;
-  font-family: "Arial";
+  font-family: "RobotoFlex";
   font-size: 20px;
   color: var(--blue-500, #104d85);
   text-decoration: none;

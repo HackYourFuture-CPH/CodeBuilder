@@ -1,24 +1,23 @@
 .tag {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 8px 12px;
-    gap: 8px;
-    width: 73px;
-    height: 34px;
-    background: #104D85;
-    border-radius: 24px;
-    font-family: 'Arial';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
-    color: #FFFFFF;
-    order: 0;
-    flex-grow: 0;
-  }
-  
-  .tag:hover {
-    opacity: 0.7;
-  }
-  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 8px;
+  width: 73px;
+  height: 34px;
+  background: #104d85;
+  border-radius: 24px;
+  font-family: "RobotoFlex";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #ffffff;
+  order: 0;
+  flex-grow: 0;
+}
+
+.tag:hover {
+  opacity: 0.7;
+}
