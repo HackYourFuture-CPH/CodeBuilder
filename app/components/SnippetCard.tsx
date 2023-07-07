@@ -104,7 +104,7 @@ const SnippetCard = ({ snippet, formatDate, mutate }: SnippetCardModel) => {
         <div className="card-footer">
           <div className="avatar-container">
             <div className="img-container">
-              <Image
+              <img
                 src={snippet.authorImage}
                 alt=" "
                 width={40}
