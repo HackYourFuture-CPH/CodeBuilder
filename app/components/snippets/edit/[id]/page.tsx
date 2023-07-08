@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useState, useEffect } from "react";
 import SnippetForm from "../../snipetForm/snippetForm";
@@ -8,8 +7,7 @@ import useSWR, { mutate } from "swr";
 import { updateSnippet, getSnippets } from "@/app/services/SnippetService";
 import { useRouter } from "next/navigation";
 import { snippetModel } from "../../../../snippetModel-DB";
-
-// import styles from "./styles.module.css";
+import "../../create/create-update.css";
 
 const EditSnippet = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -55,21 +53,36 @@ const EditSnippet = ({ params }: { params: { id: string } }) => {
 
     // router.push(`/snippets/${params.id}`);
   };
+  const handlerReset = (): void => {
+    setTitle("");
+    setSelectTags([]);
+    setDescription("");
+    setCode("");
+  };
+
   return (
-    <div>
-      <h2>Edit Snippet</h2>
-      <SnippetForm
-        description={description}
-        code={code}
-        title={title}
-        setTitle={setTitle}
-        setDescription={setDescription}
-        setCode={setCode}
-        selectTags={selectTags}
-        setSelectTags={setSelectTags}
-      />
-      <button onClick={handleClick}>Update</button>
-      <button>Cancel</button>
+    <div className="container">
+      <h2 className="title">Edit Snippet</h2>
+      <div className="form">
+        <SnippetForm
+          description={description}
+          code={code}
+          title={title}
+          setTitle={setTitle}
+          setDescription={setDescription}
+          setCode={setCode}
+          selectTags={selectTags}
+          setSelectTags={setSelectTags}
+        />
+        <div className="wrapperBtns">
+          <button className="cancelBtn" onClick={handlerReset}>
+            Cancel
+          </button>
+          <button className="submitBtn" onClick={handleClick}>
+            Update
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

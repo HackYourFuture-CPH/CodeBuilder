@@ -1,63 +1,33 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap");
-
-.container {
-  padding: 60px 40px;
-}
-@media screen and (min-width: 768px) {
-  .container {
-    padding: 120px 80px;
-  }
-}
-
-.title {
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 40px;
-  line-height: 47px;
-  text-align: center;
-  color: #042d54;
-  margin-bottom: 48px;
-}
-@media screen and (min-width: 768px) {
-  .title {
-    font-size: 56px;
-    line-height: 66px;
-    margin-bottom: 68px;
-  }
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+.formWrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: auto;
+  row-gap: 1rem;
+  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
 }
 
 .inputWrapper {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
 }
 
 .input,
 .textarea {
-  width: 310px;
-  padding: 16px;
-  border: none;
-  border-radius: 8px;
-  transition: 0.5s;
+  padding: 1rem;
+  border: 2px solid transparent;
+  border-radius: o.5rem;
   transition: 0.5s;
   outline: none;
   resize: none;
 }
-@media screen and (min-width: 768px) {
-  .input,
-  .textarea {
-    width: 772px;
-  }
-}
 
 .input:focus,
-.input:hover {
+.input:hover,
+.textarea:hover,
+.textarea:focus {
   border: 2px solid #c3d9ed;
 }
 
@@ -70,15 +40,14 @@
   color: #757575;
 }
 
-.textarea:focus {
-  border: 2px solid #c3d9ed;
-}
-
 .span {
   font-size: 20px;
   font-family: Arial;
   font-weight: 400;
-  line-height: 23px;
   color: #042d54;
-  margin-bottom: 8px;
+}
+
+.inputWrapper label {
+  padding: 0;
+  margin: 0;
 }

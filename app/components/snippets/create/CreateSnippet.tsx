@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 import { SnippetData } from "./interfaces";
-import styles from "./styles.module.css";
+import "./create-update.css";
 import SnippetForm from "../snipetForm/snippetForm";
 import { useRouter } from "next/navigation";
 
@@ -53,9 +53,9 @@ const CreateSnippet = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Create Snippet</h2>
-      <div className={styles.form}>
+    <div className="container">
+      <h2 className="title">Create Snippet</h2>
+      <div className="form">
         <SnippetForm
           description={description}
           code={code}
@@ -66,11 +66,11 @@ const CreateSnippet = () => {
           selectTags={selectTags}
           setSelectTags={setSelectTags}
         />
-        <div className={styles.wrapperBtns}>
-          <button className={styles.cancelBtn} onClick={handlerReset}>
+        <div className="wrapperBtns">
+          <button className="cancelBtn" onClick={handlerReset}>
             Cancel
           </button>
-          <button className={styles.submitBtn} onClick={handlePublish}>
+          <button className="submitBtn" onClick={handlePublish}>
             Publish
           </button>
         </div>

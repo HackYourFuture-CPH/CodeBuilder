@@ -1,13 +1,18 @@
+
+
 export const customFormStyles = {
     control: (provided: any, state: any) => ({
         ...provided,
-        border: state.isFocused ? "2px solid #c3d9ed" : "none",
+        border: "2px solid transparent",
+        boxShadow: 'none',
         borderRadius: "8px",
         paddingLeft: "11px",
         paddingRight: "11px",
         paddingTop: "6px",
         paddingBottom: "6px",
         "&:hover": {
+            border: "2px solid #c3d9ed",
+        }, "&:focus": {
             border: "2px solid #c3d9ed",
         },
     }),
@@ -51,17 +56,16 @@ export const customFormStyles = {
     }),
     multiValue: (base: any) => ({
         ...base,
-        borderRadius: " 24px",
-        background: " #104D85",
+        borderRadius: "24px",
+        background: "#104D85",
         marginLeft: "4px",
     }),
     multiValueRemove: (base: any) => ({
         ...base,
         color: "#ffffff",
-        borderRadius: " 24px",
+        borderRadius: "24px",
         "&:hover": {
             color: "#ffffff",
         },
-
     }),
 };
