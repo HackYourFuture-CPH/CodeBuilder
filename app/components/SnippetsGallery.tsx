@@ -55,7 +55,7 @@ const SnippetGallery = (props: Props) => {
   const filterSnippets = (showMySnippets = false) => {
     const filteredTags = tags
       .filter((tag) => tag.selected)
-      .map((tag) => tag.shortName.toUpperCase());
+      .map((tag) => tag.displayName);
 
     let filtered = snippetsData?.filter((snippet) => {
       const hasSelectedTags =
