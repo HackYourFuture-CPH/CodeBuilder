@@ -1,30 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is the final project of the `HackYourFuture class24 in Aarhus`, built as a final milestone in their 8-month Web Development Fundamentals bootcamp journey. 💪 <br>
+It is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+---
 
-First, run the development server:
+# `CodeBuilder`
 
-```bash
-npm run dev
-```
+🌐 **[Click here to see the deployed app!](https://codebuilder.dev/)**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+CodeBuilder is a tool for creating and saving various code snippets, building your own code snippet library.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### The main functionalities of the app are:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- GitHub authentication
+- Create and save a code snippet
+- Browse through all code snippets
+- Add a snippet to your favorites
+- Filter the snippets on tags
+- Browse through snippets created or liked by you
 
-## Learn More
+### `CodeBuilder` was crafted by a collaboration of four teams guided by 🧑🏻‍💻[Thomas](https://github.com/te-online/), 🧑‍💻 [Lucas](https://github.com/LucasIversen) and a group of other volunteering mentors.
 
-To learn more about Next.js, take a look at the following resources:
+### The developers:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Jemima Masamu](https://github.com/Mabonye)
+- [Mykyta Slastushevskyi](https://github.com/slastushevskyi)
+- [Anastasiia Yaitska](https://github.com/AnastasiiaYaitska)
+- [Dmytrii Datskevych](https://github.com/dmytriigithub)
+- [Juliia Davydenko](https://github.com/juliadavydenko)
+- [Dima Kutaini](https://github.com/Dima-Kutaini)
+- [Mercedes Ubeira](https://github.com/MercedesUbeira)
+- [Malek Karzoun](https://github.com/MK-KARZOUN)
+- [Raman Nasirizadeh](https://github.com/Ramanzada)
+- [Anna Dzhyhota](https://github.com/AnnaDzhyhota)
+- [Anton Bondarev](https://github.com/AnB801)
+- [Shweta Malav Gupta](https://github.com/Shweta-MG)
+- [Tigran Nersesyan](https://github.com/tigran27n)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+<br><br>
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![](public/CodeBuilder.gif)
