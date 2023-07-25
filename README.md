@@ -9,7 +9,7 @@ It is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-a
 
 <br> <br>
 
-CodeBuilder is a tool for creating and saving various code snippets, building your own code snippet library.
+`CodeBuilder` is a tool for creating and saving various code snippets, building your own code snippet library.
 
 ### The main functionalities of the app are:
 
