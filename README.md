@@ -26,19 +26,19 @@ CodeBuilder is a tool for creating and saving various code snippets, building yo
 
 ### The developers:
 
-- [Jemima Masamu](https://github.com/Mabonye)
-- [Mykyta Slastushevskyi](https://github.com/slastushevskyi)
-- [Anastasiia Yaitska](https://github.com/AnastasiiaYaitska)
-- [Dmytrii Datskevych](https://github.com/dmytriigithub)
-- [Juliia Davydenko](https://github.com/juliadavydenko)
-- [Dima Kutaini](https://github.com/Dima-Kutaini)
-- [Mercedes Ubeira](https://github.com/MercedesUbeira)
-- [Malek Karzoun](https://github.com/MK-KARZOUN)
-- [Raman Nasirizadeh](https://github.com/Ramanzada)
-- [Anna Dzhyhota](https://github.com/AnnaDzhyhota)
-- [Anton Bondarev](https://github.com/AnB801)
-- [Shweta Malav Gupta](https://github.com/Shweta-MG)
-- [Tigran Nersesyan](https://github.com/tigran27n)
+- Jemima Masamu  [Mabonye](https://github.com/Mabonye)
+- Mykyta Slastushevskyi  [slastushevskyi](https://github.com/slastushevskyi)
+- Anastasiia Yaitska  [AnastasiiaYaitska](https://github.com/AnastasiiaYaitska)
+- Dmytrii Datskevych  [dmytriigithub](https://github.com/dmytriigithub)
+- Juliia Davydenko  [juliadavydenko](https://github.com/juliadavydenko)
+- Dima Kutaini  [Dima-Kutaini](https://github.com/Dima-Kutaini)
+- Mercedes Ubeira  [MercedesUbeira](https://github.com/MercedesUbeira)
+- Malek Karzoun  [MK-KARZOUN](https://github.com/MK-KARZOUN)
+- Raman Nasirizadeh  [Ramanzada](https://github.com/Ramanzada)
+- Anna Dzhyhota  [AnnaDzhyhota](https://github.com/AnnaDzhyhota)
+- Anton Bondarev  [AnB801](https://github.com/AnB801)
+- Shweta Malav Gupta  [Shweta-MG](https://github.com/Shweta-MG)
+- Tigran Nersesyan  [tigran27n](https://github.com/tigran27n)
 
 <br><br>
 
